@@ -20,7 +20,7 @@ excerpt without requiring a page reload or navigation.
 
 NOTE: This plugin only works for users who have JavaScript enabled.
 
-Compatible with WordPress 2.6+, 2.7+.
+Compatible with WordPress 2.6+, 2.7+, 2.8+.
 
 =>> Read the accompanying readme.txt file for more information.  Also, visit the plugin's homepage
 =>> for more information and the latest updates

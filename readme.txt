@@ -1,10 +1,10 @@
 === Expandable Dashboard Recent Comments ===
 Contributors: Scott Reilly
 Donate link: http://coffee2code.com
-Tags: dashboard, admin, recent comments, comment, excerpt, expandable
+Tags: dashboard, admin, recent comments, comment, excerpt, expandable, coffee2code
 Requires at least: 2.6
-Tested up to: 2.7.1
-Stable tag: trunk
+Tested up to: 2.8
+Stable tag: 1.0
 Version: 1.0
 
 Adds the ability to do an in-place expansion of comment excerpts on the admin dashboard 'Recent Comments' widget.
@@ -24,7 +24,7 @@ NOTE: This plugin only works for users who have JavaScript enabled.
 
 == Installation ==
 
-1. Unzip `expandable-dashboard-recent-comments-v1.0.zip` inside the `/wp-content/plugins/` directory for your site
+1. Unzip `expandable-dashboard-recent-comments.zip` inside the `/wp-content/plugins/` directory for your site
 1. Activate the plugin through the 'Plugins' admin menu in WordPress
 
 == Screenshots ==
