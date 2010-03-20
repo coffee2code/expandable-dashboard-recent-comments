@@ -1,7 +1,12 @@
 <?php
+/**
+ * @package Expandable_Dashboard_Recent_Comments
+ * @author Scott Reilly
+ * @version 1.0.1
+ */
 /*
 Plugin Name: Expandable Dashboard Recent Comments
-Version: 1.0
+Version: 1.0.1
 Plugin URI: http://coffee2code.com/wp-plugins/expandable-dashboard-recent-comments
 Author: Scott Reilly
 Author URI: http://coffee2code.com
@@ -20,7 +25,7 @@ excerpt without requiring a page reload or navigation.
 
 NOTE: This plugin only works for users who have JavaScript enabled.
 
-Compatible with WordPress 2.6+, 2.7+, 2.8+.
+Compatible with WordPress 2.6+, 2.7+, 2.8+, 2.9+.
 
 =>> Read the accompanying readme.txt file for more information.  Also, visit the plugin's homepage
 =>> for more information and the latest updates
@@ -28,12 +33,12 @@ Compatible with WordPress 2.6+, 2.7+, 2.8+.
 Installation:
 
 1. Download the file http://coffee2code.com/wp-plugins/expandable-dashboard-recent-comments.zip and unzip it into your 
-/wp-content/plugins/ directory.
+/wp-content/plugins/ directory (or install via the built-in WordPress plugin installer).
 2. Activate the plugin through the 'Plugins' admin menu in WordPress
 */
 
 /*
-Copyright (c) 2009 by Scott Reilly (aka coffee2code)
+Copyright (c) 2009-2010 by Scott Reilly (aka coffee2code)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation 
 files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, 
@@ -56,6 +61,9 @@ class ExpandableDashboardRecentComments {
 		'less-text' => ' &laquo;'
 	);
 
+	/**
+	 * Class constructor: initializes class variables and adds actions and filters.
+	 */
 	function ExpandableDashboardRecentComments() {
 		global $pagenow;
 		if ( is_admin() && 'index.php' == $pagenow ) {
@@ -64,6 +72,10 @@ class ExpandableDashboardRecentComments {
 		}
 	}
 
+	/**
+	 * Echoes the CSS for this plugin within style tags
+	 *
+	 */
 	function add_css() {
 		echo <<<CSS
 		<style type="text/css">
@@ -76,7 +88,13 @@ class ExpandableDashboardRecentComments {
 CSS;
 	}
 
-	function expandable_comment_excerpts($excerpt) {
+	/**
+	 * Modifies a comment excerpt to add link to expand comments (using JavaScript).
+	 *
+	 * @param string $excerpt Excerpt
+	 * @return string The $excerpt modified to have show more/less links when applicable
+	 */
+	function expandable_comment_excerpts( $excerpt ) {
 		global $comment;
 		if ( preg_match('/\.\.\.$/', $excerpt) ) {
 			$body = apply_filters('comment_text', apply_filters('get_comment_text', $comment->comment_content), '40');

@@ -1,11 +1,11 @@
 === Expandable Dashboard Recent Comments ===
-Contributors: Scott Reilly
-Donate link: http://coffee2code.com
+Contributors: coffee2code
+Donate link: http://coffee2code.com/donate
 Tags: dashboard, admin, recent comments, comment, excerpt, expandable, coffee2code
 Requires at least: 2.6
-Tested up to: 2.8
-Stable tag: 1.0
-Version: 1.0
+Tested up to: 2.9.1
+Stable tag: 1.0.1
+Version: 1.0.1
 
 Adds the ability to do an in-place expansion of comment excerpts on the admin dashboard 'Recent Comments' widget.
 
@@ -15,7 +15,7 @@ Adds the ability to do an in-place expansion of comment excerpts on the admin da
 
 By default, the 'Recent Comments' admin dashboard widget only shows an excerpt for the comments, truncating the content of the comments to the first 20 words while at the same time stripping out all markup.
 
-This plugin adds a link at the end of the comment excerpt (a ">>" (aka &raquo;)) that when clicked will replace the excerpt with the full comment.  The full comment will include all markup, including originally utilized markup and changes applied via filters, plugins, etc (such as shortcode expansion, smilies, paragraphing, etc).  The full comment can be switched back to the except by clicking a "<<" (&laquo;) link.
+This plugin adds a link at the end of the comment excerpt (a ">>" (aka `&raquo;`)) that when clicked will replace the excerpt with the full comment.  The full comment will include all markup, including originally utilized markup and changes applied via filters, plugins, etc (such as shortcode expansion, smilies, paragraphing, etc).  The full comment can be switched back to the except by clicking a "<<" (`&laquo;`) link.
 
 "In-place expansion" refers to the ability to click the link to see the full comment and it will be presented in place of the excerpt without requiring a page reload or navigation.
 
@@ -24,7 +24,7 @@ NOTE: This plugin only works for users who have JavaScript enabled.
 
 == Installation ==
 
-1. Unzip `expandable-dashboard-recent-comments.zip` inside the `/wp-content/plugins/` directory for your site
+1. Unzip `expandable-dashboard-recent-comments.zip` inside the `/wp-content/plugins/` directory for your site (or install via the built-in WordPress plugin installer)
 1. Activate the plugin through the 'Plugins' admin menu in WordPress
 
 == Screenshots ==
@@ -33,3 +33,14 @@ NOTE: This plugin only works for users who have JavaScript enabled.
 2. A screenshot of the 'Recent Comments' admin dashboard page with the plugin active, now showing the excerpted comment fully in-place expanded and with markup and formatting applied.
 
 
+== Changelog ==
+
+= 1.0.1 =
+* Add full PHPDoc documentation
+* Minor formatting tweaks
+* Note compatibility with WP 2.9+
+* Update copyright date
+* Update readme.txt (including adding Changelog)
+
+= 1.0 =
+* Initial release
