@@ -3,9 +3,9 @@ Contributors: coffee2code
 Donate link: http://coffee2code.com/donate
 Tags: dashboard, admin, recent comments, comment, excerpt, expandable, coffee2code
 Requires at least: 2.6
-Tested up to: 3.0.1
-Stable tag: 1.1
-Version: 1.1
+Tested up to: 3.1
+Stable tag: 1.2
+Version: 1.2
 
 Adds the ability to do an in-place expansion of comment excerpts on the admin dashboard 'Recent Comments' widget.
 
@@ -65,6 +65,11 @@ function my_edrc_changes( $config ) {
 
 == Changelog ==
 
+= 1.2 =
+* Switch from object instantiation to direct class function invocation
+* Note compatibility with WP 3.1+
+* Update copyright date (2011)
+
 = 1.1 =
 * Add filter 'c2c_expandable_dashboard_recent_comments_config' to allow filtering of config options
 * Rename class from 'ExpandableDashboardRecentComments' to 'c2c_ExpandableDashboardRecentComments'
@@ -89,6 +94,9 @@ function my_edrc_changes( $config ) {
 
 
 == Upgrade Notice ==
+
+= 1.2 =
+Minor update: noted compatibility with WP 3.1+ and updated copyright date.
 
 = 1.1 =
 Minor update. Highlights: adds filter to allow customization of configuration defaults; verified WP 3.0 compatibility.
