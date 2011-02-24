@@ -2,11 +2,11 @@
 /**
  * @package Expandable_Dashboard_Recent_Comments
  * @author Scott Reilly
- * @version 1.2
+ * @version 1.2.1
  */
 /*
 Plugin Name: Expandable Dashboard Recent Comments
-Version: 1.2
+Version: 1.2.1
 Plugin URI: http://coffee2code.com/wp-plugins/expandable-dashboard-recent-comments/
 Author: Scott Reilly
 Author URI: http://coffee2code.com
