@@ -2,11 +2,11 @@
 /**
  * @package Expandable_Dashboard_Recent_Comments
  * @author Scott Reilly
- * @version 1.2.1
+ * @version 1.3
  */
 /*
 Plugin Name: Expandable Dashboard Recent Comments
-Version: 1.2.1
+Version: 1.3
 Plugin URI: http://coffee2code.com/wp-plugins/expandable-dashboard-recent-comments/
 Author: Scott Reilly
 Author URI: http://coffee2code.com
@@ -17,6 +17,9 @@ Compatible with WordPress 2.6+, 2.7+, 2.8+, 2.9+, 3.0+, 3.1+.
 =>> Read the accompanying readme.txt file for instructions and documentation.
 =>> Also, visit the plugin's homepage for additional information and updates.
 =>> Or visit: http://wordpress.org/extend/plugins/hide-broken-shortcodes/
+
+TODO:
+	* Make it possible for comments to start off expanded rather than collapsed?
 
 */
 
@@ -60,8 +63,9 @@ class c2c_ExpandableDashboardRecentComments {
 	 */
 	public static function do_init() {
 		self::$config = apply_filters( 'c2c_expandable_dashboard_recent_comments_config', self::$config );
-		add_action( 'admin_head', array( __CLASS__, 'add_css' ) );
-		add_filter( 'comment_excerpt', array( __CLASS__, 'expandable_comment_excerpts' ) );
+		add_action( 'admin_print_styles',         array( __CLASS__, 'add_css' ) );
+		add_action( 'admin_print_footer_scripts', array( __CLASS__, 'add_js' ) );
+		add_filter( 'comment_excerpt',            array( __CLASS__, 'expandable_comment_excerpts' ) );
 	}
 
 	/**
@@ -71,13 +75,49 @@ class c2c_ExpandableDashboardRecentComments {
 	public static function add_css() {
 		echo <<<CSS
 		<style type="text/css">
-		#the-comment-list .comment-item blockquote .excerpt-full p {
-			display:block;
-			margin:1em 0;
-		}
+		#the-comment-list .comment-item blockquote .excerpt-full p { display:block; margin:1em 0; }
+		#dashboard_recent_comments .excerpt-short a { display:none; }
 		</style>
 
 CSS;
+	}
+
+	/**
+	 * Returns class name to be used for specific comment
+	 *
+	 * @since 1.3
+	 * @param int|string|null The comment ID (or null to get the ID for the current comment)
+	 * @return string The class
+	 */
+	private static function get_comment_class( $comment_id = null ) {
+		if ( !$comment_id ) {
+			global $comment;
+			$comment_id = $comment->comment_ID;
+		}
+		return "excerpt-$comment_id";
+	}
+
+	/**
+	 * Echoes the JS for this plugin within script tags
+	 *
+	 * @since 1.3
+	 */
+	public static function add_js() {
+			echo <<<JS
+		<script type="text/javascript">
+		if (jQuery) {
+			jQuery(document).ready(function($) {
+				$('.excerpt-ellipsis').hide();
+				$('#dashboard_recent_comments div.excerpt-short a').show();
+				$('#dashboard_recent_comments div.excerpt-short a, #dashboard_recent_comments div.excerpt-full a').click(function() {
+					$(this).parent().parent().find('div.excerpt-short, div.excerpt-full').toggle();
+					return false;
+				})
+			});
+		}
+		</script>
+
+JS;
 	}
 
 	/**
@@ -88,17 +128,16 @@ CSS;
 	 */
 	public static function expandable_comment_excerpts( $excerpt ) {
 		global $comment;
-		if ( preg_match( '/\.\.\.$/', $excerpt ) ) {
+		if ( substr( $excerpt, -3 ) == '...' ) {
 			$body = apply_filters( 'comment_text', apply_filters( 'get_comment_text', $comment->comment_content ), '40' );
-			$class = "excerpt-{$comment->comment_ID}";
-			$extended = "<div class='{$class}-short excerpt-short'>" .
+			$class = self::get_comment_class( $comment->comment_ID );
+			$extended = self::$config['remove-ellipsis'] ? '<span class="excerpt-ellipsis">...</span>' : ''; // Will only be seen if JS is disabled
+			$extended .= "<div class='{$class}-short excerpt-short'>" .
 				( self::$config['remove-ellipsis'] ? substr( $excerpt, 0, -3 ) : $excerpt ) .
-				"<a href='#' onclick=\"javascript:jQuery('.{$class}-short, .{$class}-full').toggle();return false;\" title='" .
-				__( 'Show full comment' ) . "'>" . self::$config['more-text'] . '</a></div>' .
+				"<a href='#' title='" . __( 'Show full comment' ) . "'>" . self::$config['more-text'] . '</a></div>' .
 				"<div class='{$class}-full excerpt-full' style='display:none;'>" .
 				$body . 
-				" <a href='#' onclick=\"javascript:jQuery('.{$class}-full, .{$class}-short').toggle();return false;\" title='" .
-				__( 'Show excerpt' ) . "'>" . self::$config['less-text'] . '</a></div>';
+				" <a href='#' title='" . __( 'Show excerpt' ) . "'>" . self::$config['less-text'] . '</a></div>';
 			$excerpt = preg_replace( '/\.\.\.$/', $excerpt, $extended );
 		}
 		return $excerpt;

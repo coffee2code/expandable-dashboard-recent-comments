@@ -4,8 +4,8 @@ Donate link: http://coffee2code.com/donate
 Tags: dashboard, admin, recent comments, comment, excerpt, expandable, coffee2code
 Requires at least: 2.6
 Tested up to: 3.1
-Stable tag: 1.2.1
-Version: 1.2.1
+Stable tag: 1.3
+Version: 1.3
 
 Adds the ability to do an in-place expansion of comment excerpts on the admin dashboard 'Recent Comments' widget.
 
@@ -22,7 +22,7 @@ This plugin adds a link at the end of the comment excerpt (a ">>" (aka `&raquo;`
 
 *NOTE:* This plugin only works for users who have JavaScript enabled.
 
-Links: [Plugin Homepage]:(http://coffee2code.com/wp-plugins/expandable-dashboard-recent-comments/) | [Author Homepage]:(http://coffee2code.com)
+Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/expandable-dashboard-recent-comments/) | [Author Homepage](http://coffee2code.com)
 
 
 == Installation ==
@@ -67,6 +67,13 @@ function my_edrc_changes( $config ) {
 
 == Changelog ==
 
+= 1.3 =
+* Don't display expand/collapse links for users without JavaScript and jQuery enabled
+* Add admin unobtrusive javascript to handle expand/collapse of comments when links are clicked
+* Use substr() instead of preg_match() to detect presence of '...'
+* Remove 'onclick' attribute for links (perform via unobtrusive JS)
+* Fix plugin links in description in readme.txt
+
 = 1.2.1 =
 * Add link to plugin homepage to description in readme.txt
 
@@ -100,6 +107,9 @@ function my_edrc_changes( $config ) {
 
 
 == Upgrade Notice ==
+
+= 1.3 =
+Minor update: don't display expand/collapse links when JavaScript is disabled; use obtrusive JS rather than inline JS
 
 = 1.2.1 =
 Trivial update: add link to plugin homepage to description in readme.txt
