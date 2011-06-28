@@ -3,11 +3,11 @@ Contributors: coffee2code
 Donate link: http://coffee2code.com/donate
 Tags: dashboard, admin, recent comments, comment, excerpt, expandable, coffee2code
 Requires at least: 2.6
-Tested up to: 3.1
-Stable tag: 1.3
-Version: 1.3
+Tested up to: 3.2
+Stable tag: 1.3.1
+Version: 1.3.1
 
-Adds the ability to do an in-place expansion of comment excerpts on the admin dashboard 'Recent Comments' widget.
+Adds the ability to do in-place expansion of comment excerpts on the admin dashboard 'Recent Comments' widget to view full comments.
 
 
 == Description ==
@@ -67,6 +67,11 @@ function my_edrc_changes( $config ) {
 
 == Changelog ==
 
+= 1.3.1 =
+* Note compatibility through WP 3.2+
+* Minor code formatting changes (spacing)
+* Fix plugin homepage and author links in description in readme.txt
+
 = 1.3 =
 * Don't display expand/collapse links for users without JavaScript and jQuery enabled
 * Add admin unobtrusive javascript to handle expand/collapse of comments when links are clicked
@@ -107,6 +112,9 @@ function my_edrc_changes( $config ) {
 
 
 == Upgrade Notice ==
+
+= 1.3.1 =
+Trivial update: noted compatibility through WP 3.2+
 
 = 1.3 =
 Minor update: don't display expand/collapse links when JavaScript is disabled; use obtrusive JS rather than inline JS

@@ -2,21 +2,21 @@
 /**
  * @package Expandable_Dashboard_Recent_Comments
  * @author Scott Reilly
- * @version 1.3
+ * @version 1.3.1
  */
 /*
 Plugin Name: Expandable Dashboard Recent Comments
-Version: 1.3
+Version: 1.3.1
 Plugin URI: http://coffee2code.com/wp-plugins/expandable-dashboard-recent-comments/
 Author: Scott Reilly
 Author URI: http://coffee2code.com
-Description: Adds the ability to do an in-place expansion of comment excerpts on the admin dashboard 'Recent Comments' widget.
+Description: Adds the ability to do in-place expansion of comment excerpts on the admin dashboard 'Recent Comments' widget to view full comments.
 
-Compatible with WordPress 2.6+, 2.7+, 2.8+, 2.9+, 3.0+, 3.1+.
+Compatible with WordPress 2.6+, 2.7+, 2.8+, 2.9+, 3.0+, 3.1+, 3.2+.
 
 =>> Read the accompanying readme.txt file for instructions and documentation.
 =>> Also, visit the plugin's homepage for additional information and updates.
-=>> Or visit: http://wordpress.org/extend/plugins/hide-broken-shortcodes/
+=>> Or visit: http://wordpress.org/extend/plugins/expandable-dashboard-recent-comments/
 
 TODO:
 	* Make it possible for comments to start off expanded rather than collapsed?
@@ -39,7 +39,7 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRA
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-if ( is_admin() && !class_exists( 'c2c_ExpandableDashboardRecentComments' ) ) :
+if ( is_admin() && ! class_exists( 'c2c_ExpandableDashboardRecentComments' ) ) :
 
 class c2c_ExpandableDashboardRecentComments {
 	// This just defines the default config. Values can be filtered via the filter 'c2c_expandable_dashboard_recent_comments_config'
