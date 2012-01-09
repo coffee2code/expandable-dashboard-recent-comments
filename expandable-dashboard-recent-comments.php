@@ -2,17 +2,19 @@
 /**
  * @package Expandable_Dashboard_Recent_Comments
  * @author Scott Reilly
- * @version 1.3.1
+ * @version 1.5
  */
 /*
 Plugin Name: Expandable Dashboard Recent Comments
-Version: 1.3.1
+Version: 1.5
 Plugin URI: http://coffee2code.com/wp-plugins/expandable-dashboard-recent-comments/
 Author: Scott Reilly
-Author URI: http://coffee2code.com
+Author URI: http://coffee2code.com/
+Text Domain: expandable-dashboard-recent-comments
+Domain Path: /lang/
 Description: Adds the ability to do in-place expansion of comment excerpts on the admin dashboard 'Recent Comments' widget to view full comments.
 
-Compatible with WordPress 2.6+, 2.7+, 2.8+, 2.9+, 3.0+, 3.1+, 3.2+.
+Compatible with WordPress 3.1+, 3.2+, 3.3+
 
 =>> Read the accompanying readme.txt file for instructions and documentation.
 =>> Also, visit the plugin's homepage for additional information and updates.
@@ -24,7 +26,7 @@ TODO:
 */
 
 /*
-Copyright (c) 2009-2011 by Scott Reilly (aka coffee2code)
+Copyright (c) 2009-2012 by Scott Reilly (aka coffee2code)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
 files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
@@ -44,42 +46,68 @@ if ( is_admin() && ! class_exists( 'c2c_ExpandableDashboardRecentComments' ) ) :
 class c2c_ExpandableDashboardRecentComments {
 	// This just defines the default config. Values can be filtered via the filter 'c2c_expandable_dashboard_recent_comments_config'
 	public static $config = array(
-		'remove-ellipsis' => false,
-		'more-text' => ' &raquo;',
-		'less-text' => ' &laquo;'
+		'more-text' => '&#x25bc;',
+		'less-text' => '&#x25b2;'
 	);
+
+	/**
+	 * Returns version of the plugin.
+	 *
+	 * @since 1.5
+	 */
+	public static function version() {
+		return '1.5';
+	}
 
 	/**
 	 * Class constructor: initializes class variables and adds actions and filters.
 	 */
 	public static function init() {
-		global $pagenow;
-		if ( 'index.php' == $pagenow )
-			add_action( 'admin_init', array( __CLASS__, 'do_init' ) );
+		add_action( 'load-index.php', array( __CLASS__, 'do_init' ) );
 	}
 
 	/**
 	 * Initialize the config and register actions/filters
 	 */
 	public static function do_init() {
+		load_plugin_textdomain( 'c2c_edrc', false, basename( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'lang' );
 		self::$config = apply_filters( 'c2c_expandable_dashboard_recent_comments_config', self::$config );
-		add_action( 'admin_print_styles',         array( __CLASS__, 'add_css' ) );
-		add_action( 'admin_print_footer_scripts', array( __CLASS__, 'add_js' ) );
+
+		// Hook the comment excerpt to do our magic
 		add_filter( 'comment_excerpt',            array( __CLASS__, 'expandable_comment_excerpts' ) );
+		// Enqueues JS for admin page
+		add_action( 'admin_enqueue_scripts',      array( __CLASS__, 'enqueue_admin_js' ) );
+		// Register and enqueue styles for admin page
+		self::register_styles();
+		add_action( 'admin_enqueue_scripts',      array( __CLASS__, 'enqueue_admin_css' ) );
 	}
 
 	/**
-	 * Echoes the CSS for this plugin within style tags
+	 * Registers styles.
 	 *
+	 * @since 1.5
 	 */
-	public static function add_css() {
-		echo <<<CSS
-		<style type="text/css">
-		#the-comment-list .comment-item blockquote .excerpt-full p { display:block; margin:1em 0; }
-		#dashboard_recent_comments .excerpt-short a { display:none; }
-		</style>
+	public static function register_styles() {
+		wp_register_style( __CLASS__, plugins_url( 'assets/admin.css', __FILE__ ) );
+	}
 
-CSS;
+	/**
+	 * Enqueues stylesheets.
+	 *
+	 * @since 1.5
+	 */
+	public static function enqueue_admin_css() {
+		wp_enqueue_style( __CLASS__ );
+	}
+
+	/**
+	 * Enqueues JS.
+	 *
+	 * @since 1.5
+	 */
+	public static function enqueue_admin_js() {
+		wp_enqueue_script( 'jquery' );
+		wp_enqueue_script( __CLASS__, plugins_url( 'assets/admin.js', __FILE__ ), array( 'jquery' ), self::version(), true );
 	}
 
 	/**
@@ -90,34 +118,11 @@ CSS;
 	 * @return string The class
 	 */
 	private static function get_comment_class( $comment_id = null ) {
-		if ( !$comment_id ) {
+		if ( ! $comment_id ) {
 			global $comment;
 			$comment_id = $comment->comment_ID;
 		}
 		return "excerpt-$comment_id";
-	}
-
-	/**
-	 * Echoes the JS for this plugin within script tags
-	 *
-	 * @since 1.3
-	 */
-	public static function add_js() {
-			echo <<<JS
-		<script type="text/javascript">
-		if (jQuery) {
-			jQuery(document).ready(function($) {
-				$('.excerpt-ellipsis').hide();
-				$('#dashboard_recent_comments div.excerpt-short a').show();
-				$('#dashboard_recent_comments div.excerpt-short a, #dashboard_recent_comments div.excerpt-full a').click(function() {
-					$(this).parent().parent().find('div.excerpt-short, div.excerpt-full').toggle();
-					return false;
-				})
-			});
-		}
-		</script>
-
-JS;
 	}
 
 	/**
@@ -129,15 +134,29 @@ JS;
 	public static function expandable_comment_excerpts( $excerpt ) {
 		global $comment;
 		if ( substr( $excerpt, -3 ) == '...' ) {
-			$body = apply_filters( 'comment_text', apply_filters( 'get_comment_text', $comment->comment_content ), '40' );
-			$class = self::get_comment_class( $comment->comment_ID );
-			$extended = self::$config['remove-ellipsis'] ? '<span class="excerpt-ellipsis">...</span>' : ''; // Will only be seen if JS is disabled
-			$extended .= "<div class='{$class}-short excerpt-short'>" .
-				( self::$config['remove-ellipsis'] ? substr( $excerpt, 0, -3 ) : $excerpt ) .
-				"<a href='#' title='" . __( 'Show full comment' ) . "'>" . self::$config['more-text'] . '</a></div>' .
-				"<div class='{$class}-full excerpt-full' style='display:none;'>" .
-				$body . 
-				" <a href='#' title='" . __( 'Show excerpt' ) . "'>" . self::$config['less-text'] . '</a></div>';
+			$body       = apply_filters( 'comment_text', apply_filters( 'get_comment_text', $comment->comment_content ), '40' );
+			$class      = self::get_comment_class( $comment->comment_ID );
+//			$ellipsis   = self::$config['remove-ellipsis'] ? '<span class="excerpt-ellipsis">&hellip;</span>' : '';
+//			$_excerpt   = self::$config['remove-ellipsis'] ? substr( $excerpt, 0, -3 ) : $excerpt;
+			$more       = self::$config['more-text'];
+			$more_title = __( 'Show full comment', 'c2c_edrc' );
+			$less       = self::$config['less-text'];
+			$less_title = __( 'Show excerpt', 'c2c_edrc' );
+
+			$extended = <<<HTML
+			<div class='c2c_edrc'>
+				<div class='{$class}-short excerpt-short'>
+					$excerpt
+					<div class='c2c_edrc_more'><a href='#' title='{$more_title}'>{$more}</a></div>
+				</div>
+				<div class='{$class}-full excerpt-full' style='display:none;'>
+					$body
+					<div class='c2c_edrc_less'><a href='#' title='{$less_title}'>{$less}</a></div>
+				</div>
+			</div>
+
+HTML;
+
 			$excerpt = preg_replace( '/\.\.\.$/', $excerpt, $extended );
 		}
 		return $excerpt;

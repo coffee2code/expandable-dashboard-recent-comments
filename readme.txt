@@ -2,10 +2,10 @@
 Contributors: coffee2code
 Donate link: http://coffee2code.com/donate
 Tags: dashboard, admin, recent comments, comment, excerpt, expandable, coffee2code
-Requires at least: 2.6
-Tested up to: 3.2
-Stable tag: 1.3.1
-Version: 1.3.1
+Requires at least: 3.1
+Tested up to: 3.3.1
+Stable tag: 1.5
+Version: 1.5
 
 Adds the ability to do in-place expansion of comment excerpts on the admin dashboard 'Recent Comments' widget to view full comments.
 
@@ -22,7 +22,7 @@ This plugin adds a link at the end of the comment excerpt (a ">>" (aka `&raquo;`
 
 *NOTE:* This plugin only works for users who have JavaScript enabled.
 
-Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/expandable-dashboard-recent-comments/) | [Author Homepage](http://coffee2code.com)
+Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/expandable-dashboard-recent-comments/) | [Plugin Directory Page](http://wordpress.org/extend/plugins/expandable-dashboard-recent-comments/) | [Author Homepage](http://coffee2code.com)
 
 
 == Installation ==
@@ -66,6 +66,25 @@ function my_edrc_changes( $config ) {
 
 
 == Changelog ==
+
+= 1.5 =
+* Change characters used to expand/collapse excerpt
+* Change positioning of expand/collapse link
+* Enqueue CSS
+* Enqueue JS
+* Add register_styles(), enqueue_admin_css(), enqueue_admin_js()
+* Remove add_css(), add_js()
+* Add support for localization
+* Add .pot
+* No longer hide the ellipsis
+* Hook 'load-index.php' action to initialize plugin rather than checking pagenow
+* Add version() to return plugin version
+* Minor code reformatting (spacing)
+* Note compatibility through WP 3.3+
+* Drop support for versions of WP older than 3.1
+* Update screenshots (now based on WP 3.3)
+* Add link to plugin directory page to readme.txt
+* Update copyright date (2012)
 
 = 1.3.1 =
 * Note compatibility through WP 3.2+
