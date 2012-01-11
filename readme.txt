@@ -4,8 +4,8 @@ Donate link: http://coffee2code.com/donate
 Tags: dashboard, admin, recent comments, comment, excerpt, expandable, coffee2code
 Requires at least: 3.1
 Tested up to: 3.3.1
-Stable tag: 1.5
-Version: 1.5
+Stable tag: 2.0
+Version: 2.0
 
 Adds the ability to do in-place expansion of comment excerpts on the admin dashboard 'Recent Comments' widget to view full comments.
 
@@ -16,7 +16,7 @@ Adds the ability to do an in-place expansion of comment excerpts on the admin da
 
 By default, the 'Recent Comments' admin dashboard widget only shows an excerpt for the comments, truncating the content of the comments to the first 20 words while at the same time stripping out all markup.
 
-This plugin adds a link at the end of the comment excerpt (a ">>" (aka `&raquo;`)) that when clicked will replace the excerpt with the full comment.  The full comment will include all markup, including originally utilized markup and changes applied via filters, plugins, etc (such as shortcode expansion, smilies, paragraphing, etc).  The full comment can be switched back to the except by clicking a "<<" (`&laquo;`) link.
+This plugin adds a link at the end of the comment actions row (the links for the comment that become visible under the comment when you hover over the comment). The "Show more" link, when clicked, will replace the excerpt with the full comment.  The full comment will include all markup, including originally utilized markup and changes applied via filters, plugins, etc (such as shortcode expansion, smilies, paragraphing, etc).  The full comment can be switched back to the except by clicking the "Show less" link (which replaces the "Show more" link when the comment is expanded).
 
 "In-place expansion" refers to the ability to click the link to see the full comment and it will be presented in place of the excerpt without requiring a page reload or navigation.
 
@@ -28,48 +28,43 @@ Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/expandable-dashboard-
 == Installation ==
 
 1. Unzip `expandable-dashboard-recent-comments.zip` inside the `/wp-content/plugins/` directory for your site (or install via the built-in WordPress plugin installer)
-1. Activate the plugin through the 'Plugins' admin menu in WordPress
+2. Activate the plugin through the 'Plugins' admin menu in WordPress
+3. Visit the admin dashboard and check out the 'Recent Comments' widget
 
 
 == Screenshots ==
 
-1. A screenshot of the 'Recent Comments' admin dashboard page with the plugin active, showing a comment that has been truncated/excerpted by WordPress and a full, short comment.
-2. A screenshot of the 'Recent Comments' admin dashboard page with the plugin active, now showing the excerpted comment fully in-place expanded and with markup and formatting applied.
+1. A screenshot of the 'Recent Comments' admin dashboard page with the plugin active, showing comments that have been truncated/excerpted by WordPress (the 2nd and 4th listed) and full, short comments.
+2. A screenshot of the 'Recent Comments' admin dashboard page with the plugin active, now showing the first excerpted comment fully in-place expanded and with markup and formatting applied.
 
 
 == Filters ==
 
 The plugin exposes one filter for hooking.
 
-= c2c_expandable_dashboard_recent_comments_config (filter) =
+= c2c_expandable_dashboard_recent_comments_start_expanded (filter) =
 
-The 'c2c_expandable_dashboard_recent_comments_config' hook allows you to customize some of the configuration options used by the plugin.
-
-The configuration options in the array passed through the filter consist of:
-
-* 'remove-ellipsis' : (bool) Should the ellipsis be removed from truncated excerpts?  Default is false,
-* 'more-text' : (string) The string used for the link to be clicked to view more (i.e. the full comment text).  Default is '&raquo;'.
-* 'less-text' : (string) The string used for the link to be clicked to view less (i.e. the comment excerpt).  Default is '&laquo;'.
+The 'c2c_expandable_dashboard_recent_comments_start_expanded' hook allows you to configure the 'Recent Comments' admin dashboard widget initially display all comments in their expanded state (i.e. not excerpted).
 
 Arguments:
 
-* $config (array): Array of configuration options (see description for keys and default values)
+* $default (boolean): The default state, which is 'false' (therefore comments are initially shown excerpted)
 
 Example:
 
-`add_filter( 'c2c_expandable_dashboard_recent_comments_config', 'my_edrc_changes' );
-function my_edrc_changes( $config ) {
-	$config['more-text'] = '(see more)';
-	$config['less-text'] = '(see less)';
-	return $config; /* Important! */
-}`
+`
+// Initially show dashboard comments fully expanded
+add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return_true' );
+`
 
 
 == Changelog ==
 
-= 1.5 =
-* Change characters used to expand/collapse excerpt
-* Change positioning of expand/collapse link
+= 2.0 =
+* Use "Show more"/"Show less" links in comment row actions instead of appending expand/collapse link
+* Add filter 'c2c_expandable_dashboard_recent_comments_start_expanded' to permit initial display of comments in expanded state
+* Remove class configuration array
+* Remove filter 'c2c_expandable_dashboard_recent_comments_config'
 * Enqueue CSS
 * Enqueue JS
 * Add register_styles(), enqueue_admin_css(), enqueue_admin_js()
@@ -131,6 +126,9 @@ function my_edrc_changes( $config ) {
 
 
 == Upgrade Notice ==
+
+= 2.0 =
+Significant update: mostly rewritten; now uses "Show more"/"Show less" links in comment row actions instead of appending expand/collapse link; added expand/collapse links that affect all visible comments; added filter to allow initially showing comments expanded; internationalization; enqueue assets; and more
 
 = 1.3.1 =
 Trivial update: noted compatibility through WP 3.2+

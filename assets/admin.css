@@ -1,4 +1,3 @@
 #the-comment-list .comment-item blockquote .excerpt-full p { display:block; margin:0 0 1em; }
-.c2c_edrc { display:block; position:relative;}
-.c2c_edrc_more { display:none; }
-.c2c_edrc_more, .c2c_edrc_less { display:block;text-align:center;float:right; }
+.c2c_edrc { display:block; }
+.c2c_edrc_all { display:none; }

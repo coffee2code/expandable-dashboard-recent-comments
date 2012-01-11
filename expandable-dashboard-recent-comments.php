@@ -2,11 +2,11 @@
 /**
  * @package Expandable_Dashboard_Recent_Comments
  * @author Scott Reilly
- * @version 1.5
+ * @version 2.0
  */
 /*
 Plugin Name: Expandable Dashboard Recent Comments
-Version: 1.5
+Version: 2.0
 Plugin URI: http://coffee2code.com/wp-plugins/expandable-dashboard-recent-comments/
 Author: Scott Reilly
 Author URI: http://coffee2code.com/
@@ -19,10 +19,6 @@ Compatible with WordPress 3.1+, 3.2+, 3.3+
 =>> Read the accompanying readme.txt file for instructions and documentation.
 =>> Also, visit the plugin's homepage for additional information and updates.
 =>> Or visit: http://wordpress.org/extend/plugins/expandable-dashboard-recent-comments/
-
-TODO:
-	* Make it possible for comments to start off expanded rather than collapsed?
-
 */
 
 /*
@@ -44,37 +40,35 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 if ( is_admin() && ! class_exists( 'c2c_ExpandableDashboardRecentComments' ) ) :
 
 class c2c_ExpandableDashboardRecentComments {
-	// This just defines the default config. Values can be filtered via the filter 'c2c_expandable_dashboard_recent_comments_config'
-	public static $config = array(
-		'more-text' => '&#x25bc;',
-		'less-text' => '&#x25b2;'
-	);
+	private static $_start_expanded       = null;
+	private static $_has_output_all_links = false;
 
 	/**
 	 * Returns version of the plugin.
 	 *
-	 * @since 1.5
+	 * @since 2.0
 	 */
 	public static function version() {
-		return '1.5';
+		return '2.0';
 	}
 
 	/**
-	 * Class constructor: initializes class variables and adds actions and filters.
+	 * Initialization.
 	 */
 	public static function init() {
 		add_action( 'load-index.php', array( __CLASS__, 'do_init' ) );
 	}
 
 	/**
-	 * Initialize the config and register actions/filters
+	 * Loads text domain and registers actions/filters.
 	 */
 	public static function do_init() {
 		load_plugin_textdomain( 'c2c_edrc', false, basename( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'lang' );
-		self::$config = apply_filters( 'c2c_expandable_dashboard_recent_comments_config', self::$config );
 
 		// Hook the comment excerpt to do our magic
 		add_filter( 'comment_excerpt',            array( __CLASS__, 'expandable_comment_excerpts' ) );
+		// Add action link to comment row
+		add_filter( 'comment_row_actions',        array( __CLASS__, 'comment_row_action' ), 10, 2 );
 		// Enqueues JS for admin page
 		add_action( 'admin_enqueue_scripts',      array( __CLASS__, 'enqueue_admin_js' ) );
 		// Register and enqueue styles for admin page
@@ -85,7 +79,7 @@ class c2c_ExpandableDashboardRecentComments {
 	/**
 	 * Registers styles.
 	 *
-	 * @since 1.5
+	 * @since 2.0
 	 */
 	public static function register_styles() {
 		wp_register_style( __CLASS__, plugins_url( 'assets/admin.css', __FILE__ ) );
@@ -94,7 +88,7 @@ class c2c_ExpandableDashboardRecentComments {
 	/**
 	 * Enqueues stylesheets.
 	 *
-	 * @since 1.5
+	 * @since 2.0
 	 */
 	public static function enqueue_admin_css() {
 		wp_enqueue_style( __CLASS__ );
@@ -103,7 +97,7 @@ class c2c_ExpandableDashboardRecentComments {
 	/**
 	 * Enqueues JS.
 	 *
-	 * @since 1.5
+	 * @since 2.0
 	 */
 	public static function enqueue_admin_js() {
 		wp_enqueue_script( 'jquery' );
@@ -111,10 +105,45 @@ class c2c_ExpandableDashboardRecentComments {
 	}
 
 	/**
+	 * Indicates if the given comment should be initially shown expanded.
+	 *
+	 * @since 2.0
+	 *
+	 * @return boolean
+	 */
+	private static function is_comment_initially_expanded() {
+		if ( null === self::$_start_expanded )
+			self::$_start_expanded = apply_filters( 'c2c_expandable_dashboard_recent_comments_start_expanded', false );
+		return self::$_start_expanded;
+	}
+
+	/**
+	 * Adds comment row action.
+	 *
+	 * @since 2.0
+	 */
+	public static function comment_row_action( $actions, $comment ) {
+		$excerpt = get_comment_excerpt( $comment->comment_ID );
+
+		$start_expanded = self::is_comment_initially_expanded();
+		$excerpt_full   = $start_expanded ? 'style="display:none;"' : '';
+		$excerpt_short  = $start_expanded ? '' : 'style="display:none;"';
+
+		// Only show the action links if the comment was excerpted
+		if ( substr( $excerpt, -3 ) == '...' ) {
+			$links = '<a href="#" class="c2c_edrc_more hide-if-no-js" title="' . __( 'Show full comment', 'c2c_edrc' ) . '" ' . $excerpt_full . '>' . __( 'Show more', 'c2c_edrc' ). '</a>';
+			$links .= '<a href="#" class="c2c_edrc_less hide-if-no-js" title="' . __( 'Show excerpt', 'c2c_edrc' ). '" ' . $excerpt_short . '>' . __( 'Show less', 'c2c_edrc' ) . '</a>';
+			$actions[] = $links;
+		}
+		return $actions;
+	}
+
+	/**
 	 * Returns class name to be used for specific comment
 	 *
 	 * @since 1.3
-	 * @param int|string|null The comment ID (or null to get the ID for the current comment)
+	 *
+	 * @param int|string|null $comment_id The comment ID (or null to get the ID for the current comment)
 	 * @return string The class
 	 */
 	private static function get_comment_class( $comment_id = null ) {
@@ -126,32 +155,40 @@ class c2c_ExpandableDashboardRecentComments {
 	}
 
 	/**
-	 * Modifies a comment excerpt to add link to expand comments (using JavaScript).
+	 * Modifies a comment excerpt to add the full comment so it is available for expansion.
 	 *
 	 * @param string $excerpt Excerpt
-	 * @return string The $excerpt modified to have show more/less links when applicable
+	 * @return string The $excerpt modified to have full comment when applicable
 	 */
 	public static function expandable_comment_excerpts( $excerpt ) {
 		global $comment;
 		if ( substr( $excerpt, -3 ) == '...' ) {
 			$body       = apply_filters( 'comment_text', apply_filters( 'get_comment_text', $comment->comment_content ), '40' );
 			$class      = self::get_comment_class( $comment->comment_ID );
-//			$ellipsis   = self::$config['remove-ellipsis'] ? '<span class="excerpt-ellipsis">&hellip;</span>' : '';
-//			$_excerpt   = self::$config['remove-ellipsis'] ? substr( $excerpt, 0, -3 ) : $excerpt;
-			$more       = self::$config['more-text'];
-			$more_title = __( 'Show full comment', 'c2c_edrc' );
-			$less       = self::$config['less-text'];
-			$less_title = __( 'Show excerpt', 'c2c_edrc' );
+
+			$start_expanded = self::is_comment_initially_expanded();
+			$excerpt_full   = $start_expanded ? '' : 'style="display:none;"';
+			$excerpt_short  = $start_expanded ? 'style="display:none;"' : '';
+
+			$links = '';
+			if ( false == self::$_has_output_all_links ) {
+				// These links apply to the entire widget. Due to lack of hooks in WP, they
+				// are being embedded here with the intent of being relocated via JS.
+				$links .= '<ul class="subsubsub c2c_edrc_all">';
+				$links .= '<li><a href="#" class="c2c_edrc_more_all hide-if-no-js" title="' . __( 'Show all comments in full', 'c2c_edrc' ) . '">' . __( '&#x25bc; Expand all', 'c2c_edrc' ). '</a> |</li>';
+				$links .= '<li><a href="#" class="c2c_edrc_less_all hide-if-no-js" title="' . __( 'Show all comments as excerpts', 'c2c_edrc' ). '">' . __( '&#x25b2; Collapse all', 'c2c_edrc' ) . '</a></li>';
+				$links .= '</ul>';
+				self::$_has_output_all_links = true;
+			}
 
 			$extended = <<<HTML
 			<div class='c2c_edrc'>
-				<div class='{$class}-short excerpt-short'>
+				<div class='{$class}-short excerpt-short' {$excerpt_short}>
 					$excerpt
-					<div class='c2c_edrc_more'><a href='#' title='{$more_title}'>{$more}</a></div>
 				</div>
-				<div class='{$class}-full excerpt-full' style='display:none;'>
+				<div class='{$class}-full excerpt-full' {$excerpt_full}>
 					$body
-					<div class='c2c_edrc_less'><a href='#' title='{$less_title}'>{$less}</a></div>
+					$links
 				</div>
 			</div>
 
