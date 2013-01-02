@@ -2,17 +2,19 @@
 Contributors: coffee2code
 Donate link: http://coffee2code.com/donate
 Tags: dashboard, admin, recent comments, comment, excerpt, expandable, coffee2code
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.1
-Tested up to: 3.3.1
-Stable tag: 2.0
-Version: 2.0
+Tested up to: 3.5
+Stable tag: 2.1
+Version: 2.1
 
-Adds the ability to do in-place expansion of comment excerpts on the admin dashboard 'Recent Comments' widget to view full comments.
+Adds links for in-place expansion of comment excerpts on the admin dashboard 'Recent Comments' widget to view full comments.
 
 
 == Description ==
 
-Adds the ability to do an in-place expansion of comment excerpts on the admin dashboard 'Recent Comments' widget.
+Adds links for in-place expansion of comment excerpts on the admin dashboard 'Recent Comments' widget to view full comments.
 
 By default, the 'Recent Comments' admin dashboard widget only shows an excerpt for the comments, truncating the content of the comments to the first 20 words while at the same time stripping out all markup.
 
@@ -34,7 +36,7 @@ Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/expandable-dashboard-
 
 == Screenshots ==
 
-1. A screenshot of the 'Recent Comments' admin dashboard page with the plugin active, showing comments that have been truncated/excerpted by WordPress (the 2nd and 4th listed) and full, short comments.
+1. A screenshot of the 'Recent Comments' admin dashboard widget with the plugin active, showing comments that have been truncated/excerpted by WordPress (the 2nd and 4th listed) and full, short comments. (Note the 'Expand All' and 'Collapse All' links added to the bottom of the widget.)
 2. A screenshot of the 'Recent Comments' admin dashboard page with the plugin active, now showing the first excerpted comment fully in-place expanded and with markup and formatting applied.
 
 
@@ -49,6 +51,7 @@ The 'c2c_expandable_dashboard_recent_comments_start_expanded' hook allows you to
 Arguments:
 
 * $default (boolean): The default state, which is 'false' (therefore comments are initially shown excerpted)
+* $comment (object) : The comment object being displayed
 
 Example:
 
@@ -59,6 +62,21 @@ add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return
 
 
 == Changelog ==
+
+= 2.1 =
+* Add 'comment' arg to `is_comment_initially_expanded()` for context
+* Add 'comment' as additional arg to 'c2c_expandable_dashboard_recent_comments_start_expanded' filter
+* Change description (to shorten)
+* Add check to prevent execution of code if file is directly accessed
+* Regenerate .pot
+* Re-license as GPLv2 or later (from X11)
+* Add 'License' and 'License URI' header tags to readme.txt and plugin file
+* Remove ending PHP close tag
+* Minor improvements to inline and readme docs
+* Minor code reformatting (spacing)
+* Note compatibility through WP 3.5+
+* Update copyright date (2013)
+* Move screenshots into repo's assets directory
 
 = 2.0 =
 * Use "Show more"/"Show less" links in comment row actions instead of appending expand/collapse link
@@ -126,6 +144,9 @@ add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return
 
 
 == Upgrade Notice ==
+
+= 2.1 =
+Minor update. Highlights: added argument to filter; noted compatibility through WP 3.5+; explicitly stated license; and more.
 
 = 2.0 =
 Significant update: mostly rewritten; now uses "Show more"/"Show less" links in comment row actions instead of appending expand/collapse link; added expand/collapse links that affect all visible comments; added filter to allow initially showing comments expanded; internationalization; enqueue assets; and more

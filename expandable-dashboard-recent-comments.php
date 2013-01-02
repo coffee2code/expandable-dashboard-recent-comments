@@ -2,19 +2,21 @@
 /**
  * @package Expandable_Dashboard_Recent_Comments
  * @author Scott Reilly
- * @version 2.0
+ * @version 2.1
  */
 /*
 Plugin Name: Expandable Dashboard Recent Comments
-Version: 2.0
+Version: 2.1
 Plugin URI: http://coffee2code.com/wp-plugins/expandable-dashboard-recent-comments/
 Author: Scott Reilly
 Author URI: http://coffee2code.com/
 Text Domain: expandable-dashboard-recent-comments
 Domain Path: /lang/
-Description: Adds the ability to do in-place expansion of comment excerpts on the admin dashboard 'Recent Comments' widget to view full comments.
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Description: Adds links for in-place expansion of comment excerpts on the admin dashboard 'Recent Comments' widget to view full comments.
 
-Compatible with WordPress 3.1+, 3.2+, 3.3+
+Compatible with WordPress 3.1+ through 3.5.
 
 =>> Read the accompanying readme.txt file for instructions and documentation.
 =>> Also, visit the plugin's homepage for additional information and updates.
@@ -22,20 +24,24 @@ Compatible with WordPress 3.1+, 3.2+, 3.3+
 */
 
 /*
-Copyright (c) 2009-2012 by Scott Reilly (aka coffee2code)
+	Copyright (c) 2009-2013 by Scott Reilly (aka coffee2code)
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
-files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
-modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the
-Software is furnished to do so, subject to the following conditions:
+	This program is free software; you can redistribute it and/or
+	modify it under the terms of the GNU General Public License
+	as published by the Free Software Foundation; either version 2
+	of the License, or (at your option) any later version.
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
-IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+
+defined( 'ABSPATH' ) or die();
 
 if ( is_admin() && ! class_exists( 'c2c_ExpandableDashboardRecentComments' ) ) :
 
@@ -49,7 +55,7 @@ class c2c_ExpandableDashboardRecentComments {
 	 * @since 2.0
 	 */
 	public static function version() {
-		return '2.0';
+		return '2.1';
 	}
 
 	/**
@@ -63,6 +69,7 @@ class c2c_ExpandableDashboardRecentComments {
 	 * Loads text domain and registers actions/filters.
 	 */
 	public static function do_init() {
+		// Load textdomain
 		load_plugin_textdomain( 'c2c_edrc', false, basename( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'lang' );
 
 		// Hook the comment excerpt to do our magic
@@ -109,11 +116,12 @@ class c2c_ExpandableDashboardRecentComments {
 	 *
 	 * @since 2.0
 	 *
+	 * @param object $comment The comment being displayed
 	 * @return boolean
 	 */
-	private static function is_comment_initially_expanded() {
+	private static function is_comment_initially_expanded( $comment ) {
 		if ( null === self::$_start_expanded )
-			self::$_start_expanded = apply_filters( 'c2c_expandable_dashboard_recent_comments_start_expanded', false );
+			self::$_start_expanded = apply_filters( 'c2c_expandable_dashboard_recent_comments_start_expanded', false, $comment );
 		return self::$_start_expanded;
 	}
 
@@ -121,11 +129,15 @@ class c2c_ExpandableDashboardRecentComments {
 	 * Adds comment row action.
 	 *
 	 * @since 2.0
+	 *
+	 * @param array  $actions The actions being displayed for the comment entry
+	 * @param object $comment The comment being displayed
+	 * @return array The actions for the comment entry
 	 */
 	public static function comment_row_action( $actions, $comment ) {
 		$excerpt = get_comment_excerpt( $comment->comment_ID );
 
-		$start_expanded = self::is_comment_initially_expanded();
+		$start_expanded = self::is_comment_initially_expanded( $comment );
 		$excerpt_full   = $start_expanded ? 'style="display:none;"' : '';
 		$excerpt_short  = $start_expanded ? '' : 'style="display:none;"';
 
@@ -166,7 +178,7 @@ class c2c_ExpandableDashboardRecentComments {
 			$body       = apply_filters( 'comment_text', apply_filters( 'get_comment_text', $comment->comment_content ), '40' );
 			$class      = self::get_comment_class( $comment->comment_ID );
 
-			$start_expanded = self::is_comment_initially_expanded();
+			$start_expanded = self::is_comment_initially_expanded( $comment );
 			$excerpt_full   = $start_expanded ? '' : 'style="display:none;"';
 			$excerpt_short  = $start_expanded ? 'style="display:none;"' : '';
 
@@ -204,5 +216,3 @@ HTML;
 c2c_ExpandableDashboardRecentComments::init();
 
 endif; // end if !class_exists()
-
-?>
