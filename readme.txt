@@ -5,9 +5,9 @@ Tags: dashboard, admin, recent comments, comment, excerpt, expandable, coffee2co
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.1
-Tested up to: 3.5
-Stable tag: 2.1
-Version: 2.1
+Tested up to: 3.6
+Stable tag: 2.2
+Version: 2.2
 
 Adds links for in-place expansion of comment excerpts on the admin dashboard 'Recent Comments' widget to view full comments.
 
@@ -62,6 +62,11 @@ add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return
 
 
 == Changelog ==
+
+= 2.2 =
+* Fix support for WP3.6+ due to core's change of '...' to '&hellip;' for the excerpt ellipsis
+* Add is_text_excerpted(), get_ellipsis()
+* Note compatibility through WP 3.6+
 
 = 2.1 =
 * Add 'comment' arg to `is_comment_initially_expanded()` for context
@@ -144,6 +149,9 @@ add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return
 
 
 == Upgrade Notice ==
+
+= 2.2 =
+Recommended update: Fixed to work for WP 3.6+ due to the change in how core defined the ellipsis.
 
 = 2.1 =
 Minor update. Highlights: added argument to filter; noted compatibility through WP 3.5+; explicitly stated license; and more.

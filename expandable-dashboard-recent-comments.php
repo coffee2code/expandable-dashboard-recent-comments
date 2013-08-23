@@ -2,11 +2,11 @@
 /**
  * @package Expandable_Dashboard_Recent_Comments
  * @author Scott Reilly
- * @version 2.1
+ * @version 2.2
  */
 /*
 Plugin Name: Expandable Dashboard Recent Comments
-Version: 2.1
+Version: 2.2
 Plugin URI: http://coffee2code.com/wp-plugins/expandable-dashboard-recent-comments/
 Author: Scott Reilly
 Author URI: http://coffee2code.com/
@@ -16,7 +16,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Description: Adds links for in-place expansion of comment excerpts on the admin dashboard 'Recent Comments' widget to view full comments.
 
-Compatible with WordPress 3.1+ through 3.5.
+Compatible with WordPress 3.1+ through 3.6.
 
 =>> Read the accompanying readme.txt file for instructions and documentation.
 =>> Also, visit the plugin's homepage for additional information and updates.
@@ -55,7 +55,7 @@ class c2c_ExpandableDashboardRecentComments {
 	 * @since 2.0
 	 */
 	public static function version() {
-		return '2.1';
+		return '2.2';
 	}
 
 	/**
@@ -126,6 +126,48 @@ class c2c_ExpandableDashboardRecentComments {
 	}
 
 	/**
+	 * Determines if text has been truncated as an excerpt.
+	 *
+	 * '...' used pre-WP3.6, '&hellip;' thereafter
+	 *
+	 * Only necessary while maintaining pre-WP3.6 support.
+	 *
+	 * @since 2.2
+	 *
+	 * @param string $text The text
+	 * @return boolean
+	 */
+	private static function is_text_excerpted( $text ) {
+		if ( substr( $text, -8 ) == '&hellip;' || substr( $text, -3 ) == '...' )
+			return true;
+		else
+			return false;
+	}
+
+	/**
+	 * Returns the ellipsis used to denote text truncated for an excerpt.
+	 *
+	 * In pre-WP3.6, '...' was used. Afterwards, '&hellip;' was used.
+	 *
+	 * Only necessary while maintaining pre-WP3.6 support.
+	 *
+	 * @since 2.2
+	 *
+	 * @param string $text The excerpt
+	 * @return string
+	 */
+	private static function get_ellipsis( $text ) {
+		$hellip = '';
+		if ( self::is_text_excerpted( $text ) ) {
+			if ( substr( $text, -3 ) == '...' )
+				$hellip = '...';
+			else
+				$hellip = '&hellip;';
+		}
+		return $hellip;
+	}
+
+	/**
 	 * Adds comment row action.
 	 *
 	 * @since 2.0
@@ -142,7 +184,7 @@ class c2c_ExpandableDashboardRecentComments {
 		$excerpt_short  = $start_expanded ? '' : 'style="display:none;"';
 
 		// Only show the action links if the comment was excerpted
-		if ( substr( $excerpt, -3 ) == '...' ) {
+		if ( self::is_text_excerpted( $excerpt ) ) {
 			$links = '<a href="#" class="c2c_edrc_more hide-if-no-js" title="' . __( 'Show full comment', 'c2c_edrc' ) . '" ' . $excerpt_full . '>' . __( 'Show more', 'c2c_edrc' ). '</a>';
 			$links .= '<a href="#" class="c2c_edrc_less hide-if-no-js" title="' . __( 'Show excerpt', 'c2c_edrc' ). '" ' . $excerpt_short . '>' . __( 'Show less', 'c2c_edrc' ) . '</a>';
 			$actions[] = $links;
@@ -174,9 +216,10 @@ class c2c_ExpandableDashboardRecentComments {
 	 */
 	public static function expandable_comment_excerpts( $excerpt ) {
 		global $comment;
-		if ( substr( $excerpt, -3 ) == '...' ) {
-			$body       = apply_filters( 'comment_text', apply_filters( 'get_comment_text', $comment->comment_content ), '40' );
-			$class      = self::get_comment_class( $comment->comment_ID );
+		if ( self::is_text_excerpted( $excerpt ) ) {
+			$replace = self::get_ellipsis( $excerpt );
+			$body    = apply_filters( 'comment_text', apply_filters( 'get_comment_text', $comment->comment_content ), '40' );
+			$class   = self::get_comment_class( $comment->comment_ID );
 
 			$start_expanded = self::is_comment_initially_expanded( $comment );
 			$excerpt_full   = $start_expanded ? '' : 'style="display:none;"';
@@ -206,7 +249,7 @@ class c2c_ExpandableDashboardRecentComments {
 
 HTML;
 
-			$excerpt = preg_replace( '/\.\.\.$/', $excerpt, $extended );
+			$excerpt = preg_replace( '/' . preg_quote( $replace ) . '$/', $excerpt, $extended );
 		}
 		return $excerpt;
 	}
