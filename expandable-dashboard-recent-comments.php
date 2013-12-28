@@ -2,11 +2,11 @@
 /**
  * @package Expandable_Dashboard_Recent_Comments
  * @author Scott Reilly
- * @version 2.2
+ * @version 2.3
  */
 /*
 Plugin Name: Expandable Dashboard Recent Comments
-Version: 2.2
+Version: 2.3
 Plugin URI: http://coffee2code.com/wp-plugins/expandable-dashboard-recent-comments/
 Author: Scott Reilly
 Author URI: http://coffee2code.com/
@@ -14,17 +14,24 @@ Text Domain: expandable-dashboard-recent-comments
 Domain Path: /lang/
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Description: Adds links for in-place expansion of comment excerpts on the admin dashboard 'Recent Comments' widget to view full comments.
+Description: Adds links for in-place expansion of comment excerpts in the admin dashboard 'Comments' section of the 'Activity' widget to view full comments.
 
-Compatible with WordPress 3.1+ through 3.6.
+Compatible with WordPress 3.1+ through 3.8+.
+
+TODO:
+	* Update screenshots for WP 3.8
+	* Move the Expand all/Collapse all links inside the existing subsubsub action list
+	* Use the down/up fspecial character for the Show more/less links as well?
+	* Drop pre-WP3.6 compatibility
+	* Use dashicons for more/less special character
 
 =>> Read the accompanying readme.txt file for instructions and documentation.
 =>> Also, visit the plugin's homepage for additional information and updates.
-=>> Or visit: http://wordpress.org/extend/plugins/expandable-dashboard-recent-comments/
+=>> Or visit: http://wordpress.org/plugins/expandable-dashboard-recent-comments/
 */
 
 /*
-	Copyright (c) 2009-2013 by Scott Reilly (aka coffee2code)
+	Copyright (c) 2009-2014 by Scott Reilly (aka coffee2code)
 
 	This program is free software; you can redistribute it and/or
 	modify it under the terms of the GNU General Public License
@@ -55,7 +62,7 @@ class c2c_ExpandableDashboardRecentComments {
 	 * @since 2.0
 	 */
 	public static function version() {
-		return '2.2';
+		return '2.3';
 	}
 
 	/**

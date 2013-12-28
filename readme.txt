@@ -1,37 +1,49 @@
 === Expandable Dashboard Recent Comments ===
 Contributors: coffee2code
-Donate link: http://coffee2code.com/donate
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6ARCFJ9TX3522
 Tags: dashboard, admin, recent comments, comment, excerpt, expandable, coffee2code
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.1
-Tested up to: 3.6
-Stable tag: 2.2
-Version: 2.2
+Tested up to: 3.8
+Stable tag: 2.3
 
-Adds links for in-place expansion of comment excerpts on the admin dashboard 'Recent Comments' widget to view full comments.
+Adds links for in-place expansion of comment excerpts in the admin dashboard 'Comments' section of the 'Activity' widget to view full comments.
 
 
 == Description ==
 
-Adds links for in-place expansion of comment excerpts on the admin dashboard 'Recent Comments' widget to view full comments.
+By default, the 'Comments' section of the 'Activity' admin dashboard widget only shows an excerpt for the comments, truncating the content of the comments to the first 20 words while at the same time stripping out all markup.
 
-By default, the 'Recent Comments' admin dashboard widget only shows an excerpt for the comments, truncating the content of the comments to the first 20 words while at the same time stripping out all markup.
-
-This plugin adds a link at the end of the comment actions row (the links for the comment that become visible under the comment when you hover over the comment). The "Show more" link, when clicked, will replace the excerpt with the full comment.  The full comment will include all markup, including originally utilized markup and changes applied via filters, plugins, etc (such as shortcode expansion, smilies, paragraphing, etc).  The full comment can be switched back to the except by clicking the "Show less" link (which replaces the "Show more" link when the comment is expanded).
+This plugin adds a link at the end of the comment actions row (the links for the comment that become visible under the comment when you hover over the comment). The "Show more" link, when clicked, will replace the excerpt with the full comment. The full comment will include all markup, including originally utilized markup and changes applied via filters, plugins, etc (such as shortcode expansion, smilies, paragraphing, etc). The full comment can be switched back to the except by clicking the "Show less" link (which replaces the "Show more" link when the comment is expanded).
 
 "In-place expansion" refers to the ability to click the link to see the full comment and it will be presented in place of the excerpt without requiring a page reload or navigation.
 
 *NOTE:* This plugin only works for users who have JavaScript enabled.
 
-Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/expandable-dashboard-recent-comments/) | [Plugin Directory Page](http://wordpress.org/extend/plugins/expandable-dashboard-recent-comments/) | [Author Homepage](http://coffee2code.com)
+Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/expandable-dashboard-recent-comments/) | [Plugin Directory Page](http://wordpress.org/plugins/expandable-dashboard-recent-comments/) | [Author Homepage](http://coffee2code.com)
 
 
 == Installation ==
 
 1. Unzip `expandable-dashboard-recent-comments.zip` inside the `/wp-content/plugins/` directory for your site (or install via the built-in WordPress plugin installer)
 2. Activate the plugin through the 'Plugins' admin menu in WordPress
-3. Visit the admin dashboard and check out the 'Recent Comments' widget
+3. Visit the admin dashboard and check out the 'Comments' section of the 'Activity' widget (assuming you have recent comments and that one or more of them have been automatically excerpted)
+
+
+== Frequently Asked Questions ==
+
+= How do I expand an excepted comment? =
+
+When you hover over the comment, a line of action links will appear (typically "Approve", "Reply", "Edit", "Spam", and "Trash"). If the comment has been automatically excerpted by WordPress, then a "Show more" link will appear. Click it to view the full comment.
+
+= Why don't I see the "Show more" link when hovering over a comment? =
+
+The comment has not been been excerpted; you are already seeing the comment in its entirety so there is no need to be able to "show more".
+
+= Why don't I see the "Expand all" and "Collapse all" links at the bottom of the widget? =
+
+Assuming you are using a supported version of WordPress, this just means that none of the comments being listed have been excerpted, thus there is no need to be able to "Expand all" or "Collapse all" in this instance.
 
 
 == Screenshots ==
@@ -62,6 +74,16 @@ add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return
 
 
 == Changelog ==
+
+= 2.3 (2013-12-24) =
+* Fix CSS selectors to properly format full comments under WP 3.8
+* Fix JS selectors to show Expand/Collapse All links under WP 3.8
+* Add Frequently Asked Questions section to readme.txt
+* Note compatibility through WP 3.8+
+* Update copyright date (2014)
+* Add banner
+* Minor readme.txt text and formatting tweaks
+* Change donate link
 
 = 2.2 =
 * Fix support for WP3.6+ due to core's change of '...' to '&hellip;' for the excerpt ellipsis
@@ -149,6 +171,9 @@ add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return
 
 
 == Upgrade Notice ==
+
+= 2.3 =
+Recommended update: fixed compatibility with WP 3.8+
 
 = 2.2 =
 Recommended update: Fixed to work for WP 3.6+ due to the change in how core defined the ellipsis.
