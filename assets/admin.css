@@ -1,4 +1,23 @@
-#the-comment-list .comment-item blockquote .excerpt-full p { display:block; margin:0 0 1em; } /* pre-WP3.8 */
-#latest-comments #the-comment-list .comment-item blockquote .excerpt-full p { display:block; margin:0 0 1em; }
-.c2c_edrc { display:block; }
-.c2c_edrc_all { display:none; }
+#latest-comments #the-comment-list .comment-item blockquote .excerpt-full p {
+	display: block;
+	margin: 0 0 1em;
+}
+.c2c_edrc {
+	display: block;
+}
+.c2c_edrc_all {
+	display: none;
+}
+.c2c_edrc_more:before, .c2c_edrc_more_all:before, .c2c_edrc_less:before, .c2c_edrc_less_all:before {
+	display: inline-block;
+	-webkit-font-smoothing: antialiased;
+	font: normal 1em/1 'dashicons';
+}
+.c2c_edrc_more:before, .c2c_edrc_more_all:before {
+	content: "\f347";
+	vertical-align: middle;
+}
+.c2c_edrc_less:before, .c2c_edrc_less_all:before {
+	content: "\f343";
+	vertical-align: top;
+}

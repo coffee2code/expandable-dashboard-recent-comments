@@ -1,49 +1,49 @@
-# Translation of the WordPress plugin Expandable Dashboard Recent Comments v2.1 by Scott Reilly.
-# Copyright (C) 2013 Scott Reilly
+# Translation of the WordPress plugin Expandable Dashboard Recent Comments v2.4 by Scott Reilly.
+# Copyright (C) 2015 Scott Reilly
 # This file is distributed under the same license as the Expandable Dashboard Recent Comments plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Expandable Dashboard Recent Comments 2.1\n"
+"Project-Id-Version: Expandable Dashboard Recent Comments 2.4\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/expandable-"
 "dashboard-recent-comments\n"
-"POT-Creation-Date: 2013-01-02 23:25:29+00:00\n"
+"POT-Creation-Date: 2015-03-07 06:03:25+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2010-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: expandable-dashboard-recent-comments.php:146
+#: expandable-dashboard-recent-comments.php:164
 msgid "Show full comment"
 msgstr ""
 
-#: expandable-dashboard-recent-comments.php:146
+#: expandable-dashboard-recent-comments.php:164
 msgid "Show more"
 msgstr ""
 
-#: expandable-dashboard-recent-comments.php:147
+#: expandable-dashboard-recent-comments.php:165
 msgid "Show excerpt"
 msgstr ""
 
-#: expandable-dashboard-recent-comments.php:147
+#: expandable-dashboard-recent-comments.php:165
 msgid "Show less"
 msgstr ""
 
-#: expandable-dashboard-recent-comments.php:190
+#: expandable-dashboard-recent-comments.php:209
 msgid "Show all comments in full"
 msgstr ""
 
-#: expandable-dashboard-recent-comments.php:190
-msgid "&#x25bc; Expand all"
+#: expandable-dashboard-recent-comments.php:209
+msgid "Expand all"
 msgstr ""
 
-#: expandable-dashboard-recent-comments.php:191
+#: expandable-dashboard-recent-comments.php:210
 msgid "Show all comments as excerpts"
 msgstr ""
 
-#: expandable-dashboard-recent-comments.php:191
-msgid "&#x25b2; Collapse all"
+#: expandable-dashboard-recent-comments.php:210
+msgid "Collapse all"
 msgstr ""
 
 #. Plugin Name of the plugin/theme
@@ -56,8 +56,8 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
-"Adds links for in-place expansion of comment excerpts on the admin dashboard "
-"'Recent Comments' widget to view full comments."
+"Enables in-place expansion of excerpts in the admin dashboard 'Comments' "
+"section of the 'Activity' widget to view full comments."
 msgstr ""
 
 #. Author of the plugin/theme

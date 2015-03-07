@@ -4,11 +4,11 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: dashboard, admin, recent comments, comment, excerpt, expandable, coffee2code
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Requires at least: 3.1
-Tested up to: 3.8
-Stable tag: 2.3
+Requires at least: 3.8
+Tested up to: 4.1
+Stable tag: 2.4
 
-Adds links for in-place expansion of comment excerpts in the admin dashboard 'Comments' section of the 'Activity' widget to view full comments.
+Enables in-place expansion of excerpts in the admin dashboard 'Comments' section of the 'Activity' widget to view full comments.
 
 
 == Description ==
@@ -21,7 +21,7 @@ This plugin adds a link at the end of the comment actions row (the links for the
 
 *NOTE:* This plugin only works for users who have JavaScript enabled.
 
-Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/expandable-dashboard-recent-comments/) | [Plugin Directory Page](http://wordpress.org/plugins/expandable-dashboard-recent-comments/) | [Author Homepage](http://coffee2code.com)
+Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/expandable-dashboard-recent-comments/) | [Plugin Directory Page](https://wordpress.org/plugins/expandable-dashboard-recent-comments/) | [Author Homepage](http://coffee2code.com)
 
 
 == Installation ==
@@ -74,6 +74,24 @@ add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return
 
 
 == Changelog ==
+
+= 2.4 (2015-03-06) =
+* Use Dashicons icons for all expand/collapse links (removing special character usage from string)
+* Remove `get_ellipsis()` since it was only needed for WP < 3.6
+* Remove JS support for WP < 3.8
+* Remove `is_admin()` check preventing loading of class
+* Added meager unit tests
+* Reformat plugin header
+* Space out admin.css content
+* Change documentation links to wp.org to be https
+* Minor documentation spacing changes throughout
+* Change description
+* Note compatibility through WP 4.1+
+* Dropped support for versions of WP older than 3.8
+* Update copyright date (2015)
+* Update screenshots
+* Add plugin icon
+* Regenerate .pot
 
 = 2.3 (2013-12-24) =
 * Fix CSS selectors to properly format full comments under WP 3.8
@@ -171,6 +189,9 @@ add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return
 
 
 == Upgrade Notice ==
+
+= 2.4 =
+Recommended update: added dashicons; added unit tests; noted compatibility through WP 4.1+; dropped compatibility with version of WP older than 3.8; added plugin icon
 
 = 2.3 =
 Recommended update: fixed compatibility with WP 3.8+
