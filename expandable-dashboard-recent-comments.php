@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Expandable Dashboard Recent Comments
- * Version:     2.4.1
+ * Version:     2.4.2
  * Plugin URI:  http://coffee2code.com/wp-plugins/expandable-dashboard-recent-comments/
  * Author:      Scott Reilly
  * Author URI:  http://coffee2code.com/
@@ -11,7 +11,7 @@
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Description: Enables in-place expansion of excerpts in the admin dashboard 'Comments' section of the 'Activity' widget to view full comments.
  *
- * Compatible with WordPress 3.8+ through 4.3+.
+ * Compatible with WordPress 3.8+ through 4.4+.
  *
  * =>> Read the accompanying readme.txt file for instructions and documentation.
  * =>> Also, visit the plugin's homepage for additional information and updates.
@@ -19,7 +19,7 @@
  *
  * @package Expandable_Dashboard_Recent_Comments
  * @author  Scott Reilly
- * @version 2.4.1
+ * @version 2.4.2
  */
 
 /*
@@ -28,7 +28,7 @@
  */
 
 /*
-	Copyright (c) 2009-2015 by Scott Reilly (aka coffee2code)
+	Copyright (c) 2009-2016 by Scott Reilly (aka coffee2code)
 
 	This program is free software; you can redistribute it and/or
 	modify it under the terms of the GNU General Public License
@@ -59,7 +59,7 @@ class c2c_ExpandableDashboardRecentComments {
 	 * @since 2.0
 	 */
 	public static function version() {
-		return '2.4.1';
+		return '2.4.2';
 	}
 
 	/**
@@ -74,7 +74,7 @@ class c2c_ExpandableDashboardRecentComments {
 	 */
 	public static function do_init() {
 		// Load textdomain
-		load_plugin_textdomain( 'c2c_edrc', false, basename( dirname( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'lang' );
+		load_plugin_textdomain( 'expandable-dashboard-recent-comments' );
 
 		// Hook the comment excerpt to do our magic
 		add_filter( 'comment_excerpt',            array( __CLASS__, 'expandable_comment_excerpts' )        );
@@ -161,8 +161,16 @@ class c2c_ExpandableDashboardRecentComments {
 
 		// Only show the action links if the comment was excerpted
 		if ( self::is_text_excerpted( $excerpt ) ) {
-			$links = '<a href="#" class="c2c_edrc_more hide-if-no-js" title="' . __( 'Show full comment', 'c2c_edrc' ) . '" ' . $excerpt_full . '>' . __( 'Show more', 'c2c_edrc' ). '</a>';
-			$links .= '<a href="#" class="c2c_edrc_less hide-if-no-js" title="' . __( 'Show excerpt', 'c2c_edrc' ). '" ' . $excerpt_short . '>' . __( 'Show less', 'c2c_edrc' ) . '</a>';
+			$links = '<a href="#" class="c2c_edrc_more hide-if-no-js" title="'
+				. __( 'Show full comment', 'expandable-dashboard-recent-comments' )
+				. '" ' . $excerpt_full . '>'
+				. __( 'Show more', 'expandable-dashboard-recent-comments' )
+				. '</a>';
+			$links .= '<a href="#" class="c2c_edrc_less hide-if-no-js" title="'
+				. __( 'Show excerpt', 'expandable-dashboard-recent-comments' )
+				. '" ' . $excerpt_short . '>'
+				. __( 'Show less', 'expandable-dashboard-recent-comments' )
+				. '</a>';
 			$actions[] = $links;
 		}
 		return $actions;
@@ -206,8 +214,16 @@ class c2c_ExpandableDashboardRecentComments {
 				// These links apply to the entire widget. Due to lack of hooks in WP, they
 				// are being embedded here with the intent of being relocated via JS.
 				$links .= '<ul class="subsubsub c2c_edrc_all">';
-				$links .= '<li><a href="#" class="c2c_edrc_more_all hide-if-no-js" title="' . __( 'Show all comments in full', 'c2c_edrc' ) . '">' . __( 'Expand all', 'c2c_edrc' ). '</a> |</li>';
-				$links .= '<li><a href="#" class="c2c_edrc_less_all hide-if-no-js" title="' . __( 'Show all comments as excerpts', 'c2c_edrc' ). '">' . __( 'Collapse all', 'c2c_edrc' ) . '</a></li>';
+				$links .= '<li><a href="#" class="c2c_edrc_more_all hide-if-no-js" title="'
+					. __( 'Show all comments in full', 'expandable-dashboard-recent-comments' )
+					. '">'
+					. __( 'Expand all', 'expandable-dashboard-recent-comments' )
+					. '</a> |</li>';
+				$links .= '<li><a href="#" class="c2c_edrc_less_all hide-if-no-js" title="'
+					. __( 'Show all comments as excerpts', 'expandable-dashboard-recent-comments' )
+					. '">'
+					. __( 'Collapse all', 'expandable-dashboard-recent-comments' )
+					. '</a></li>';
 				$links .= '</ul>';
 				self::$_has_output_all_links = true;
 			}
