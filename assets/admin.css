@@ -5,6 +5,7 @@
 .c2c_edrc {
 	display: block;
 }
+.c2c-edrc-hidden,
 .c2c_edrc_all {
 	display: none;
 }

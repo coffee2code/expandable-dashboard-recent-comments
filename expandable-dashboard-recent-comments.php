@@ -168,21 +168,21 @@ class c2c_ExpandableDashboardRecentComments {
 		$excerpt = get_comment_excerpt( $comment->comment_ID );
 
 		$start_expanded = self::is_comment_initially_expanded( $comment );
-		$excerpt_full   = $start_expanded ? 'style="display:none;"' : '';
-		$excerpt_short  = $start_expanded ? '' : 'style="display:none;"';
+		$excerpt_full_class  = $start_expanded ? 'c2c-edrc-hidden' : '';
+		$excerpt_short_class = $start_expanded ? '' : 'c2c-edrc-hidden"';
 
 		// Only show the action links if the comment was excerpted
 		if ( self::is_text_excerpted( $excerpt ) ) {
 			$links = sprintf(
-				'<a href="#" class="c2c_edrc_more hide-if-no-js" title="%s" %s>%s</a>',
+				'<a href="#" class="c2c_edrc_more hide-if-no-js %s" title="%s">%s</a>',
+				$excerpt_full_class,
 				esc_attr__( 'Show full comment', 'expandable-dashboard-recent-comments' ),
-				$excerpt_full,
 				__( 'Show more', 'expandable-dashboard-recent-comments' )
 			);
 			$links .= sprintf(
-				'<a href="#" class="c2c_edrc_less hide-if-no-js" title="%s" %s>%s</a>',
+				'<a href="#" class="c2c_edrc_less hide-if-no-js %s" title="%s">%s</a>',
+				$excerpt_short_class,
 				esc_attr__( 'Show excerpt', 'expandable-dashboard-recent-comments' ),
-				$excerpt_short,
 				__( 'Show less', 'expandable-dashboard-recent-comments' )
 			);
 			$actions[] = $links;
@@ -220,8 +220,8 @@ class c2c_ExpandableDashboardRecentComments {
 			$class   = self::get_comment_class( $comment->comment_ID );
 
 			$start_expanded = self::is_comment_initially_expanded( $comment );
-			$excerpt_full   = $start_expanded ? '' : 'style="display:none;"';
-			$excerpt_short  = $start_expanded ? 'style="display:none;"' : '';
+			$excerpt_full_class  = $start_expanded ? '' : 'c2c-edrc-hidden';
+			$excerpt_short_class = $start_expanded ? 'c2c-edrc-hidden' : '';
 
 			$links = '';
 			if ( false == self::$_has_output_all_links ) {
@@ -244,10 +244,10 @@ class c2c_ExpandableDashboardRecentComments {
 
 			$extended = <<<HTML
 			<div class='c2c_edrc'>
-				<div class='{$class}-short excerpt-short' {$excerpt_short}>
+				<div class='{$class}-short excerpt-short {$excerpt_short_class}'>
 					$excerpt
 				</div>
-				<div class='{$class}-full excerpt-full' {$excerpt_full}>
+				<div class='{$class}-full excerpt-full {$excerpt_full_class}'>
 					$body
 					$links
 				</div>
