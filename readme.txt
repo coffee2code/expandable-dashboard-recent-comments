@@ -77,6 +77,7 @@ add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return
 
 = () =
 * Change: Vertically center expand/collapse dashicons.
+* Change: Escape translated strings used in attributes.
 * Change: No need to explicitly enqueue jQuery.
 * Change: Default `WP_TESTS_DIR` to `/tmp/wordpress-tests-lib` rather than erroring out if not defined via environment variable.
 * Change: Enable more error output for unit tests.

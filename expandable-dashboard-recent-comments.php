@@ -174,12 +174,12 @@ class c2c_ExpandableDashboardRecentComments {
 		// Only show the action links if the comment was excerpted
 		if ( self::is_text_excerpted( $excerpt ) ) {
 			$links = '<a href="#" class="c2c_edrc_more hide-if-no-js" title="'
-				. __( 'Show full comment', 'expandable-dashboard-recent-comments' )
+				. esc_attr__( 'Show full comment', 'expandable-dashboard-recent-comments' )
 				. '" ' . $excerpt_full . '>'
 				. __( 'Show more', 'expandable-dashboard-recent-comments' )
 				. '</a>';
 			$links .= '<a href="#" class="c2c_edrc_less hide-if-no-js" title="'
-				. __( 'Show excerpt', 'expandable-dashboard-recent-comments' )
+				. esc_attr__( 'Show excerpt', 'expandable-dashboard-recent-comments' )
 				. '" ' . $excerpt_short . '>'
 				. __( 'Show less', 'expandable-dashboard-recent-comments' )
 				. '</a>';
@@ -227,12 +227,12 @@ class c2c_ExpandableDashboardRecentComments {
 				// are being embedded here with the intent of being relocated via JS.
 				$links .= '<ul class="subsubsub c2c_edrc_all">';
 				$links .= '<li><a href="#" class="c2c_edrc_more_all hide-if-no-js" title="'
-					. __( 'Show all comments in full', 'expandable-dashboard-recent-comments' )
+					. esc_attr__( 'Show all comments in full', 'expandable-dashboard-recent-comments' )
 					. '">'
 					. __( 'Expand all', 'expandable-dashboard-recent-comments' )
 					. '</a> |</li>';
 				$links .= '<li><a href="#" class="c2c_edrc_less_all hide-if-no-js" title="'
-					. __( 'Show all comments as excerpts', 'expandable-dashboard-recent-comments' )
+					. esc_attr__( 'Show all comments as excerpts', 'expandable-dashboard-recent-comments' )
 					. '">'
 					. __( 'Collapse all', 'expandable-dashboard-recent-comments' )
 					. '</a></li>';
