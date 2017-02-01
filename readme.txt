@@ -79,6 +79,7 @@ add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return
 * Change: No need to explicitly enqueue jQuery.
 * Change: Default `WP_TESTS_DIR` to `/tmp/wordpress-tests-lib` rather than erroring out if not defined via environment variable.
 * Change: Enable more error output for unit tests.
+* New: Add LICENSE file.
 * Change: Update copyright date (2017).
 
 = 2.4.2 (2016-01-09) =
