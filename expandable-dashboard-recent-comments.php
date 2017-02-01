@@ -49,7 +49,21 @@ defined( 'ABSPATH' ) or die();
 if ( ! class_exists( 'c2c_ExpandableDashboardRecentComments' ) ) :
 
 class c2c_ExpandableDashboardRecentComments {
+	/**
+	 * Memoized state indicating if comments should start expanded.
+	 *
+	 * @access private
+	 * @var    bool|null
+	 */
 	private static $_start_expanded       = null;
+
+	/**
+	 * Memoized state indicating if there is need to putput links for controls
+	 * for multiple comments.
+	 *
+	 * @access private
+	 * @var    bool
+	 */
 	private static $_has_output_all_links = false;
 
 	/**
