@@ -75,6 +75,9 @@ add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return
 
 == Changelog ==
 
+= () =
+* Change: Default `WP_TESTS_DIR` to `/tmp/wordpress-tests-lib` rather than erroring out if not defined via environment variable.
+
 = 2.4.2 (2016-01-09) =
 * Change: Add support for language packs:
     * Change textdomain to 'expandable-dashboard-recent-comments' from 'c2c_edrc'.
