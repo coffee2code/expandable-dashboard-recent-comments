@@ -173,16 +173,18 @@ class c2c_ExpandableDashboardRecentComments {
 
 		// Only show the action links if the comment was excerpted
 		if ( self::is_text_excerpted( $excerpt ) ) {
-			$links = '<a href="#" class="c2c_edrc_more hide-if-no-js" title="'
-				. esc_attr__( 'Show full comment', 'expandable-dashboard-recent-comments' )
-				. '" ' . $excerpt_full . '>'
-				. __( 'Show more', 'expandable-dashboard-recent-comments' )
-				. '</a>';
-			$links .= '<a href="#" class="c2c_edrc_less hide-if-no-js" title="'
-				. esc_attr__( 'Show excerpt', 'expandable-dashboard-recent-comments' )
-				. '" ' . $excerpt_short . '>'
-				. __( 'Show less', 'expandable-dashboard-recent-comments' )
-				. '</a>';
+			$links = sprintf(
+				'<a href="#" class="c2c_edrc_more hide-if-no-js" title="%s" %s>%s</a>',
+				esc_attr__( 'Show full comment', 'expandable-dashboard-recent-comments' ),
+				$excerpt_full,
+				__( 'Show more', 'expandable-dashboard-recent-comments' )
+			);
+			$links .= sprintf(
+				'<a href="#" class="c2c_edrc_less hide-if-no-js" title="%s" %s>%s</a>',
+				esc_attr__( 'Show excerpt', 'expandable-dashboard-recent-comments' ),
+				$excerpt_short,
+				__( 'Show less', 'expandable-dashboard-recent-comments' )
+			);
 			$actions[] = $links;
 		}
 		return $actions;
@@ -226,16 +228,16 @@ class c2c_ExpandableDashboardRecentComments {
 				// These links apply to the entire widget. Due to lack of hooks in WP, they
 				// are being embedded here with the intent of being relocated via JS.
 				$links .= '<ul class="subsubsub c2c_edrc_all">';
-				$links .= '<li><a href="#" class="c2c_edrc_more_all hide-if-no-js" title="'
-					. esc_attr__( 'Show all comments in full', 'expandable-dashboard-recent-comments' )
-					. '">'
-					. __( 'Expand all', 'expandable-dashboard-recent-comments' )
-					. '</a> |</li>';
-				$links .= '<li><a href="#" class="c2c_edrc_less_all hide-if-no-js" title="'
-					. esc_attr__( 'Show all comments as excerpts', 'expandable-dashboard-recent-comments' )
-					. '">'
-					. __( 'Collapse all', 'expandable-dashboard-recent-comments' )
-					. '</a></li>';
+				$links .= sprintf(
+					'<li><a href="#" class="c2c_edrc_more_all hide-if-no-js" title="%s">%s</a> |</li>',
+					esc_attr__( 'Show all comments in full', 'expandable-dashboard-recent-comments' ),
+					__( 'Expand all', 'expandable-dashboard-recent-comments' )
+				);
+				$links .= sprintf(
+					'<li><a href="#" class="c2c_edrc_less_all hide-if-no-js" title="%s">%s</a></li>',
+					esc_attr__( 'Show all comments as excerpts', 'expandable-dashboard-recent-comments' ),
+					__( 'Collapse all', 'expandable-dashboard-recent-comments' )
+				);
 				$links .= '</ul>';
 				self::$_has_output_all_links = true;
 			}
