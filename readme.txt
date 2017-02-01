@@ -4,8 +4,8 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: dashboard, admin, recent comments, comment, excerpt, expandable, coffee2code
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Requires at least: 3.8
-Tested up to: 4.4
+Requires at least: 4.6
+Tested up to: 4.7
 Stable tag: 2.4.2
 
 Enables in-place expansion of excerpts in the admin dashboard 'Comments' section of the 'Activity' widget to view full comments.
@@ -79,6 +79,8 @@ add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return
 * Change: No need to explicitly enqueue jQuery.
 * Change: Default `WP_TESTS_DIR` to `/tmp/wordpress-tests-lib` rather than erroring out if not defined via environment variable.
 * Change: Enable more error output for unit tests.
+* Change: Note compatibility through WP 4.7+.
+* Change: Remove support for WordPress older than 4.6 (should still work for earlier versions back to WP 3.8)
 * New: Add LICENSE file.
 * Change: Add inline docs for class variables.
 * Change: Update copyright date (2017).
