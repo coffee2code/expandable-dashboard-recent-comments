@@ -24,3 +24,7 @@
 	vertical-align: text-top;
 	margin-top: 0.1em;
 }
+.c2c_edrc_less_all.c2c-edrc-all-active,
+.c2c_edrc_more_all.c2c-edrc-all-active {
+	color: #999;
+}
