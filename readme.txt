@@ -81,6 +81,7 @@ add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return
 
 = () =
 * Change: Gray out global expand and/or collapse link if the action doesn't have a comment to expand/collapse, respecively.
+* Change: Remove box-shadow highlight from links, which were visible after being clicked.
 * Change: Vertically center expand/collapse dashicons.
 * Change: Escape translated strings used in attributes.
 * Change: Use class rather than inline styles to indicate which controls should be initially hidden.
