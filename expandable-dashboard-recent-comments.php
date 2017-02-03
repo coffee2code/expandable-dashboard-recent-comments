@@ -132,8 +132,8 @@ class c2c_ExpandableDashboardRecentComments {
 	 *
 	 * @since 2.0
 	 *
-	 * @param object $comment The comment being displayed
-	 * @return boolean
+	 * @param  object $comment The comment being displayed
+	 * @return bool
 	 */
 	private static function is_comment_initially_expanded( $comment ) {
 		if ( null === self::$_start_expanded ) {
@@ -148,8 +148,8 @@ class c2c_ExpandableDashboardRecentComments {
 	 *
 	 * @since 2.2
 	 *
-	 * @param string $text The text.
-	 * @return boolean
+	 * @param  string $text The text.
+	 * @return bool
 	 */
 	private static function is_text_excerpted( $text ) {
 		return ( substr( $text, -8 ) === '&hellip;' );
@@ -160,9 +160,9 @@ class c2c_ExpandableDashboardRecentComments {
 	 *
 	 * @since 2.0
 	 *
-	 * @param array  $actions The actions being displayed for the comment entry.
-	 * @param object $comment The comment being displayed.
-	 * @return array The actions for the comment entry.
+	 * @param  array      $actions The actions being displayed for the comment entry.
+	 * @param  WP_Comment $comment The comment being displayed.
+	 * @return array               The actions for the comment entry.
 	 */
 	public static function comment_row_action( $actions, $comment ) {
 		$excerpt = get_comment_excerpt( $comment->comment_ID );
@@ -195,8 +195,8 @@ class c2c_ExpandableDashboardRecentComments {
 	 *
 	 * @since 1.3
 	 *
-	 * @param int|string|null $comment_id The comment ID (or null to get the ID for the current comment).
-	 * @return string The class
+	 * @param  int|string|null $comment_id The comment ID (or null to get the ID for the current comment).
+	 * @return string                      The class.
 	 */
 	private static function get_comment_class( $comment_id = null ) {
 		if ( ! $comment_id ) {
@@ -209,8 +209,8 @@ class c2c_ExpandableDashboardRecentComments {
 	/**
 	 * Modifies a comment excerpt to add the full comment so it is available for expansion.
 	 *
-	 * @param string  $excerpt Excerpt.
-	 * @return string The $excerpt modified to have full comment when applicable.
+	 * @param  string  $excerpt Excerpt.
+	 * @return string           The excerpt modified to have full comment when applicable.
 	 */
 	public static function expandable_comment_excerpts( $excerpt ) {
 		global $comment;

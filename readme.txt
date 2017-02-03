@@ -91,6 +91,7 @@ add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return
 * Change: Enable more error output for unit tests.
 * Change: Note compatibility through WP 4.7+.
 * Change: Remove support for WordPress older than 4.6 (should still work for earlier versions back to WP 3.8)
+* Change: Minor inline code documentation reformatting.
 * Change: Minor readme.txt improvements.
 * New: Add LICENSE file.
 * Change: Add inline docs for class variables.
