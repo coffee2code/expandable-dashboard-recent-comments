@@ -26,7 +26,7 @@ Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/expandable-dashboard-
 
 == Installation ==
 
-1. Unzip `expandable-dashboard-recent-comments.zip` inside the `/wp-content/plugins/` directory for your site (or install via the built-in WordPress plugin installer)
+1. Install via the built-in WordPress plugin installer. Or download and unzip `expandable-dashboard-recent-comments.zip` inside the plugins directory for your site (typically `wp-content/plugins/`)
 2. Activate the plugin through the 'Plugins' admin menu in WordPress
 3. Visit the admin dashboard and check out the 'Comments' section of the 'Activity' widget (assuming you have recent comments and that one or more of them have been automatically excerpted)
 
@@ -58,7 +58,7 @@ If all of the comments in the widget are currently collapsed, then the "Collapse
 
 == Filters ==
 
-The plugin exposes one filter for hooking.
+The plugin exposes one filter for hooking. Such code should ideally be put into a mu-plugin or site-specific plugin (which is beyond the scope of this readme to explain).
 
 = c2c_expandable_dashboard_recent_comments_start_expanded (filter) =
 
@@ -91,6 +91,7 @@ add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return
 * Change: Enable more error output for unit tests.
 * Change: Note compatibility through WP 4.7+.
 * Change: Remove support for WordPress older than 4.6 (should still work for earlier versions back to WP 3.8)
+* Change: Minor readme.txt improvements.
 * New: Add LICENSE file.
 * Change: Add inline docs for class variables.
 * Change: Update copyright date (2017).
