@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.6
 Tested up to: 4.7
-Stable tag: 2.4.2
+Stable tag: 2.5
 
 Enables in-place expansion of excerpts in the admin dashboard 'Comments' section of the 'Activity' widget to view full comments.
 
@@ -79,7 +79,7 @@ add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return
 
 == Changelog ==
 
-= () =
+= 2.5 (2017-02-02) =
 * Change: Gray out global expand and/or collapse link if the action doesn't have a comment to expand/collapse, respecively.
 * Change: Remove box-shadow highlight from links, which were visible after being clicked.
 * Change: Vertically center expand/collapse dashicons.
@@ -224,6 +224,9 @@ add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return
 
 
 == Upgrade Notice ==
+
+= 2.5 =
+Recommended update: gray out "Expand all" and/or "Collapse all" links if there are no comments in a state they can affect, compatibility is now WP 4.6-4.7+, updated copyright date (2017), and more
 
 = 2.4.2 =
 Trivial update: adjustments to utilize language packs, minor unit test tweaks, noted compatibility through WP 4.4+, and updated copyright date

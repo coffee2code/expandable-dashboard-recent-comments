@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Expandable Dashboard Recent Comments
- * Version:     2.4.2
+ * Version:     2.5
  * Plugin URI:  http://coffee2code.com/wp-plugins/expandable-dashboard-recent-comments/
  * Author:      Scott Reilly
  * Author URI:  http://coffee2code.com/
@@ -18,12 +18,14 @@
  *
  * @package Expandable_Dashboard_Recent_Comments
  * @author  Scott Reilly
- * @version 2.4.2
+ * @version 2.5
  */
 
 /*
  * TODO:
- * - Move the Expand all/Collapse all links inside the existing subsubsub action list
+ * - Move the Expand all/Collapse all links inside the existing subsubsub action list?
+ * - Include count of how many comments would be affected by each of "Expand all"
+ *   and "Collapse all".
  */
 
 /*
@@ -72,7 +74,7 @@ class c2c_ExpandableDashboardRecentComments {
 	 * @since 2.0
 	 */
 	public static function version() {
-		return '2.4.2';
+		return '2.5';
 	}
 
 	/**
