@@ -52,8 +52,8 @@ If all of the comments in the widget are currently collapsed, then the "Collapse
 
 == Screenshots ==
 
-1. A screenshot of the 'Recent Comments' admin dashboard widget with the plugin active, showing comments that have been truncated/excerpted by WordPress (the 2nd and 4th listed) and full, short comments. (Note the 'Expand All' and 'Collapse All' links added to the bottom of the widget.)
-2. A screenshot of the 'Recent Comments' admin dashboard page with the plugin active, now showing the first excerpted comment fully in-place expanded and with markup and formatting applied.
+1. A screenshot of the 'Recent Comments' admin dashboard widget with the plugin active, showing comments that have been truncated/excerpted by WordPress (the 2nd and 4th listed) and full, short comments. The third comment has the mouse over it (though the cursor doesn't appear in the screenshot) so you can see the action links, including the "Show more" link. Note, also, the 'Expand All' and 'Collapse All' links added to the bottom of the widget.
+2. A screenshot of the 'Recent Comments' admin dashboard page with the plugin active, now showing the second excerpted comment (the third comment in the list) fully in-place expanded and with markup and formatting applied.
 
 
 == Filters ==
@@ -96,6 +96,7 @@ add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return
 * New: Add LICENSE file.
 * Change: Add inline docs for class variables.
 * Change: Update copyright date (2017).
+* Change: Update screenshots.
 
 = 2.4.2 (2016-01-09) =
 * Change: Add support for language packs:
