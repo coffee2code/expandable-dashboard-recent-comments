@@ -21,7 +21,7 @@ This plugin adds a link at the end of the comment actions row (the links for the
 
 *NOTE:* This plugin only works for users who have JavaScript enabled.
 
-Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/expandable-dashboard-recent-comments/) | [Plugin Directory Page](https://wordpress.org/plugins/expandable-dashboard-recent-comments/) | [Author Homepage](http://coffee2code.com)
+Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/expandable-dashboard-recent-comments/) | [Plugin Directory Page](https://wordpress.org/plugins/expandable-dashboard-recent-comments/) | [GitHub](https://github.com/coffee2code/expandable-dashboard-recent-comments/) | [Author Homepage](http://coffee2code.com)
 
 
 == Installation ==
@@ -80,6 +80,7 @@ add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return
 == Changelog ==
 
 = () =
+* Change: Add GitHub link to readme
 * Change: Note compatibility through WP 4.9+
 * Change: Update copyright date (2018)
 
