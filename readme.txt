@@ -49,6 +49,10 @@ Assuming you are using a supported version of WordPress, this just means that no
 
 If all of the comments in the widget are currently collapsed, then the "Collapse all" link will appear grayed out to indicate there is nothing for it to collapse. Likewise, if all of the comments in the widget are currently expanded, then "Expand all" will appear grayed out to indicate there is nothing for it to expand. As comments are expanded and collapsed, these two links will adjust themselves to appear grayed out or active as appropriate.
 
+= Does this plugin include unit tests? =
+
+Yes.
+
 
 == Screenshots ==
 
@@ -60,7 +64,7 @@ If all of the comments in the widget are currently collapsed, then the "Collapse
 
 The plugin exposes one filter for hooking. Such code should ideally be put into a mu-plugin or site-specific plugin (which is beyond the scope of this readme to explain).
 
-= c2c_expandable_dashboard_recent_comments_start_expanded (filter) =
+**c2c_expandable_dashboard_recent_comments_start_expanded (filter)**
 
 The 'c2c_expandable_dashboard_recent_comments_start_expanded' hook allows you to configure the 'Recent Comments' admin dashboard widget initially display all comments in their expanded state (i.e. not excerpted).
 
