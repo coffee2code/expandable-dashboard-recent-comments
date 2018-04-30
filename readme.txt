@@ -5,7 +5,7 @@ Tags: dashboard, admin, recent comments, comment, excerpt, expandable, coffee2co
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.6
-Tested up to: 4.7
+Tested up to: 4.9
 Stable tag: 2.5
 
 Enables in-place expansion of excerpts in the admin dashboard 'Comments' section of the 'Activity' widget to view full comments.
@@ -80,6 +80,7 @@ add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return
 == Changelog ==
 
 = () =
+* Change: Note compatibility through WP 4.9+
 * Change: Update copyright date (2018)
 
 = 2.5 (2017-02-02) =
