@@ -79,6 +79,9 @@ add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return
 
 == Changelog ==
 
+= () =
+* Change: Update copyright date (2018)
+
 = 2.5 (2017-02-02) =
 * Change: Gray out global expand and/or collapse link if the action doesn't have a comment to expand/collapse, respecively.
 * Change: Remove box-shadow highlight from links, which were visible after being clicked.
