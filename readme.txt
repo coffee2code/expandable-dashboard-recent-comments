@@ -81,6 +81,7 @@ add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return
 
 = () =
 * Change: Add GitHub link to readme
+* Change: Unit tests: Minor whitespace tweaks to bootstrap
 * Change: Note compatibility through WP 4.9+
 * Change: Update copyright date (2018)
 
