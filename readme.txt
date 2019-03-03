@@ -45,9 +45,13 @@ The comment has not been been excerpted; you are already seeing the comment in i
 
 Assuming you are using a supported version of WordPress, this just means that none of the comments being listed have been excerpted, thus there is no need to be able to "Expand all" or "Collapse all" in this instance.
 
-= Why does either of the "Expand all" or "Collapse all" appear grayed out? =
+= Why does either of the "Expand all" or "Collapse all" links appear grayed out? =
 
 If all of the comments in the widget are currently collapsed, then the "Collapse all" link will appear grayed out to indicate there is nothing for it to collapse. Likewise, if all of the comments in the widget are currently expanded, then "Expand all" will appear grayed out to indicate there is nothing for it to expand. As comments are expanded and collapsed, these two links will adjust themselves to appear grayed out or active as appropriate.
+
+= Can I make it so all comments initially appear fully expanded without needing to click the links to expand them? =
+
+Yes. Please see the "Hooks" section for documentation on the 'c2c_expandable_dashboard_recent_comments_start_expanded' filter which allows for this.
 
 = Does this plugin include unit tests? =
 
