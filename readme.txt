@@ -60,7 +60,7 @@ Yes.
 2. A screenshot of the 'Recent Comments' admin dashboard page with the plugin active, now showing the second excerpted comment (the third comment in the list) fully in-place expanded and with markup and formatting applied.
 
 
-== Filters ==
+== Hooks ==
 
 The plugin exposes one filter for hooking. Such code should ideally be put into a mu-plugin or site-specific plugin (which is beyond the scope of this readme to explain).
 
@@ -83,10 +83,11 @@ add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return
 
 == Changelog ==
 
-= () =
+= 2.5.2 (2019-03-03) =
 * New: Add inline documentation for hooks
 * Change: Initialize plugin on 'plugins_loaded' action instead of on load
 * Change: Cast return value of filter 'c2c_expandable_dashboard_recent_comments_start_expanded' as boolean
+* Change: Rename readme.txt section from 'Filters' to 'Hooks'
 * Change: Note compatibility through WP 5.1+
 * Change: Update copyright date (2019)
 * Change: Update License URI to be HTTPS
