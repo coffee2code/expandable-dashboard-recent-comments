@@ -7,7 +7,7 @@
  * Author URI:  http://coffee2code.com/
  * Text Domain: expandable-dashboard-recent-comments
  * License:     GPLv2 or later
- * License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Description: Enables in-place expansion of excerpts in the admin dashboard 'Comments' section of the 'Activity' widget to view full comments.
  *
  * Compatible with WordPress 4.6+ through 4.9+.
