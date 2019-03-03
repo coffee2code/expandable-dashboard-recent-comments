@@ -265,6 +265,6 @@ HTML;
 
 } // end c2c_ExpandableDashboardRecentComments
 
-c2c_ExpandableDashboardRecentComments::init();
+add_action( 'plugins_loaded', array( 'c2c_ExpandableDashboardRecentComments', 'init' ) );
 
 endif; // end if !class_exists()
