@@ -9,7 +9,7 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 	}
 
 	public function test_get_version() {
-		$this->assertEquals( '2.5.1', c2c_ExpandableDashboardRecentComments::version() );
+		$this->assertEquals( '2.5.2', c2c_ExpandableDashboardRecentComments::version() );
 	}
 
 	public function test_hooks_action_admin_menu() {

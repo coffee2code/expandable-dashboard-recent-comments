@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.6
 Tested up to: 5.1
-Stable tag: 2.5.1
+Stable tag: 2.5.2
 
 Enables in-place expansion of excerpts in the admin dashboard 'Comments' section of the 'Activity' widget to view full comments.
 
@@ -87,7 +87,7 @@ add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return
 
 == Changelog ==
 
-= () =
+= 2.5.2 (2019-03-03) =
 * Fix: Ensure preceding up/down arrow for collapse/expand link does not get orphaned from the associated text
 * New: Add inline documentation for hooks
 * Change: Initialize plugin on 'plugins_loaded' action instead of on load
@@ -250,6 +250,9 @@ add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return
 
 
 == Upgrade Notice ==
+
+= 2.5.2 =
+Trivial update: prevented orphaning of up/down arrow from rest of link text, aded more inline documentation, noted compatibility through WP 5.1+, updated copyright date (2019)
 
 = 2.5.1 =
 Trivial update: added README.md, noted compatibility through WP 4.9+, and updated copyright date (2018)
