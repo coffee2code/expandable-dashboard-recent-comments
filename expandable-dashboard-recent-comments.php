@@ -147,7 +147,7 @@ class c2c_ExpandableDashboardRecentComments {
 			 * @param bool   $initially_expanded Initially show comment as expanded? Default false.
 			 * @param object $comment            The comment object.
 			 */
-			self::$_start_expanded = apply_filters( 'c2c_expandable_dashboard_recent_comments_start_expanded', false, $comment );
+			self::$_start_expanded = (bool) apply_filters( 'c2c_expandable_dashboard_recent_comments_start_expanded', false, $comment );
 		}
 
 		return self::$_start_expanded;
