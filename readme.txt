@@ -84,6 +84,7 @@ add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return
 == Changelog ==
 
 = () =
+* New: Add inline documentation for hooks
 * Change: Initialize plugin on 'plugins_loaded' action instead of on load
 * Change: Note compatibility through WP 5.1+
 * Change: Update copyright date (2019)

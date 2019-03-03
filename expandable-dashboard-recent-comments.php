@@ -139,6 +139,14 @@ class c2c_ExpandableDashboardRecentComments {
 	 */
 	private static function is_comment_initially_expanded( $comment ) {
 		if ( null === self::$_start_expanded ) {
+			/**
+			 * Filters whether a comment should be initially shown expanded or not.
+			 *
+			 * @since 2.0.0
+			 *
+			 * @param bool   $initially_expanded Initially show comment as expanded? Default false.
+			 * @param object $comment            The comment object.
+			 */
 			self::$_start_expanded = apply_filters( 'c2c_expandable_dashboard_recent_comments_start_expanded', false, $comment );
 		}
 
@@ -218,6 +226,7 @@ class c2c_ExpandableDashboardRecentComments {
 		global $comment;
 		if ( self::is_text_excerpted( $excerpt ) ) {
 			$replace = '&hellip;';
+			/** This filter documented in wp-includes/comment-template.php */
 			$body    = apply_filters( 'comment_text', apply_filters( 'get_comment_text', $comment->comment_content ), '40' );
 			$class   = self::get_comment_class( $comment->comment_ID );
 
