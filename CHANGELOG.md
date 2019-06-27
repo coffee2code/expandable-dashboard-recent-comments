@@ -2,6 +2,7 @@
 
 ## _(in-progress)_
 * New: Add CHANGELOG.md and move all but most recent changelog entries into it
+* Change: Update unit test install script and bootstrap to use latest WP unit test repo
 
 ## 2.5.2 _(2019-03-03)_
 * Fix: Ensure preceding up/down arrow for collapse/expand link does not get orphaned from the associated text
