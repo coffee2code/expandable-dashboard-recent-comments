@@ -2,7 +2,9 @@
 
 ## _(in-progress)_
 * New: Add CHANGELOG.md and move all but most recent changelog entries into it
-* Change: Update unit test install script and bootstrap to use latest WP unit test repo
+* Unit tests:
+    * Change: Update unit test install script and bootstrap to use latest WP unit test repo
+    * New: Test that plugin hooks `plugins_loaded` action to initialize itself
 * Change: Note compatibility through WP 5.2+
 * Change: Split paragraph in README.md's "Support" section into two
 

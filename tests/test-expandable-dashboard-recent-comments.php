@@ -12,6 +12,10 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 		$this->assertEquals( '2.5.2', c2c_ExpandableDashboardRecentComments::version() );
 	}
 
+	public function test_hooks_plugins_loaded() {
+		$this->assertEquals( 10, has_action( 'plugins_loaded', array( 'c2c_ExpandableDashboardRecentComments', 'init' ) ) );
+	}
+
 	public function test_hooks_action_admin_menu() {
 		$this->assertEquals( 10, add_action( 'load-index.php', array( 'c2c_ExpandableDashboardRecentComments', 'do_init' ) ) );
 	}
