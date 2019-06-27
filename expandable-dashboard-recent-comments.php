@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Expandable Dashboard Recent Comments
- * Version:     2.5.2
+ * Version:     2.5.3
  * Plugin URI:  http://coffee2code.com/wp-plugins/expandable-dashboard-recent-comments/
  * Author:      Scott Reilly
  * Author URI:  http://coffee2code.com/
@@ -18,7 +18,7 @@
  *
  * @package Expandable_Dashboard_Recent_Comments
  * @author  Scott Reilly
- * @version 2.5.2
+ * @version 2.5.3
  */
 
 /*
@@ -76,7 +76,7 @@ class c2c_ExpandableDashboardRecentComments {
 	 * @since 2.0
 	 */
 	public static function version() {
-		return '2.5.2';
+		return '2.5.3';
 	}
 
 	/**
