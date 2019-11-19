@@ -1,5 +1,8 @@
 # Changelog
 
+## _(in-progress)_
+* Change: Note compatibility through WP 5.3+
+
 ## 2.5.3 _(2019-06-26)_
 * New: Add CHANGELOG.md and move all but most recent changelog entries into it
 * Unit tests:
