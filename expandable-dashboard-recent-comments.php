@@ -54,14 +54,6 @@ if ( ! class_exists( 'c2c_ExpandableDashboardRecentComments' ) ) :
 
 class c2c_ExpandableDashboardRecentComments {
 	/**
-	 * Memoized state indicating if comments should start expanded.
-	 *
-	 * @access private
-	 * @var    bool|null
-	 */
-	private static $_start_expanded       = null;
-
-	/**
 	 * Memoized state indicating if there is need to putput links for controls
 	 * for multiple comments.
 	 *
@@ -140,19 +132,15 @@ class c2c_ExpandableDashboardRecentComments {
 	 * @return bool
 	 */
 	protected static function is_comment_initially_expanded( $comment ) {
-		if ( null === self::$_start_expanded ) {
-			/**
-			 * Filters whether a comment should be initially shown expanded or not.
-			 *
-			 * @since 2.0.0
-			 *
-			 * @param bool   $initially_expanded Initially show comment as expanded? Default false.
-			 * @param object $comment            The comment object.
-			 */
-			self::$_start_expanded = (bool) apply_filters( 'c2c_expandable_dashboard_recent_comments_start_expanded', false, $comment );
-		}
-
-		return self::$_start_expanded;
+		/**
+		 * Filters whether a comment should be initially shown expanded or not.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param bool   $initially_expanded Initially show comment as expanded? Default false.
+		 * @param object $comment            The comment object.
+		 */
+		return (bool) apply_filters( 'c2c_expandable_dashboard_recent_comments_start_expanded', false, $comment );
 	}
 
 	/**

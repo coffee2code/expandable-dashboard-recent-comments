@@ -1,6 +1,7 @@
 # Changelog
 
 ## _(in-progress)_
+* Change: Don't memoize value for if comment should appear initially expanded since it may vary based on comment
 * Change: Switch `is_comment_initially_expanded()` from private to protected
 * Change: Note compatibility through WP 5.3+
 * Change: Update copyright date (2020)
