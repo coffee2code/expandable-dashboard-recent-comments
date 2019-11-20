@@ -146,6 +146,11 @@ class c2c_ExpandableDashboardRecentComments {
 	/**
 	 * Determines if text has been truncated as an excerpt.
 	 *
+	 * Note: This is by no means a comprehensive check. Currently, text that gets
+	 * excerpted gets appended with "&hellip;". This merely checks for the
+	 * presence of that string at the end of the text and assumes the text has
+	 * been excerpted if found.
+	 *
 	 * @since 2.2
 	 *
 	 * @param  string $text The text.

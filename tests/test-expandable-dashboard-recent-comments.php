@@ -88,10 +88,6 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 		$this->assertFalse( has_action( 'admin_enqueue_scripts', array( 'c2c_ExpandableDashboardRecentComments', 'enqueue_admin_css' ) ) );
 	}
 
-	public function test_admin_not_hooks_action_get_comment_excerpt() {
-		$this->assertFalse( has_action( 'get_comment_excerpt', array( 'c2c_ExpandableDashboardRecentComments', 'fix_multibyte_comment_excerpts' ) ) );
-	}
-
 	//
 	// Ensure it does its thing on the admin dashboard.
 	//
