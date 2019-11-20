@@ -3,7 +3,7 @@
 ## _(in-progress)_
 * New: Add unit tests for `is_comment_initially_expanded()` and the filter `c2c_expandable_dashboard_recent_comments_start_expanded`
 * Change: Don't memoize value for if comment should appear initially expanded since it may vary based on comment
-* Change: Switch `is_comment_initially_expanded()` from private to protected
+* Change: Switch `is_comment_initially_expanded()` and `is_text_excerpted()` from private to protected to facilitate unit testing
 * Change: Note compatibility through WP 5.3+
 * Change: Update copyright date (2020)
 

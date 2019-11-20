@@ -151,7 +151,7 @@ class c2c_ExpandableDashboardRecentComments {
 	 * @param  string $text The text.
 	 * @return bool
 	 */
-	private static function is_text_excerpted( $text ) {
+	protected static function is_text_excerpted( $text ) {
 		return ( substr( $text, -8 ) === '&hellip;' );
 	}
 
