@@ -139,7 +139,7 @@ class c2c_ExpandableDashboardRecentComments {
 	 * @param  object $comment The comment being displayed
 	 * @return bool
 	 */
-	private static function is_comment_initially_expanded( $comment ) {
+	protected static function is_comment_initially_expanded( $comment ) {
 		if ( null === self::$_start_expanded ) {
 			/**
 			 * Filters whether a comment should be initially shown expanded or not.

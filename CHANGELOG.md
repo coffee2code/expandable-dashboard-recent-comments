@@ -1,6 +1,7 @@
 # Changelog
 
 ## _(in-progress)_
+* Change: Switch `is_comment_initially_expanded()` from private to protected
 * Change: Note compatibility through WP 5.3+
 * Change: Update copyright date (2020)
 
