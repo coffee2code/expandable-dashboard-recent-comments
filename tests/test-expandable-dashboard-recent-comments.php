@@ -2,7 +2,28 @@
 
 defined( 'ABSPATH' ) or die();
 
+class unittest_c2c_ExpandableDashboardRecentComments extends c2c_ExpandableDashboardRecentComments {
+	public static function is_comment_initially_expanded( $comment ) {
+		return parent::is_comment_initially_expanded( $comment );
+	}
+}
+
+
 class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
+
+	public function tearDown() {
+		parent::tearDown();
+
+		remove_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return_true' );
+	}
+
+
+	//
+	//
+	// TESTS
+	//
+	//
+
 
 	public function test_class_exists() {
 		$this->assertTrue( class_exists( 'c2c_ExpandableDashboardRecentComments' ) );
@@ -67,6 +88,10 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 		$this->assertFalse( has_action( 'admin_enqueue_scripts', array( 'c2c_ExpandableDashboardRecentComments', 'enqueue_admin_css' ) ) );
 	}
 
+	public function test_admin_not_hooks_action_get_comment_excerpt() {
+		$this->assertFalse( has_action( 'get_comment_excerpt', array( 'c2c_ExpandableDashboardRecentComments', 'fix_multibyte_comment_excerpts' ) ) );
+	}
+
 	//
 	// Ensure it does its thing on the admin dashboard.
 	//
@@ -95,4 +120,17 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 		$this->assertEquals( 10, has_action( 'admin_enqueue_scripts', array( 'c2c_ExpandableDashboardRecentComments', 'enqueue_admin_css' ) ) );
 	}
 
+	public function test_is_comment_initially_expanded() {
+		$comment =  $this->factory->comment->create( array( 'comment_approved' => '1' ) );
+
+		$this->assertFalse( unittest_c2c_ExpandableDashboardRecentComments::is_comment_initially_expanded( $comment ) );
+	}
+
+	public function test_filter_c2c_expandable_dashboard_recent_comments_start_expanded() {
+		add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return_true' );
+
+		$comment =  $this->factory->comment->create( array( 'comment_approved' => '1' ) );
+
+		$this->assertTrue( unittest_c2c_ExpandableDashboardRecentComments::is_comment_initially_expanded( $comment ) );
+	}
 }

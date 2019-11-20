@@ -1,6 +1,7 @@
 # Changelog
 
 ## _(in-progress)_
+* New: Add unit tests for `is_comment_initially_expanded()` and the filter `c2c_expandable_dashboard_recent_comments_start_expanded`
 * Change: Don't memoize value for if comment should appear initially expanded since it may vary based on comment
 * Change: Switch `is_comment_initially_expanded()` from private to protected
 * Change: Note compatibility through WP 5.3+
