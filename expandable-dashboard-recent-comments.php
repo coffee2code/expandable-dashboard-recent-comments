@@ -79,6 +79,15 @@ class c2c_ExpandableDashboardRecentComments {
 	}
 
 	/**
+	 * Resets plugin state.
+	 *
+	 * @since 2.6.0
+	 */
+	public static function reset() {
+		self::$_has_output_all_links = false;
+	}
+
+	/**
 	 * Loads text domain and registers actions/filters.
 	 */
 	public static function do_init() {

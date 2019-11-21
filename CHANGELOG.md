@@ -2,6 +2,7 @@
 
 ## _(in-progress)_
 * New: Handle comments containing multi-byte characters that may not have been excerpted by WordPress
+* New: Add `reset()` to reset plugin's internal state
 * Change: Don't memoize value for if comment should appear initially expanded since it may vary based on comment
 * Change: Switch `is_comment_initially_expanded()` and `is_text_excerpted()` from private to protected to facilitate unit testing
 * Unit tests:
