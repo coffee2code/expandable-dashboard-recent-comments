@@ -4,6 +4,7 @@
 * Change: Don't memoize value for if comment should appear initially expanded since it may vary based on comment
 * Change: Switch `is_comment_initially_expanded()` and `is_text_excerpted()` from private to protected to facilitate unit testing
 * Unit tests:
+    * New: Add tests for admin dashboard comment excerpts
     * New: Add tests for `is_comment_initially_expanded()`, `is_text_excerpted()`, and the filter `c2c_expandable_dashboard_recent_comments_start_expanded`
     * Change: Remove unused test
 * Change: Note compatibility through WP 5.3+

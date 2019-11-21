@@ -18,6 +18,8 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 	public function tearDown() {
 		parent::tearDown();
 
+		unset( $GLOBALS['comment'] );
+
 		remove_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return_true' );
 	}
 
@@ -63,6 +65,18 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 
 	public function test_not_hooks_action_admin_enqueue_scripts_for_css() {
 		$this->assertFalse( has_action( 'admin_enqueue_scripts', array( 'c2c_ExpandableDashboardRecentComments', 'enqueue_admin_css' ) ) );
+	}
+
+	public function test_comment_excerpt_does_not_add_markup_outside_of_admin() {
+		$text = 'This is a longer comment that will exceed the number of words that are permitted for excerpts. As such, the excerpt generated for the comment will be a truncated version of the full comment.';
+		$comment_id = $this->factory->comment->create( array( 'comment_approved' => '1', 'comment_content' => $text ) );
+		$GLOBALS['comment'] = get_comment( $comment_id );
+
+		$expected = wp_trim_words( $text, 20 );
+
+		$this->expectOutputString( $expected );
+
+		comment_excerpt();
 	}
 
 	//
@@ -130,6 +144,32 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 	public function tests_is_text_excerpted() {
 		$this->assertTrue( unittest_c2c_ExpandableDashboardRecentComments::is_text_excerpted( 'This is excerpted&hellip;' ) );
 		$this->assertFalse( unittest_c2c_ExpandableDashboardRecentComments::is_text_excerpted( 'This is not excerpted.' ) );
+	}
+
+	public function test_comment_excerpt_has_markup_for_expansion() {
+		$text = 'This is a longer comment that will exceed the number of words that are permitted for excerpts. As such, the excerpt generated for the comment will be a truncated version of the full comment.';
+		$comment_id = $this->factory->comment->create( array( 'comment_approved' => '1', 'comment_content' => $text ) );
+		$GLOBALS['comment'] = get_comment( $comment_id );
+
+		$expected = <<<HTML
+			<div class='c2c_edrc'>
+				<div class='excerpt-7-short excerpt-short '>
+					This is a longer comment that will exceed the number of words that are permitted for excerpts. As such, the&hellip;
+				</div>
+				<div class='excerpt-7-full excerpt-full c2c-edrc-hidden'>
+					<p>This is a longer comment that will exceed the number of words that are permitted for excerpts. As such, the excerpt generated for the comment will be a truncated version of the full comment.</p>
+
+					
+				</div>
+			</div>
+
+HTML;
+
+		$this->expectOutputString( $expected );
+
+		do_action( 'load-index.php' );
+
+		comment_excerpt();
 	}
 
 }
