@@ -182,11 +182,11 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 
 		$expected = <<<HTML
 			<div class='c2c_edrc'>
-				<div class='excerpt-7-short excerpt-short '>
+				<div class='excerpt-{$comment_id}-short excerpt-short '>
 					This is a longer comment that will exceed the number of words that are permitted for excerpts. As such, the&hellip;
 				</div>
-				<div class='excerpt-7-full excerpt-full c2c-edrc-hidden'>
-					<p>This is a longer comment that will exceed the number of words that are permitted for excerpts. As such, the excerpt generated for the comment will be a truncated version of the full comment.</p>
+				<div class='excerpt-{$comment_id}-full excerpt-full c2c-edrc-hidden'>
+					<p>{$text}</p>
 
 					
 				</div>
