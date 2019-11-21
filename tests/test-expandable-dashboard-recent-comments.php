@@ -69,13 +69,6 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 	// Ensure nothing is affected on the back-end.
 	//
 
-	// Note: All tests that follow must assume they are in the admin.
-	public function tesst_is_admin() {
-		define( 'WP_ADMIN', true );
-
-		$this->assertTrue( is_admin() );
-	}
-
 	public function test_admin_not_hooks_filter_comment_excerpt() {
 		$this->assertFalse( has_filter( 'comment_excerpt', array( 'c2c_ExpandableDashboardRecentComments', 'expandable_comment_excerpts' ) ) );
 	}
