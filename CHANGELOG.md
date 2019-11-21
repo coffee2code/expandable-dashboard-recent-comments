@@ -1,6 +1,6 @@
 # Changelog
 
-## _(in-progress)_
+## 2.6 _(2019-11-21)_
 * New: Handle comments containing multi-byte characters that may not have been excerpted by WordPress
 * New: Add `reset()` to reset plugin's internal state
 * Change: Don't memoize value for if comment should appear initially expanded since it may vary based on comment
@@ -8,9 +8,9 @@
 * Unit tests:
     * New: Add tests for admin dashboard comment excerpts
     * New: Add tests for `is_comment_initially_expanded()`
-	* New: Add tests for `is_text_excerpted()`
-	* New: Add tests for `expandable_comment_excerpts()`
-	* New: Add test for the filter `c2c_expandable_dashboard_recent_comments_start_expanded`
+    * New: Add tests for `is_text_excerpted()`
+    * New: Add tests for `expandable_comment_excerpts()`
+    * New: Add test for the filter `c2c_expandable_dashboard_recent_comments_start_expanded`
     * Change: Remove unused test
     * Change: Invoke plugin's `reset()` after every test
 * Change: Note compatibility through WP 5.3+
