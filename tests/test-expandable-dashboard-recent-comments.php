@@ -146,6 +146,25 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 		$this->assertFalse( unittest_c2c_ExpandableDashboardRecentComments::is_text_excerpted( 'This is not excerpted.' ) );
 	}
 
+	public function test_expandable_comment_excerpts_does_not_change_non_truncated_excerpts() {
+		$text = 'This is a comment.';
+		$comment_id = $this->factory->comment->create( array( 'comment_approved' => '1', 'comment_content' => $text ) );
+		$GLOBALS['comment'] = get_comment( $comment_id );
+
+		$this->assertEquals( $text, c2c_ExpandableDashboardRecentComments::expandable_comment_excerpts( $text ) );
+	}
+
+	public function test_expandable_comment_excerpts_changes_truncated_excerpts() {
+		$text = 'This is an excerpted comment&hellip;';
+		$comment_id = $this->factory->comment->create( array( 'comment_approved' => '1', 'comment_content' => $text ) );
+		$GLOBALS['comment'] = get_comment( $comment_id );
+
+		$output = c2c_ExpandableDashboardRecentComments::expandable_comment_excerpts( $text );
+
+		$this->assertNotEquals( $text, $output );
+		$this->assertRegExp( "/<div class='c2c_edrc'>/", $output );
+	}
+
 	public function test_comment_excerpt_has_markup_for_expansion() {
 		$text = 'This is a longer comment that will exceed the number of words that are permitted for excerpts. As such, the excerpt generated for the comment will be a truncated version of the full comment.';
 		$comment_id = $this->factory->comment->create( array( 'comment_approved' => '1', 'comment_content' => $text ) );
