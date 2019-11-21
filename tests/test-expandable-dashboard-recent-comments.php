@@ -203,6 +203,37 @@ HTML;
 		comment_excerpt();
 	}
 
+	public function test_comment_excerpt_omits_show_all_links_once_initially_output() {
+		$text = 'This is a longer comment that will exceed the number of words that are permitted for excerpts. As such, the excerpt generated for the comment will be a truncated version of the full comment.';
+		$comment_id = $this->factory->comment->create( array( 'comment_approved' => '1', 'comment_content' => $text ) );
+		$GLOBALS['comment'] = get_comment( $comment_id );
+
+		$expected = <<<HTML
+			<div class='c2c_edrc'>
+				<div class='excerpt-{$comment_id}-short excerpt-short '>
+					This is a longer comment that will exceed the number of words that are permitted for excerpts. As such, the&hellip;
+				</div>
+				<div class='excerpt-{$comment_id}-full excerpt-full c2c-edrc-hidden'>
+					<p>{$text}</p>
+
+					
+				</div>
+			</div>
+
+HTML;
+
+		do_action( 'load-index.php' );
+
+		// Do initial invocation as a first call.
+		ob_start();
+		comment_excerpt();
+		ob_get_clean();
+
+		$this->expectOutputString( $expected );
+
+		comment_excerpt();
+	}
+
 	public function test_fix_multibyte_comment_excerpts_warranting_no_change() {
 		$long_text = 'aaa bbb ccc ddd eee fff ggg hhh iii jjj kkk lll mmm nnn ooo ppp qqq rrr sss ttt uuu vvv www xxx yyy zzz';
 		$text = array(
