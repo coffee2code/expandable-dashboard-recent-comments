@@ -91,6 +91,9 @@ class c2c_ExpandableDashboardRecentComments {
 		add_filter( 'comment_row_actions',        array( __CLASS__, 'comment_row_action'          ), 10, 2 );
 		// Enqueues JS for admin page
 		add_action( 'admin_enqueue_scripts',      array( __CLASS__, 'enqueue_admin_js'            )        );
+		// Modify default WP behavior to ensure comments with multi-byte characters get excerpted.
+		add_filter( 'get_comment_excerpt',        array( __CLASS__, 'fix_multibyte_comment_excerpts' )     );
+
 		// Register and enqueue styles for admin page
 		self::register_styles();
 		add_action( 'admin_enqueue_scripts',      array( __CLASS__, 'enqueue_admin_css'           )        );
@@ -262,6 +265,46 @@ class c2c_ExpandableDashboardRecentComments {
 HTML;
 
 			$excerpt = preg_replace( '/' . preg_quote( $replace ) . '$/', $excerpt, $extended );
+		}
+
+		return $excerpt;
+	}
+
+	/**
+	 * Modifies default WP behavior to ensure comments with multi-byte characters get excerpted.
+	 *
+	 * @since 2.6
+	 *
+	 * @param  string  $excerpt Excerpt.
+	 * @return string  The excerpt, potentially modified to actually be excerpted
+	 *                 if it contains multi-byte characters.
+	 */
+	public static function fix_multibyte_comment_excerpts( $excerpt ) {
+		if (
+			// Excerpt not already excerpted.
+			! self::is_text_excerpted( $excerpt )
+		&&
+			// Excerpt contains multi-byte characters and wasn't truncated.
+			! mb_check_encoding( $excerpt, 'ASCII' ) && mb_check_encoding( $excerpt, 'UTF-8' )
+		) {
+			/* translators: Maximum number of words used in a comment excerpt. */
+			$comment_excerpt_length = intval( _x( '20', 'comment_excerpt_length', 'expandable-dashboard-recent-comments' ) );
+
+			/**
+			 * This filter is documented in wp-includes/comment-template.php.
+			 */
+			$comment_excerpt_length = apply_filters( 'comment_excerpt_length', $comment_excerpt_length );
+
+			// Cribbed from wp_trim_words().
+			$excerpt = trim( preg_replace( "/[\n\r\t ]+/", ' ', $excerpt ), ' ' );
+			preg_match_all( '/./u', $excerpt, $words_array );
+			$char_count = count( $words_array[0] );
+			$words_array = array_slice( $words_array[0], 0, $comment_excerpt_length + 1 );
+			$excerpt = implode( '', $words_array );
+
+			if ( $char_count > $comment_excerpt_length ) {
+				$excerpt .= '&hellip;';
+			}
 		}
 
 		return $excerpt;

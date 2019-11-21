@@ -99,6 +99,10 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 		$this->assertFalse( has_action( 'admin_enqueue_scripts', array( 'c2c_ExpandableDashboardRecentComments', 'enqueue_admin_css' ) ) );
 	}
 
+	public function test_admin_not_hooks_action_get_comment_excerpt() {
+		$this->assertFalse( has_action( 'get_comment_excerpt', array( 'c2c_ExpandableDashboardRecentComments', 'fix_multibyte_comment_excerpts' ) ) );
+	}
+
 	//
 	// Ensure it does its thing on the admin dashboard.
 	//
@@ -125,6 +129,12 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 		do_action( 'load-index.php' );
 
 		$this->assertEquals( 10, has_action( 'admin_enqueue_scripts', array( 'c2c_ExpandableDashboardRecentComments', 'enqueue_admin_css' ) ) );
+	}
+
+	public function test_admin_hooks_action_get_comment_excerpt() {
+		do_action( 'load-index.php' );
+
+		$this->assertEquals( 10, has_action( 'get_comment_excerpt', array( 'c2c_ExpandableDashboardRecentComments', 'fix_multibyte_comment_excerpts' ) ) );
 	}
 
 	public function test_is_comment_initially_expanded() {
@@ -178,6 +188,55 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 				<div class='excerpt-7-full excerpt-full c2c-edrc-hidden'>
 					<p>This is a longer comment that will exceed the number of words that are permitted for excerpts. As such, the excerpt generated for the comment will be a truncated version of the full comment.</p>
 
+					
+				</div>
+			</div>
+
+HTML;
+
+		$this->expectOutputString( $expected );
+
+		do_action( 'load-index.php' );
+
+		comment_excerpt();
+	}
+
+	public function test_fix_multibyte_comment_excerpts_warranting_no_change() {
+		$long_text = 'aaa bbb ccc ddd eee fff ggg hhh iii jjj kkk lll mmm nnn ooo ppp qqq rrr sss ttt uuu vvv www xxx yyy zzz';
+		$text = array(
+			'This is plain text.',
+			'Short 創於頭安片我樣外.',
+			'創於頭安片我樣外市第興強有輕注該仍也天筆',
+			"Already truncated {$long_text}&hellip;",
+			$long_text,
+		);
+
+		foreach ( $text as $t ) {
+			$this->assertEquals( $t, c2c_ExpandableDashboardRecentComments::fix_multibyte_comment_excerpts( $t ) );
+		}
+	}
+
+	public function test_fix_multibyte_comment_excerpts_warranting_change() {
+		$this->assertEquals( '創於頭安片我樣外市第興強有輕注該仍也天筆國&hellip;', c2c_ExpandableDashboardRecentComments::fix_multibyte_comment_excerpts( '創於頭安片我樣外市第興強有輕注該仍也天筆國花門一' ) );
+	}
+
+	public function test_comment_excerpt_with_multibyte_comment() {
+		$text = '創於頭安片我樣外市第興強有輕注該仍也天筆國花門一。
+
+影沒跟流人在車教腦他近隨、的城一了是大？溫之速學引衣。不動第變答、三的。
+
+拿下產後國花門一下二是醫成一斷有產，護場好？科求回離流首就的的明會復題的不背！來一是導路你斷大代細機裡生似北好外然，女勢機雖可望是真。公升我被人微嗎來那提類好發些一民方示童，吃的受生展管產白關告強生長報來部所下之區位車電門計孩度皮報便去己教代，人沒也好中值：是難一動功者兒也客天二產絕方。因在的離民或見臺想草的示作更容學，技是公戲他講一到電雖離他腦是的水度？光操面吃血布和西少會女，天建的中上學到能人態白樹如爭方點有情的情片對？是義讓要把不時達回求國。自只滿省國往真專能了。大全入士已當人高；車本卻：製收的政民，層卻些意：照員里難國加是來以太顯樓推海化教，能車共其頭？聯有會，許研時對加像身家說性？華會會研，影些你長西軍和：一他算學料時今件不基是，我畫起；治神去小……多理機了科方覺草那重例力更金社，拉國史在集起程一陸。心去期但相如來見準汽我！世你金大了先客百不。造相術對如不你世畫一有！那大主來樣孩不；望一總王成；相生火足復天手香人圖件處魚一。父亞了樣的喜教生提才愛然吃要道足無，不社質，這造子成，存合子電喜場，魚子出法會、一度於生聽，做單的公角系考，故夠童響活？害地表是的分議候場新良就響能出這創音和制裡本古為市給的規送指裡，了服量聲始濟，手馬意高是土解代行歷層外，聯德假顧，古主人多、決是明奇講中認認常滿發軍難命但三。們雖這坡關送道是影由大初同太縣後我土當接，你流負酒：是林龍人地們者才於子動引看公買天地。友麼定……會西步……青手驚積';
+		$comment_id = $this->factory->comment->create( array( 'comment_approved' => '1', 'comment_content' => $text ) );
+		$GLOBALS['comment'] = get_comment( $comment_id );
+		$text = wpautop( $text );
+
+		$expected = <<<HTML
+			<div class='c2c_edrc'>
+				<div class='excerpt-{$comment_id}-short excerpt-short '>
+					創於頭安片我樣外市第興強有輕注該仍也天筆國&hellip;
+				</div>
+				<div class='excerpt-{$comment_id}-full excerpt-full c2c-edrc-hidden'>
+					{$text}
 					
 				</div>
 			</div>
