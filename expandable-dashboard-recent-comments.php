@@ -242,7 +242,7 @@ class c2c_ExpandableDashboardRecentComments {
 			$excerpt_short_class = $start_expanded ? 'c2c-edrc-hidden' : '';
 
 			$links = '';
-			if ( false == self::$_has_output_all_links ) {
+			if ( false === self::$_has_output_all_links ) {
 				// These links apply to the entire widget. Due to lack of hooks in WP, they
 				// are being embedded here with the intent of being relocated via JS.
 				$links .= '<ul class="subsubsub c2c_edrc_all">';
