@@ -12,6 +12,7 @@
 	* New: Add tests for `expandable_comment_excerpts()`
 	* New: Add test for the filter `c2c_expandable_dashboard_recent_comments_start_expanded`
     * Change: Remove unused test
+    * Change: Invoke plugin's `reset()` after every test
 * Change: Note compatibility through WP 5.3+
 * Change: Update copyright date (2020)
 
