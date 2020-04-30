@@ -22,15 +22,6 @@
  */
 
 /*
- * TODO:
- * - Move the Expand all/Collapse all links inside the existing subsubsub action list?
- * - Include count of how many comments would be affected by each of "Expand all"
- *   and "Collapse all".
- * - Add unit tests for the filter and currently-private functions
- * - Switch from using 'a' tag to maybe 'button'
- */
-
-/*
 	Copyright (c) 2009-2020 by Scott Reilly (aka coffee2code)
 
 	This program is free software; you can redistribute it and/or
