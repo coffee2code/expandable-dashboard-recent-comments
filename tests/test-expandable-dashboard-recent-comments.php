@@ -21,8 +21,6 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 		c2c_ExpandableDashboardRecentComments::reset();
 
 		unset( $GLOBALS['comment'] );
-
-		remove_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return_true' );
 	}
 
 
