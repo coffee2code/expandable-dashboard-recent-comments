@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.6
 Tested up to: 5.4
-Stable tag: 2.6
+Stable tag: 2.7
 
 Enables in-place expansion of excerpts in the admin dashboard 'Comments' section of the 'Activity' widget to view full comments.
 
@@ -87,6 +87,18 @@ add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return
 
 == Changelog ==
 
+= 2.7 (2020-04-30) =
+* New: Add count of comments that could be affected by either "Expand all" or "Collapse all" next to both link, respectively
+* New: Add TODO.md and move existing TODO list from top of main plugin file into it (and add more items to the list)
+* Change: Add more space between the expand/collapse down/up icons and their associated text
+* Unit tests:
+    * Fix: Fix typo in that an `add_action()` should be a `has_action()`
+    * Fix: Fix typo in unit test function name preventing it from being run as a unit test
+    * Change: Remove unnecessary `remove_filter()`
+* Change: Use HTTPS for link to WP SVN repository in bin script for configuring unit tests
+* Change: Note compatibility through WP 5.4+
+* Change: Update links to coffee2code.com to be HTTPS
+
 = 2.6 (2019-11-21) =
 * New: Handle comments containing multi-byte characters that may not have been excerpted by WordPress
 * New: Add `reset()` to reset plugin's internal state
@@ -111,20 +123,13 @@ add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return
 * Change: Note compatibility through WP 5.2+
 * Change: Split paragraph in README.md's "Support" section into two
 
-= 2.5.2 (2019-03-03) =
-* Fix: Ensure preceding up/down arrow for collapse/expand link does not get orphaned from the associated text
-* New: Add inline documentation for hooks
-* Change: Initialize plugin on 'plugins_loaded' action instead of on load
-* Change: Cast return value of filter 'c2c_expandable_dashboard_recent_comments_start_expanded' as boolean
-* Change: Rename readme.txt section from 'Filters' to 'Hooks'
-* Change: Note compatibility through WP 5.1+
-* Change: Update copyright date (2019)
-* Change: Update License URI to be HTTPS
-
 _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/expandable-dashboard-recent-comments/blob/master/CHANGELOG.md)._
 
 
 == Upgrade Notice ==
+
+= 2.7 =
+Minor update: Added counts of affected comments next to "Expand all" and "Collapse all" links, minor spacing tweak, fixed a couple of unit tests, switched some links to HTTPS, added TODO.md, and noted compatibility through WP 5.4+.
 
 = 2.6 =
 Minor update: improved handling for multi-byte characters, improved unit testing, other minor improvements, noted compatibility through WP 5.3+, and updated copyright date (2020)
