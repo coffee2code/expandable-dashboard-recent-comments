@@ -4,6 +4,7 @@
 * New: Add TODO.md and move existing TODO list from top of main plugin file into it (and add more items to the list)
 * Unit tests:
     * Fix: Fix typo in that an `add_action()` should be a `has_action()`
+    * Fix: Fix typo in unit test function name preventing it from being run as a unit test
     * Change: Remove unnecessary `remove_filter()`
 * Change: Use HTTPS for link to WP SVN repository in bin script for configuring unit tests
 * Change: Note compatibility through WP 5.4+

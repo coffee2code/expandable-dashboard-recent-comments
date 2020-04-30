@@ -151,7 +151,7 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 		$this->assertTrue( unittest_c2c_ExpandableDashboardRecentComments::is_comment_initially_expanded( $comment ) );
 	}
 
-	public function tests_is_text_excerpted() {
+	public function test_is_text_excerpted() {
 		$this->assertTrue( unittest_c2c_ExpandableDashboardRecentComments::is_text_excerpted( 'This is excerpted&hellip;' ) );
 		$this->assertFalse( unittest_c2c_ExpandableDashboardRecentComments::is_text_excerpted( 'This is not excerpted.' ) );
 	}
