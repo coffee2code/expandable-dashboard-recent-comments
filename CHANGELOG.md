@@ -1,6 +1,7 @@
 # Changelog
 
 ## _(in-progress)_
+* Change: Use HTTPS for link to WP SVN repository in bin script for configuring unit tests
 * Change: Update links to coffee2code.com to be HTTPS
 
 ## 2.6 _(2019-11-21)_
