@@ -1,5 +1,8 @@
 # Changelog
 
+## _(in-progress)_
+* Change: Update links to coffee2code.com to be HTTPS
+
 ## 2.6 _(2019-11-21)_
 * New: Handle comments containing multi-byte characters that may not have been excerpted by WordPress
 * New: Add `reset()` to reset plugin's internal state

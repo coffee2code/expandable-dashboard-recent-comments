@@ -21,7 +21,7 @@ This plugin adds a link at the end of the comment actions row (the links for the
 
 *NOTE:* This plugin only works for users who have JavaScript enabled.
 
-Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/expandable-dashboard-recent-comments/) | [Plugin Directory Page](https://wordpress.org/plugins/expandable-dashboard-recent-comments/) | [GitHub](https://github.com/coffee2code/expandable-dashboard-recent-comments/) | [Author Homepage](http://coffee2code.com)
+Links: [Plugin Homepage](https://coffee2code.com/wp-plugins/expandable-dashboard-recent-comments/) | [Plugin Directory Page](https://wordpress.org/plugins/expandable-dashboard-recent-comments/) | [GitHub](https://github.com/coffee2code/expandable-dashboard-recent-comments/) | [Author Homepage](https://coffee2code.com)
 
 
 == Installation ==
