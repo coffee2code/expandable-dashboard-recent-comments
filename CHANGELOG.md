@@ -1,6 +1,7 @@
 # Changelog
 
 ## _(in-progress)_
+* New: Add count of comments that could be affected by either "Expand all" or "Collapse all" next to both link, respectively
 * New: Add TODO.md and move existing TODO list from top of main plugin file into it (and add more items to the list)
 * Unit tests:
     * Fix: Fix typo in that an `add_action()` should be a `has_action()`

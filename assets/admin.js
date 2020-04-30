@@ -8,6 +8,8 @@ if (jQuery) {
 			var expanded  = $('#the-comment-list').find('.c2c_edrc_more.c2c-edrc-hidden');
 			var collapsed = $('#the-comment-list').find('.c2c_edrc_less.c2c-edrc-hidden');
 
+			const total_items = expanded.length + collapsed.length;
+
 			var more_all = $('.c2c_edrc_all').find('.c2c_edrc_more_all');
 			var less_all = $('.c2c_edrc_all').find('.c2c_edrc_less_all');
 
@@ -27,6 +29,9 @@ if (jQuery) {
 				more_all.addClass('c2c-edrc-all-active');
 				less_all.addClass('c2c-edrc-all-active');
 			}
+
+			more_all.find('.c2c_edrc_more_count').text( `(${collapsed.length})` );
+			less_all.find('.c2c_edrc_less_count').text( `(${expanded.length})` );
 		}
 
 		setGlobalControlsState();
@@ -54,6 +59,9 @@ if (jQuery) {
 				$(this).closest('.c2c_edrc_all').find('.c2c_edrc_less_all').removeClass('c2c-edrc-all-active')
 			}
 
+			// Determine if a global control should appear disabled and update counts.
+			setGlobalControlsState();
+
 			e.preventDefault();
 		});
 
@@ -67,6 +75,10 @@ if (jQuery) {
 				$(this).addClass('c2c-edrc-all-active');
 				$(this).closest('.c2c_edrc_all').find('.c2c_edrc_more_all').removeClass('c2c-edrc-all-active')
 			}
+
+			// Determine if a global control should appear disabled and update counts.
+			setGlobalControlsState();
+
 			e.preventDefault();
 		});
 	});

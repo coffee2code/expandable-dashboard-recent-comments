@@ -238,12 +238,12 @@ class c2c_ExpandableDashboardRecentComments {
 				// are being embedded here with the intent of being relocated via JS.
 				$links .= '<ul class="subsubsub c2c_edrc_all">';
 				$links .= sprintf(
-					'<li><a href="#" class="c2c_edrc_more_all hide-if-no-js" title="%s">%s</a> |</li>',
+					'<li><a href="#" class="c2c_edrc_more_all hide-if-no-js" title="%s">%s <span class="c2c_edrc_more_count"></span></a> |</li>',
 					esc_attr__( 'Show all comments in full', 'expandable-dashboard-recent-comments' ),
 					__( 'Expand all', 'expandable-dashboard-recent-comments' )
 				);
 				$links .= sprintf(
-					'<li><a href="#" class="c2c_edrc_less_all hide-if-no-js" title="%s">%s</a></li>',
+					'<li><a href="#" class="c2c_edrc_less_all hide-if-no-js" title="%s">%s <span class="c2c_edrc_less_count"></span></a></li>',
 					esc_attr__( 'Show all comments as excerpts', 'expandable-dashboard-recent-comments' ),
 					__( 'Collapse all', 'expandable-dashboard-recent-comments' )
 				);
