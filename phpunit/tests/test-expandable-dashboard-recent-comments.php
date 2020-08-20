@@ -182,11 +182,19 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 		$this->assertEquals( 10, has_action( 'get_comment_excerpt', array( 'c2c_ExpandableDashboardRecentComments', 'fix_multibyte_comment_excerpts' ) ) );
 	}
 
+	/*
+	 * is_comment_initially_expanded()
+	 */
+
 	public function test_is_comment_initially_expanded() {
 		$comment = $this->factory->comment->create( array( 'comment_approved' => '1' ) );
 
 		$this->assertFalse( unittest_c2c_ExpandableDashboardRecentComments::is_comment_initially_expanded( $comment ) );
 	}
+
+	/*
+	 * filter: c2c_expandable_dashboard_recent_comments_start_expanded
+	 */
 
 	public function test_filter_c2c_expandable_dashboard_recent_comments_start_expanded() {
 		add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return_true' );
@@ -196,10 +204,18 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 		$this->assertTrue( unittest_c2c_ExpandableDashboardRecentComments::is_comment_initially_expanded( $comment ) );
 	}
 
+	/*
+	 * is_text_excerpted()
+	 */
+
 	public function test_is_text_excerpted() {
 		$this->assertTrue( unittest_c2c_ExpandableDashboardRecentComments::is_text_excerpted( 'This is excerpted&hellip;' ) );
 		$this->assertFalse( unittest_c2c_ExpandableDashboardRecentComments::is_text_excerpted( 'This is not excerpted.' ) );
 	}
+
+	/*
+	 * expandable_comment_excerpts()
+	 */
 
 	public function test_expandable_comment_excerpts_does_not_change_non_truncated_excerpts() {
 		$text = 'This is a comment.';
@@ -219,6 +235,10 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 		$this->assertNotEquals( $text, $output );
 		$this->assertRegExp( "/<div class='c2c_edrc'>/", $output );
 	}
+
+	/*
+	 * Comment excerpts
+	 */
 
 	public function test_comment_excerpt_has_markup_for_expansion() {
 		$text = 'This is a longer comment that will exceed the number of words that are permitted for excerpts. As such, the excerpt generated for the comment will be a truncated version of the full comment.';
@@ -276,6 +296,10 @@ HTML;
 
 		comment_excerpt();
 	}
+
+	/*
+	 * fix_multibyte_comment_excerpts()
+	 */
 
 	public function test_fix_multibyte_comment_excerpts_warranting_no_change() {
 		$long_text = 'aaa bbb ccc ddd eee fff ggg hhh iii jjj kkk lll mmm nnn ooo ppp qqq rrr sss ttt uuu vvv www xxx yyy zzz';

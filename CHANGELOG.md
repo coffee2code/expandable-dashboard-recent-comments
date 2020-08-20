@@ -10,6 +10,7 @@
     * Change: Rename `phpunit.xml` to `phpunit.xml.dist` per best practices
 * Unit tests:
     * New: Add unit tests for `enqueue_admin_css()`, `enqueue_admin_js()`, `register_styles()`
+    * Change: Add comment separators to document test groupings
     * Change: Tweak code spacing
 * Change: Note compatibility through WP 5.5+
 
