@@ -15,7 +15,7 @@ Enables in-place expansion of excerpts in the admin dashboard 'Comments' section
 
 By default, the 'Comments' section of the 'Activity' admin dashboard widget only shows an excerpt for the comments, truncating the content of the comments to the first 20 words while at the same time stripping out all markup.
 
-This plugin adds a link at the end of the comment actions row (the links for the comment that become visible under the comment when you hover over the comment). The "Show more" link, when clicked, will replace the excerpt with the full comment. The full comment will include all markup, including originally utilized markup and changes applied via filters, plugins, etc (such as shortcode expansion, smilies, paragraphing, etc). The full comment can be switched back to the except by clicking the "Show less" link (which replaces the "Show more" link when the comment is expanded).
+This plugin adds a link at the end of the comment actions row (the links for the comment that become visible under the comment when you hover over the comment). The "Show more" link, when clicked, will replace the excerpt with the full comment. The full comment will include all markup, including originally utilized markup and changes applied via filters, plugins, etc (such as shortcode expansion, smilies, paragraphing, etc). The full comment can be switched back to the excerpt by clicking the "Show less" link (which replaces the "Show more" link when the comment is expanded).
 
 "In-place expansion" refers to the ability to click the link to see the full comment and it will be presented in place of the excerpt without requiring a page reload or navigation.
 
@@ -33,7 +33,7 @@ Links: [Plugin Homepage](https://coffee2code.com/wp-plugins/expandable-dashboard
 
 == Frequently Asked Questions ==
 
-= How do I expand an excepted comment? =
+= How do I expand an excerpted comment? =
 
 When you hover over the comment, a line of action links will appear (typically "Approve", "Reply", "Edit", "Spam", and "Trash"). If the comment has been automatically excerpted by WordPress, then a "Show more" link will appear. Click it to view the full comment.
 

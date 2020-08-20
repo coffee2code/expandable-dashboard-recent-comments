@@ -13,6 +13,7 @@
     * Change: Add comment separators to document test groupings
     * Change: Tweak code spacing
 * Change: Note compatibility through WP 5.5+
+* Change: Fix some typos in readme.txt
 
 ## 2.7 _(2020-04-30)_
 * New: Add count of comments that could be affected by either "Expand all" or "Collapse all" next to both link, respectively
