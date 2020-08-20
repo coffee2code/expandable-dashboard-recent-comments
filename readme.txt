@@ -43,7 +43,7 @@ The comment has not been been excerpted; you are already seeing the comment in i
 
 = Why don't I see the "Expand all" and "Collapse all" links at the bottom of the widget? =
 
-Assuming you are using a supported version of WordPress, this just means that none of the comments being listed have been excerpted, thus there is no need to be able to "Expand all" or "Collapse all" in this instance.
+Assuming you are using a supported version of WordPress and you have JavaScript enabled in your browser, this just means that none of the comments being listed have been excerpted, thus there is no need to be able to "Expand all" or "Collapse all" in this instance.
 
 = Why does either of the "Expand all" or "Collapse all" links appear grayed out? =
 
@@ -51,7 +51,11 @@ If all of the comments in the widget are currently collapsed, then the "Collapse
 
 = Can I make it so all comments initially appear fully expanded without needing to click the links to expand them? =
 
-Yes. Please see the "Hooks" section for documentation on the 'c2c_expandable_dashboard_recent_comments_start_expanded' filter which allows for this.
+Yes. Please see the "Hooks" section for documentation on the `c2c_expandable_dashboard_recent_comments_start_expanded` filter which allows for this.
+
+= Does this work if JavaScript has been disabled in my browser? =
+
+If JavaScript is disabled in a visitor's browser, then all of the expand/collapse links and behavior aren't enabled. But rest assured, there aren't any errors. Why not implement a fallback if JS is disabled? If you're going to click a link that causes a page reload to view the full comment, you might as well just click through to the comment.
 
 = Does this plugin include unit tests? =
 

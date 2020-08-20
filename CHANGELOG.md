@@ -13,6 +13,7 @@
     * Change: Add comment separators to document test groupings
     * Change: Tweak code spacing
 * Change: Note compatibility through WP 5.5+
+* Change: Supplement FAQ with info regarding behavior when JS is disabled
 * Change: Fix some typos in readme.txt
 
 ## 2.7 _(2020-04-30)_
