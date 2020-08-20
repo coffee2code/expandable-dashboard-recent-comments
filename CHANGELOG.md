@@ -1,5 +1,13 @@
 # Changelog
 
+## _(in-progress)_
+* Change: Restructure unit test file structure
+    * New: Create new subdirectory `phpunit/` to house all files related to unit testing
+    * Change: Move `bin/` to `phpunit/bin/`
+    * Change: Move `tests/bootstrap.php` to `phpunit/`
+    * Change: Move `tests/` to `phpunit/tests/`
+    * Change: Rename `phpunit.xml` to `phpunit.xml.dist` per best practices
+
 ## 2.7 _(2020-04-30)_
 * New: Add count of comments that could be affected by either "Expand all" or "Collapse all" next to both link, respectively
 * New: Add TODO.md and move existing TODO list from top of main plugin file into it (and add more items to the list)
