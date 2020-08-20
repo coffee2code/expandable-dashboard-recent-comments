@@ -183,7 +183,7 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 	}
 
 	public function test_is_comment_initially_expanded() {
-		$comment =  $this->factory->comment->create( array( 'comment_approved' => '1' ) );
+		$comment = $this->factory->comment->create( array( 'comment_approved' => '1' ) );
 
 		$this->assertFalse( unittest_c2c_ExpandableDashboardRecentComments::is_comment_initially_expanded( $comment ) );
 	}
@@ -191,7 +191,7 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 	public function test_filter_c2c_expandable_dashboard_recent_comments_start_expanded() {
 		add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return_true' );
 
-		$comment =  $this->factory->comment->create( array( 'comment_approved' => '1' ) );
+		$comment = $this->factory->comment->create( array( 'comment_approved' => '1' ) );
 
 		$this->assertTrue( unittest_c2c_ExpandableDashboardRecentComments::is_comment_initially_expanded( $comment ) );
 	}
