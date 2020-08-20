@@ -21,6 +21,11 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 		c2c_ExpandableDashboardRecentComments::reset();
 
 		unset( $GLOBALS['comment'] );
+
+		wp_deregister_style( 'c2c_ExpandableDashboardRecentComments' );
+		wp_dequeue_style( 'c2c_ExpandableDashboardRecentComments' );
+		wp_deregister_script( 'c2c_ExpandableDashboardRecentComments' );
+		wp_dequeue_script( 'c2c_ExpandableDashboardRecentComments' );
 	}
 
 
@@ -101,6 +106,46 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 
 	public function test_admin_not_hooks_action_get_comment_excerpt() {
 		$this->assertFalse( has_action( 'get_comment_excerpt', array( 'c2c_ExpandableDashboardRecentComments', 'fix_multibyte_comment_excerpts' ) ) );
+	}
+
+	/*
+	 * register_styles()
+	 */
+
+	public function test_register_styles() {
+		$this->assertFalse( wp_style_is( 'c2c_ExpandableDashboardRecentComments', 'registered' ) );
+		$this->assertFalse( wp_style_is( 'c2c_ExpandableDashboardRecentComments', 'enqueued' ) );
+
+		c2c_ExpandableDashboardRecentComments::register_styles();
+
+		$this->assertTrue( wp_style_is( 'c2c_ExpandableDashboardRecentComments', 'registered' ) );
+		$this->assertFalse( wp_style_is( 'c2c_ExpandableDashboardRecentComments', 'enqueued' ) );
+	}
+
+	/*
+	 * enqueue_admin_css()
+	 */
+
+	public function test_enqueue_admin_css() {
+		$this->test_register_styles();
+
+		c2c_ExpandableDashboardRecentComments::enqueue_admin_css();
+
+		$this->assertTrue( wp_style_is( 'c2c_ExpandableDashboardRecentComments', 'enqueued' ) );
+	}
+
+	/*
+	 * enqueue_admin_js()
+	 */
+
+	 public function test_enqueue_admin_js() {
+		$this->assertFalse( wp_script_is( 'c2c_ExpandableDashboardRecentComments', 'registered' ) );
+		$this->assertFalse( wp_script_is( 'c2c_ExpandableDashboardRecentComments', 'enqueued' ) );
+
+		c2c_ExpandableDashboardRecentComments::enqueue_admin_js();
+
+		$this->assertTrue( wp_script_is( 'c2c_ExpandableDashboardRecentComments', 'registered' ) );
+		$this->assertTrue( wp_script_is( 'c2c_ExpandableDashboardRecentComments', 'enqueued' ) );
 	}
 
 	//

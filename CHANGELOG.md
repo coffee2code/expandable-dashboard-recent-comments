@@ -8,6 +8,8 @@
     * Change: Move `tests/bootstrap.php` to `phpunit/`
     * Change: Move `tests/` to `phpunit/tests/`
     * Change: Rename `phpunit.xml` to `phpunit.xml.dist` per best practices
+* Unit tests:
+    * New: Add unit tests for `enqueue_admin_css()`, `enqueue_admin_js()`, `register_styles()`
 * Change: Note compatibility through WP 5.5+
 
 ## 2.7 _(2020-04-30)_
