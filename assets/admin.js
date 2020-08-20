@@ -1,17 +1,16 @@
 if (jQuery) {
 	jQuery(document).ready(function($) {
 		// Move the expand/collapse all links outside of an individual comment and to bottom of widget
-		var append_to = '#latest-comments';
-		$('.c2c_edrc_all').detach().appendTo(append_to).show();
+		$('.c2c_edrc_all').detach().appendTo('#latest-comments').show();
 
 		function setGlobalControlsState() {
-			var expanded  = $('#the-comment-list').find('.c2c_edrc_more.c2c-edrc-hidden');
-			var collapsed = $('#the-comment-list').find('.c2c_edrc_less.c2c-edrc-hidden');
+			const expanded  = $('#the-comment-list').find('.c2c_edrc_more.c2c-edrc-hidden');
+			const collapsed = $('#the-comment-list').find('.c2c_edrc_less.c2c-edrc-hidden');
 
 			const total_items = expanded.length + collapsed.length;
 
-			var more_all = $('.c2c_edrc_all').find('.c2c_edrc_more_all');
-			var less_all = $('.c2c_edrc_all').find('.c2c_edrc_less_all');
+			const more_all = $('.c2c_edrc_all').find('.c2c_edrc_more_all');
+			const less_all = $('.c2c_edrc_all').find('.c2c_edrc_less_all');
 
 			// Unset both of the links from being active.
 			more_all.removeClass('c2c-edrc-all-active');
