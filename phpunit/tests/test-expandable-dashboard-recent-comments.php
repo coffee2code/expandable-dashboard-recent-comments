@@ -10,6 +10,10 @@ class unittest_c2c_ExpandableDashboardRecentComments extends c2c_ExpandableDashb
 	public static function is_text_excerpted( $text ) {
 		return parent::is_text_excerpted( $text );
 	}
+
+	public static function get_comment_class( $comment_id = null ) {
+		return parent::get_comment_class( $comment_id );
+	}
 }
 
 
@@ -246,6 +250,29 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 		$expected = array( 'action1', 'action2', $links );
 
 		$this->assertEquals( $expected, c2c_ExpandableDashboardRecentComments::comment_row_action( array( 'action1', 'action2' ), $comment ) );
+	}
+
+	/*
+	 * get_comment_class()
+	 */
+
+	public function test_get_comment_class() {
+		$comment_id = $this->factory->comment->create( array( 'comment_approved' => '1', 'comment_content' => 'Short comment.' ) );
+
+		$this->assertEquals( "excerpt-{$comment_id}", unittest_c2c_ExpandableDashboardRecentComments::get_comment_class( $comment_id ) );
+	}
+
+	public function test_get_comment_class_for_global_comment() {
+		global $comment;
+		$comment = $this->factory->comment->create_and_get( array( 'comment_approved' => '1', 'comment_content' => 'Short comment.' ) );
+
+		$this->assertEquals( "excerpt-{$comment->comment_ID}", unittest_c2c_ExpandableDashboardRecentComments::get_comment_class() );
+
+		unset( $GLOBALS['comment'] );
+	}
+
+	public function test_get_comment_class_for_unknown_comment() {
+		$this->assertEmpty( unittest_c2c_ExpandableDashboardRecentComments::get_comment_class() );
 	}
 
 	/*
