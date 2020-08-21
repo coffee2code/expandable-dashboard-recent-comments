@@ -14,6 +14,7 @@
     * Change: Rename `phpunit.xml` to `phpunit.xml.dist` per best practices
 * Unit tests:
     * New: Add unit tests for `comment_row_action()`, `enqueue_admin_css()`, `enqueue_admin_js()`, `get_comment_class()`, `register_styles()`
+    * New: Add another unit test for `c2c_expandable_dashboard_recent_comments_start_expanded` filter
     * Change: Add comment separators to document test groupings
     * Change: Tweak code spacing
 * Change: Note compatibility through WP 5.5+

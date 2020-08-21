@@ -208,6 +208,14 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 		$this->assertTrue( unittest_c2c_ExpandableDashboardRecentComments::is_comment_initially_expanded( $comment ) );
 	}
 
+	public function test_filter_c2c_expandable_dashboard_recent_comments_start_collapsed() {
+		add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return_false' );
+
+		$comment = $this->factory->comment->create( array( 'comment_approved' => '1' ) );
+
+		$this->assertFalse( unittest_c2c_ExpandableDashboardRecentComments::is_comment_initially_expanded( $comment ) );
+	}
+
 	/*
 	 * is_text_excerpted()
 	 */
