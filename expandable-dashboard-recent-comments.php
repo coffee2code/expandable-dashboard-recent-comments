@@ -213,7 +213,8 @@ class c2c_ExpandableDashboardRecentComments {
 				$comment_id = $comment->comment_ID;
 			}
 		}
-		return "excerpt-$comment_id";
+
+		return $comment_id ? "excerpt-{$comment_id}" : '';
 	}
 
 	/**
