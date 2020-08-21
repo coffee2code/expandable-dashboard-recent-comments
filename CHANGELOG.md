@@ -2,6 +2,7 @@
 
 ## _(in-progress)_
 * Change: Rewrite JavaScript into vanilla JS and away from using jQuery
+* Change: Prevent edgecase error in `get_comment_class()` by verifying global comment is an actual comment object before use
 * Fix: Remove stray double-quote from comment row markup
 * Change: Restructure unit test file structure
     * New: Create new subdirectory `phpunit/` to house all files related to unit testing

@@ -209,7 +209,9 @@ class c2c_ExpandableDashboardRecentComments {
 	private static function get_comment_class( $comment_id = null ) {
 		if ( ! $comment_id ) {
 			global $comment;
-			$comment_id = $comment->comment_ID;
+			if ( $comment instanceof WP_Comment ) {
+				$comment_id = $comment->comment_ID;
+			}
 		}
 		return "excerpt-$comment_id";
 	}
