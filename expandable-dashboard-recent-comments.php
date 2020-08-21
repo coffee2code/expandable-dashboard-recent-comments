@@ -123,7 +123,7 @@ class c2c_ExpandableDashboardRecentComments {
 	 * @since 2.0
 	 */
 	public static function enqueue_admin_js() {
-		wp_enqueue_script( __CLASS__, plugins_url( 'assets/admin.js', __FILE__ ), array( 'jquery' ), self::version(), true );
+		wp_enqueue_script( __CLASS__, plugins_url( 'assets/admin.js', __FILE__ ), array(), self::version(), true );
 	}
 
 	/**

@@ -1,84 +1,98 @@
-if (jQuery) {
-	jQuery(document).ready(function($) {
-		// Move the expand/collapse all links outside of an individual comment and to bottom of widget
-		$('.c2c_edrc_all').detach().appendTo('#latest-comments').show();
+window.onload = function() {
+	// Move the expand/collapse all links outside of an individual comment and to bottom of widget
+	const edrc_all = document.querySelector('.c2c_edrc_all');
+	document.querySelector('#latest-comments').insertAdjacentElement('afterend', edrc_all);
+	edrc_all.style.display = 'block';
 
-		function setGlobalControlsState() {
-			const expanded  = $('#the-comment-list').find('.c2c_edrc_more.c2c-edrc-hidden');
-			const collapsed = $('#the-comment-list').find('.c2c_edrc_less.c2c-edrc-hidden');
+	function setGlobalControlsState() {
+		const expanded  = document.querySelectorAll('#the-comment-list .c2c_edrc_more.c2c-edrc-hidden');
+		const collapsed = document.querySelectorAll('#the-comment-list .c2c_edrc_less.c2c-edrc-hidden');
 
-			const total_items = expanded.length + collapsed.length;
+		const total_items = expanded.length + collapsed.length;
 
-			const more_all = $('.c2c_edrc_all').find('.c2c_edrc_more_all');
-			const less_all = $('.c2c_edrc_all').find('.c2c_edrc_less_all');
+		const more_all = document.querySelector('.c2c_edrc_all .c2c_edrc_more_all');
+		const less_all = document.querySelector('.c2c_edrc_all .c2c_edrc_less_all');
 
-			// Unset both of the links from being active.
-			more_all.removeClass('c2c-edrc-all-active');
-			less_all.removeClass('c2c-edrc-all-active');
+		// Unset both of the links from being active.
+		more_all.classList.remove('c2c-edrc-all-active');
+		less_all.classList.remove('c2c-edrc-all-active');
 
-			// Determine if either or both links should appear disabled (due to no
-			// comment to be able to affect in its way).
-			if ( expanded.length && ! collapsed.length ) {
-				more_all.addClass('c2c-edrc-all-active');
-			}
-			else if ( ! expanded.length && collapsed.length ) {
-				less_all.addClass('c2c-edrc-all-active');
-			}
-			else if ( ! expanded.length && ! collapsed.length ) {
-				more_all.addClass('c2c-edrc-all-active');
-				less_all.addClass('c2c-edrc-all-active');
-			}
-
-			more_all.find('.c2c_edrc_more_count').text( `(${collapsed.length})` );
-			less_all.find('.c2c_edrc_less_count').text( `(${expanded.length})` );
+		// Determine if either or both links should appear disabled (due to no
+		// comment to be able to affect in its way).
+		if ( expanded.length && ! collapsed.length ) {
+			more_all.classList.add('c2c-edrc-all-active');
+		}
+		else if ( ! expanded.length && collapsed.length ) {
+			less_all.classList.add('c2c-edrc-all-active');
+		}
+		else if ( ! expanded.length && ! collapsed.length ) {
+			more_all.classList.add('c2c-edrc-all-active');
+			less_all.classList.add('c2c-edrc-all-active');
 		}
 
+		more_all.querySelector('.c2c_edrc_more_count').textContent = `(${collapsed.length})`;
+		less_all.querySelector('.c2c_edrc_less_count').textContent = `(${expanded.length})`;
+	}
+
+	setGlobalControlsState();
+
+	// Handle click of link to toggle excerpt/full for individual comment
+	function toggleEDRC(e) {
+		e.currentTarget.closest('.dashboard-comment-wrap')
+			.querySelectorAll('div.excerpt-short, div.excerpt-full, .c2c_edrc_more, .c2c_edrc_less')
+			.forEach( i => i.classList.toggle('c2c-edrc-hidden') );
+
+		// Determine if a global control should appear disabled.
 		setGlobalControlsState();
 
-		// Handle click of link to toggle excerpt/full for individual comment
-		$('.c2c_edrc_more, .c2c_edrc_less').click(function(e) {
-			$(this).closest('.dashboard-comment-wrap')
-				.find('div.excerpt-short, div.excerpt-full, .c2c_edrc_more, .c2c_edrc_less')
-				.toggleClass('c2c-edrc-hidden');
+		e.preventDefault();
+	}
+	document.querySelectorAll('.c2c_edrc_more').forEach( i => i.addEventListener('click', toggleEDRC) );
+	document.querySelectorAll('.c2c_edrc_less').forEach( i => i.addEventListener('click', toggleEDRC) );
 
-			// Determine if a global control should appear disabled.
-			setGlobalControlsState();
+	// Handle click of link to expand all excerpted comments
+	document.querySelector('.c2c_edrc_more_all').addEventListener('click', e => {
+		if ( ! e.currentTarget.classList.contains('c2c-edrc-all-active') ) {
+			e.currentTarget.closest('.inside')
+				.querySelectorAll('div.excerpt-short, .c2c_edrc_more')
+				.forEach( i => i.classList.add('c2c-edrc-hidden') );
+			e.currentTarget.closest('.inside')
+				.querySelectorAll('div.excerpt-full, .c2c_edrc_less')
+				.forEach( i => i.classList.remove('c2c-edrc-hidden') );
 
-			e.preventDefault();
-		});
+			// Switch which global control should appear disabled.
+			e.currentTarget.classList.add('c2c-edrc-all-active');
+			e.currentTarget.closest('.c2c_edrc_all')
+				.querySelector('.c2c_edrc_less_all')
+				.classList.remove('c2c-edrc-all-active')
+		}
 
-		// Handle click of link to expand all excerpted comments
-		$('.c2c_edrc_more_all').click(function(e) {
-			if ( ! $(this).hasClass('c2c-edrc-all-active') ) {
-				$(this).closest('.inside').find('div.excerpt-short, .c2c_edrc_more').addClass('c2c-edrc-hidden');
-				$(this).closest('.inside').find('div.excerpt-full, .c2c_edrc_less').removeClass('c2c-edrc-hidden');
+		// Determine if a global control should appear disabled and update counts.
+		setGlobalControlsState();
 
-				// Switch which global control should appear disabled.
-				$(this).addClass('c2c-edrc-all-active');
-				$(this).closest('.c2c_edrc_all').find('.c2c_edrc_less_all').removeClass('c2c-edrc-all-active')
-			}
+		e.preventDefault();
+	});
 
-			// Determine if a global control should appear disabled and update counts.
-			setGlobalControlsState();
+	// Handle click of link to excerpt all expanded comments
+	document.querySelector('.c2c_edrc_less_all').addEventListener('click', e => {
+		if ( ! e.currentTarget.classList.contains('c2c-edrc-all-active') ) {
+			e.currentTarget.closest('.inside')
+				.querySelectorAll('div.excerpt-short, .c2c_edrc_more')
+				.forEach( i => i.classList.remove('c2c-edrc-hidden') );
+			e.currentTarget.closest('.inside')
+				.querySelectorAll('div.excerpt-full, .c2c_edrc_less')
+				.forEach( i => i.classList.add('c2c-edrc-hidden') );
 
-			e.preventDefault();
-		});
+			// Switch which global control should appear disabled.
+			e.currentTarget.classList.add('c2c-edrc-all-active');
+			e.currentTarget.closest('.c2c_edrc_all')
+				.querySelector('.c2c_edrc_more_all')
+				.classList.remove('c2c-edrc-all-active')
+		}
 
-		// Handle click of link to excerpt all expanded comments
-		$('.c2c_edrc_less_all').click(function(e) {
-			if ( ! $(this).hasClass('c2c-edrc-all-active') ) {
-				$(this).closest('.inside').find('div.excerpt-short, .c2c_edrc_more').removeClass('c2c-edrc-hidden');
-				$(this).closest('.inside').find('div.excerpt-full, .c2c_edrc_less').addClass('c2c-edrc-hidden');
+		// Determine if a global control should appear disabled and update counts.
+		setGlobalControlsState();
 
-				// Switch which global control should appear disabled.
-				$(this).addClass('c2c-edrc-all-active');
-				$(this).closest('.c2c_edrc_all').find('.c2c_edrc_more_all').removeClass('c2c-edrc-all-active')
-			}
-
-			// Determine if a global control should appear disabled and update counts.
-			setGlobalControlsState();
-
-			e.preventDefault();
-		});
+		e.preventDefault();
 	});
 }

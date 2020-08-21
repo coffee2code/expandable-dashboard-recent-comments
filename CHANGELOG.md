@@ -1,7 +1,7 @@
 # Changelog
 
 ## _(in-progress)_
-* Change: Tweak JavaScript code syntax
+* Change: Rewrite JavaScript into vanilla JS and away from using jQuery
 * Change: Restructure unit test file structure
     * New: Create new subdirectory `phpunit/` to house all files related to unit testing
     * Change: Move `bin/` to `phpunit/bin/`
