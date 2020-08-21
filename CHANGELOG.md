@@ -2,6 +2,7 @@
 
 ## _(in-progress)_
 * Change: Rewrite JavaScript into vanilla JS and away from using jQuery
+* Fix: Remove stray double-quote from comment row markup
 * Change: Restructure unit test file structure
     * New: Create new subdirectory `phpunit/` to house all files related to unit testing
     * Change: Move `bin/` to `phpunit/bin/`

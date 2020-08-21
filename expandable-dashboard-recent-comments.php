@@ -177,7 +177,7 @@ class c2c_ExpandableDashboardRecentComments {
 
 		$start_expanded = self::is_comment_initially_expanded( $comment );
 		$excerpt_full_class  = $start_expanded ? 'c2c-edrc-hidden' : '';
-		$excerpt_short_class = $start_expanded ? '' : 'c2c-edrc-hidden"';
+		$excerpt_short_class = $start_expanded ? '' : 'c2c-edrc-hidden';
 
 		// Only show the action links if the comment was excerpted
 		if ( self::is_text_excerpted( $excerpt ) ) {
