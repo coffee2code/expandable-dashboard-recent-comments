@@ -17,6 +17,7 @@
     * Change: Add comment separators to document test groupings
     * Change: Tweak code spacing
 * Change: Note compatibility through WP 5.5+
+* Change: Change `get_comments_class()` from `private` to `protected` to facilitate unit testing
 * Change: Supplement FAQ with info regarding behavior when JS is disabled
 * Change: Fix some typos in readme.txt
 

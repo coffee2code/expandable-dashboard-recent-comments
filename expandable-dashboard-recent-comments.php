@@ -201,12 +201,14 @@ class c2c_ExpandableDashboardRecentComments {
 	/**
 	 * Returns class name to be used for specific comment.
 	 *
+	 * @access protected
 	 * @since 1.3
+	 * @since 2.8 Changed from private to protected.
 	 *
 	 * @param  int|string|null $comment_id The comment ID (or null to get the ID for the current comment).
 	 * @return string                      The class.
 	 */
-	private static function get_comment_class( $comment_id = null ) {
+	protected static function get_comment_class( $comment_id = null ) {
 		if ( ! $comment_id ) {
 			global $comment;
 			if ( $comment instanceof WP_Comment ) {
