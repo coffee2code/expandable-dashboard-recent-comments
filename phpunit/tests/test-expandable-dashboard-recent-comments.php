@@ -214,6 +214,41 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 	}
 
 	/*
+	 * comment_row_action()
+	 */
+
+	public function test_comment_row_action_for_non_excerpted_comment() {
+		$comment = $this->factory->comment->create_and_get( array( 'comment_approved' => '1', 'comment_content' => 'Short comment.' ) );
+
+		$expected = array( 'action1', 'action2' );
+
+		$this->assertEquals( $expected, c2c_ExpandableDashboardRecentComments::comment_row_action( $expected, $comment ) );
+	}
+
+	public function test_comment_row_action_for_excerpted_comment() {
+		$text = 'This is a longer comment that will exceed the number of words that are permitted for excerpts. As such, the excerpt generated for the comment will be a truncated version of the full comment.';
+		$comment = $this->factory->comment->create_and_get( array( 'comment_approved' => '1', 'comment_content' => $text ) );
+
+		$links = '<a href="#" class="c2c_edrc_more hide-if-no-js " title="Show full comment">Show more</a>'
+			. '<a href="#" class="c2c_edrc_less hide-if-no-js c2c-edrc-hidden" title="Show excerpt">Show less</a>';
+		$expected = array( 'action1', 'action2', $links );
+
+		$this->assertEquals( $expected, c2c_ExpandableDashboardRecentComments::comment_row_action( array( 'action1', 'action2' ), $comment ) );
+	}
+
+	public function test_comment_row_action_for_excerpted_comment_with_initial_expansion() {
+		add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return_true' );
+		$text = 'This is a longer comment that will exceed the number of words that are permitted for excerpts. As such, the excerpt generated for the comment will be a truncated version of the full comment.';
+		$comment = $this->factory->comment->create_and_get( array( 'comment_approved' => '1', 'comment_content' => $text ) );
+
+		$links = '<a href="#" class="c2c_edrc_more hide-if-no-js c2c-edrc-hidden" title="Show full comment">Show more</a>'
+			. '<a href="#" class="c2c_edrc_less hide-if-no-js " title="Show excerpt">Show less</a>';
+		$expected = array( 'action1', 'action2', $links );
+
+		$this->assertEquals( $expected, c2c_ExpandableDashboardRecentComments::comment_row_action( array( 'action1', 'action2' ), $comment ) );
+	}
+
+	/*
 	 * expandable_comment_excerpts()
 	 */
 
