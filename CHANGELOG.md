@@ -1,6 +1,13 @@
 # Changelog
 
-## _(in-progress)_
+## 2.8 _(2020-08-21)_
+
+### Highlights:
+
+This minor update features a rewrite of the JavaScript to use vanilla JS instead of jQuery, improves handling of some unlikely edgecase situations, restructures the unit test file structure, and notes compatibility through WP 5.5+.
+
+### Details:
+
 * Change: Rewrite JavaScript into vanilla JS and away from using jQuery
 * Change: Prevent edgecase issues with `get_comment_class()`
     * Verify global comment is an actual comment object before use
