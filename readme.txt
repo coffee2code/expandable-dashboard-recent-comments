@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.6
 Tested up to: 5.7
-Stable tag: 2.8
+Stable tag: 2.8.1
 
 Enables in-place expansion of excerpts in the admin dashboard 'Comments' section of the 'Activity' widget to view full comments.
 
@@ -91,6 +91,11 @@ add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return
 
 == Changelog ==
 
+= 2.8.1 (2021-04-10) =
+* Change: Escape text used in markup attributes (hardening)
+* Change: Note compatibility through WP 5.7+
+* Change: Update copyright date (2021)
+
 = 2.8 (2020-08-21) =
 Highlights:
 
@@ -131,26 +136,13 @@ Details:
 * Change: Note compatibility through WP 5.4+
 * Change: Update links to coffee2code.com to be HTTPS
 
-= 2.6 (2019-11-21) =
-* New: Handle comments containing multi-byte characters that may not have been excerpted by WordPress
-* New: Add `reset()` to reset plugin's internal state
-* Change: Don't memoize value for if comment should appear initially expanded since it may vary based on comment
-* Change: Switch `is_comment_initially_expanded()` and `is_text_excerpted()` from private to protected to facilitate unit testing
-* Unit tests:
-    * New: Add tests for admin dashboard comment excerpts
-    * New: Add tests for `is_comment_initially_expanded()`
-    * New: Add tests for `is_text_excerpted()`
-    * New: Add tests for `expandable_comment_excerpts()`
-    * New: Add test for the filter `c2c_expandable_dashboard_recent_comments_start_expanded`
-    * Change: Remove unused test
-    * Change: Invoke plugin's `reset()` after every test
-* Change: Note compatibility through WP 5.3+
-* Change: Update copyright date (2020)
-
 _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/expandable-dashboard-recent-comments/blob/master/CHANGELOG.md)._
 
 
 == Upgrade Notice ==
+
+= 2.8.1 =
+Trivial update: minor hardening, noted compatibility through WP 5.7+, and updated copyright date (2021)
 
 = 2.8 =
 Minor update: rewrote JavaScript to use vanilla JS instead of jQuery, improved handling of some unlikely edgecase situations, restructured the unit test file structure, and noted compatibility through WP 5.5+.

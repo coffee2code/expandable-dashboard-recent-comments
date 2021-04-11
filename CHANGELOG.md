@@ -1,6 +1,6 @@
 # Changelog
 
-## _(in-progress)_
+## 2.8.1 _(2021-04-10)_
 * Change: Escape text used in markup attributes (hardening)
 * Change: Note compatibility through WP 5.7+
 * Change: Update copyright date (2021)
