@@ -183,13 +183,13 @@ class c2c_ExpandableDashboardRecentComments {
 		if ( self::is_text_excerpted( $excerpt ) ) {
 			$links = sprintf(
 				'<a href="#" class="c2c_edrc_more hide-if-no-js %s" title="%s">%s</a>',
-				$excerpt_full_class,
+				esc_attr( $excerpt_full_class ),
 				esc_attr__( 'Show full comment', 'expandable-dashboard-recent-comments' ),
 				__( 'Show more', 'expandable-dashboard-recent-comments' )
 			);
 			$links .= sprintf(
 				'<a href="#" class="c2c_edrc_less hide-if-no-js %s" title="%s">%s</a>',
-				$excerpt_short_class,
+				esc_attr( $excerpt_short_class ),
 				esc_attr__( 'Show excerpt', 'expandable-dashboard-recent-comments' ),
 				__( 'Show less', 'expandable-dashboard-recent-comments' )
 			);

@@ -1,6 +1,7 @@
 # Changelog
 
 ## _(in-progress)_
+* Change: Escape text used in markup attributes (hardening)
 * Change: Note compatibility through WP 5.7+
 * Change: Update copyright date (2021)
 
