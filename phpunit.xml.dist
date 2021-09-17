@@ -8,7 +8,7 @@
 	>
 	<testsuites>
 		<testsuite name="expandable-dashboard-recent-comments">
-			<directory prefix="test-" suffix=".php">./tests/phpunit/tests/</directory>
+			<directory suffix=".php">./tests/phpunit/tests/</directory>
 		</testsuite>
 	</testsuites>
 </phpunit>
