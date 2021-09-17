@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.6
 Tested up to: 5.8
-Stable tag: 2.8.1
+Stable tag: 2.8.2
 
 Enables in-place expansion of excerpts in the admin dashboard 'Comments' section of the 'Activity' widget to view full comments.
 
@@ -91,6 +91,16 @@ add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return
 
 == Changelog ==
 
+= 2.8.2 (2021-09-16) =
+* Change: Note compatibility through WP 5.8+
+* Unit tests:
+    * Change: Restructure unit test directories
+        * Change: Move `phpunit/` into `tests/`
+        * Change: Move `phpunit/bin` into `tests/`
+    * Change: Remove 'test-' prefix from unit test file
+    * Change: In bootstrap, store path to plugin file constant
+    * Change: In bootstrap, add backcompat for PHPUnit pre-v6.0
+
 = 2.8.1 (2021-04-10) =
 * Change: Escape text used in markup attributes (hardening)
 * Change: Note compatibility through WP 5.7+
@@ -124,22 +134,13 @@ Details:
 * Change: Supplement FAQ with info regarding behavior when JS is disabled
 * Change: Fix some typos in readme.txt
 
-= 2.7 (2020-04-30) =
-* New: Add count of comments that could be affected by either "Expand all" or "Collapse all" next to both link, respectively
-* New: Add TODO.md and move existing TODO list from top of main plugin file into it (and add more items to the list)
-* Change: Add more space between the expand/collapse down/up icons and their associated text
-* Unit tests:
-    * Fix: Fix typo in that an `add_action()` should be a `has_action()`
-    * Fix: Fix typo in unit test function name preventing it from being run as a unit test
-    * Change: Remove unnecessary `remove_filter()`
-* Change: Use HTTPS for link to WP SVN repository in bin script for configuring unit tests
-* Change: Note compatibility through WP 5.4+
-* Change: Update links to coffee2code.com to be HTTPS
-
 _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/expandable-dashboard-recent-comments/blob/master/CHANGELOG.md)._
 
 
 == Upgrade Notice ==
+
+= 2.8.2 =
+Trivial update: noted compatibility through WP 5.8+ and minor reorganization and tweaks to unit tests
 
 = 2.8.1 =
 Trivial update: minor hardening, noted compatibility through WP 5.7+, and updated copyright date (2021)
