@@ -6,6 +6,7 @@
     * Change: Restructure unit test directories
         * Change: Move `phpunit/` into `tests/`
         * Change: Move `phpunit/bin` into `tests/`
+    * Change: In bootstrap, store path to plugin file constant
 
 ## 2.8.1 _(2021-04-10)_
 * Change: Escape text used in markup attributes (hardening)
