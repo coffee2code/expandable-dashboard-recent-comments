@@ -1,5 +1,8 @@
 # Changelog
 
+## _(in-progress)_
+* Change: Note compatibility through WP 6.6+
+
 ## 2.8.2 _(2021-09-16)_
 * Change: Note compatibility through WP 5.8+
 * Unit tests:
