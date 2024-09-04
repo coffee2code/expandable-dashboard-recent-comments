@@ -142,7 +142,7 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 	 * enqueue_admin_js()
 	 */
 
-	 public function test_enqueue_admin_js() {
+	public function test_enqueue_admin_js() {
 		$this->assertFalse( wp_script_is( 'c2c_ExpandableDashboardRecentComments', 'registered' ) );
 		$this->assertFalse( wp_script_is( 'c2c_ExpandableDashboardRecentComments', 'enqueued' ) );
 
@@ -150,6 +150,14 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 
 		$this->assertTrue( wp_script_is( 'c2c_ExpandableDashboardRecentComments', 'registered' ) );
 		$this->assertTrue( wp_script_is( 'c2c_ExpandableDashboardRecentComments', 'enqueued' ) );
+	}
+
+	/*
+	 * Constant: ELLIPSIS
+	 */
+
+	public function test_ellipsis_constant() {
+		$this->assertEquals( '&hellip;', c2c_ExpandableDashboardRecentComments::ELLIPSIS );
 	}
 
 	//

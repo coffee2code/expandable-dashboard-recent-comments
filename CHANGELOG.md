@@ -1,6 +1,7 @@
 # Changelog
 
 ## _(in-progress)_
+* Change: Add ELLIPSIS constant for ellipsis string and use it rather than harcoding string in various places
 * Change: Prevent translations from containing unintended markup
 * Change: Note compatibility through WP 6.6+
 * Change: Update copyright date (2024)

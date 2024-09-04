@@ -45,6 +45,16 @@ if ( ! class_exists( 'c2c_ExpandableDashboardRecentComments' ) ) :
 
 class c2c_ExpandableDashboardRecentComments {
 	/**
+	 * The string used to represent an ellipsis.
+	 *
+	 * This is used by core and shouldn't be changed.
+	 *
+	 * @since 2.9
+	 * @var string
+	 */
+	const ELLIPSIS = '&hellip;';
+
+	/**
 	 * Memoized state indicating if there is need to putput links for controls
 	 * for multiple comments.
 	 *
@@ -160,7 +170,7 @@ class c2c_ExpandableDashboardRecentComments {
 	 * @return bool
 	 */
 	protected static function is_text_excerpted( $text ) {
-		return ( substr( $text, -8 ) === '&hellip;' );
+		return ( substr( $text, -8 ) === self::ELLIPSIS );
 	}
 
 	/**
@@ -228,7 +238,6 @@ class c2c_ExpandableDashboardRecentComments {
 	public static function expandable_comment_excerpts( $excerpt ) {
 		global $comment;
 		if ( self::is_text_excerpted( $excerpt ) ) {
-			$replace = '&hellip;';
 			/** This filter documented in wp-includes/comment-template.php */
 			$body    = apply_filters( 'comment_text', apply_filters( 'get_comment_text', $comment->comment_content ), '40' );
 			$class   = self::get_comment_class( $comment->comment_ID );
@@ -269,7 +278,7 @@ class c2c_ExpandableDashboardRecentComments {
 
 HTML;
 
-			$excerpt = preg_replace( '/' . preg_quote( $replace ) . '$/', $excerpt, $extended );
+			$excerpt = preg_replace( '/' . preg_quote( self::ELLIPSIS ) . '$/', $excerpt, $extended );
 		}
 
 		return $excerpt;
@@ -308,7 +317,7 @@ HTML;
 			$excerpt = implode( '', $words_array );
 
 			if ( $char_count > $comment_excerpt_length ) {
-				$excerpt .= '&hellip;';
+				$excerpt .= self::ELLIPSIS;
 			}
 		}
 
