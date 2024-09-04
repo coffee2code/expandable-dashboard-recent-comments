@@ -7,7 +7,10 @@
 * Change: Reduce number of 'Tags' from `readme.txt`
 * Change: Tweak text formatting in `README.md`
 * Unit tests:
+    * Allow tests to run against current versions of WordPress
+    * New: Add `composer.json` for PHPUnit Polyfill dependency
     * Change: In bootstrap, store path to plugin directory in a constant
+    * Change: Prevent PHP warnings due to missing core-related generated files
 
 ## 2.8.2 _(2021-09-16)_
 * Change: Note compatibility through WP 5.8+
