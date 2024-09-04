@@ -331,7 +331,7 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 				<div class='excerpt-{$comment_id}-full excerpt-full c2c-edrc-hidden'>
 					<p>{$text}</p>
 
-					<ul class="subsubsub c2c_edrc_all"><li><a href="#" class="c2c_edrc_more_all hide-if-no-js" title="Show all comments in full">Expand all <span class="c2c_edrc_more_count"></span></a> |</li><li><a href="#" class="c2c_edrc_less_all hide-if-no-js" title="Show all comments as excerpts">Collapse all <span class="c2c_edrc_less_count"></span></a></li></ul>
+					<ul class="subsubsub c2c_edrc_all"><li><a href="#" class="c2c_edrc_more_all hide-if-no-js" title="Show all comments in full">Expand all <span class="count c2c_edrc_more_count"></span></a> |</li><li><a href="#" class="c2c_edrc_less_all hide-if-no-js" title="Show all comments as excerpts">Collapse all <span class="count c2c_edrc_less_count"></span></a></li></ul>
 				</div>
 			</div>
 
@@ -415,7 +415,7 @@ HTML;
 				</div>
 				<div class='excerpt-{$comment_id}-full excerpt-full c2c-edrc-hidden'>
 					{$text}
-					<ul class="subsubsub c2c_edrc_all"><li><a href="#" class="c2c_edrc_more_all hide-if-no-js" title="Show all comments in full">Expand all <span class="c2c_edrc_more_count"></span></a> |</li><li><a href="#" class="c2c_edrc_less_all hide-if-no-js" title="Show all comments as excerpts">Collapse all <span class="c2c_edrc_less_count"></span></a></li></ul>
+					<ul class="subsubsub c2c_edrc_all"><li><a href="#" class="c2c_edrc_more_all hide-if-no-js" title="Show all comments in full">Expand all <span class="count c2c_edrc_more_count"></span></a> |</li><li><a href="#" class="c2c_edrc_less_all hide-if-no-js" title="Show all comments as excerpts">Collapse all <span class="count c2c_edrc_less_count"></span></a></li></ul>
 				</div>
 			</div>
 

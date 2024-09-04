@@ -37,6 +37,7 @@
 	box-shadow: none;
 }
 .c2c_edrc_less_all.c2c-edrc-all-active,
-.c2c_edrc_more_all.c2c-edrc-all-active {
+.c2c_edrc_more_all.c2c-edrc-all-active,
+#dashboard_activity .subsubsub .c2c-edrc-all-active .count {
 	color: #999;
 }
