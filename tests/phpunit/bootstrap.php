@@ -5,6 +5,9 @@
  * @package Expandable_Dashboard_Recent_Comments
  */
 
+// Prevent web access.
+( php_sapi_name() !== 'cli' ) && die();
+
 define( 'EXPANDABLE_DASHBOARD_RECENT_COMMENTS_PLUGIN_DIR',  dirname( __FILE__, 3 ) );
 define( 'EXPANDABLE_DASHBOARD_RECENT_COMMENTS_PLUGIN_FILE', EXPANDABLE_DASHBOARD_RECENT_COMMENTS_PLUGIN_DIR . '/expandable-dashboard-recent-comments.php' );
 
