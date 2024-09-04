@@ -6,6 +6,8 @@
 * Change: Remove development and testing-related files from release packaging
 * Change: Reduce number of 'Tags' from `readme.txt`
 * Change: Tweak text formatting in `README.md`
+* Unit tests:
+    * Change: In bootstrap, store path to plugin directory in a constant
 
 ## 2.8.2 _(2021-09-16)_
 * Change: Note compatibility through WP 5.8+

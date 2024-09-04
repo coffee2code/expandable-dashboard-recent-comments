@@ -5,7 +5,8 @@
  * @package Expandable_Dashboard_Recent_Comments
  */
 
-define( 'EXPANDABLE_DASHBOARD_RECENT_COMMENTS_PLUGIN_FILE', dirname( __FILE__, 3 ) . '/expandable-dashboard-recent-comments.php' );
+define( 'EXPANDABLE_DASHBOARD_RECENT_COMMENTS_PLUGIN_DIR',  dirname( __FILE__, 3 ) );
+define( 'EXPANDABLE_DASHBOARD_RECENT_COMMENTS_PLUGIN_FILE', EXPANDABLE_DASHBOARD_RECENT_COMMENTS_PLUGIN_DIR . '/expandable-dashboard-recent-comments.php' );
 
 ini_set( 'display_errors', 'on' );
 error_reporting( E_ALL );
