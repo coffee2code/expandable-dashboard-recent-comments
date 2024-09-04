@@ -188,17 +188,24 @@ class c2c_ExpandableDashboardRecentComments {
 		$start_expanded = self::is_comment_initially_expanded( $comment );
 		$excerpt_full_class  = $start_expanded ? 'c2c-edrc-hidden' : '';
 		$excerpt_short_class = $start_expanded ? '' : 'c2c-edrc-hidden';
+		$excerpt_short_hidden = $start_expanded ? 'true' : 'false';
+		$excerpt_long_hidden  = $start_expanded ? 'false' : 'true';
 
 		// Only show the action links if the comment was excerpted
 		if ( self::is_text_excerpted( $excerpt ) ) {
+			$comment_id = $comment->comment_ID;
 			$links = sprintf(
-				'<a href="#" class="c2c_edrc_more hide-if-no-js %s" title="%s">%s</a>',
+				'<a href="#" aria-controls="%s" aria-expanded="%s" class="c2c_edrc_more hide-if-no-js %s" title="%s">%s</a>',
+				esc_attr( "excerpt-full-{$comment_id}" ),
+				esc_attr( $excerpt_long_hidden ),
 				esc_attr( $excerpt_full_class ),
 				esc_attr__( 'Show full comment', 'expandable-dashboard-recent-comments' ),
 				esc_html__( 'Show more', 'expandable-dashboard-recent-comments' )
 			);
 			$links .= sprintf(
-				'<a href="#" class="c2c_edrc_less hide-if-no-js %s" title="%s">%s</a>',
+				'<a href="#" aria-controls="%s" aria-expanded="%s" class="c2c_edrc_less hide-if-no-js %s" title="%s">%s</a>',
+				esc_attr( "excerpt-short-{$comment_id}" ),
+				esc_attr( $excerpt_short_hidden ),
 				esc_attr( $excerpt_short_class ),
 				esc_attr__( 'Show excerpt', 'expandable-dashboard-recent-comments' ),
 				esc_html__( 'Show less', 'expandable-dashboard-recent-comments' )
@@ -240,11 +247,14 @@ class c2c_ExpandableDashboardRecentComments {
 		if ( self::is_text_excerpted( $excerpt ) ) {
 			/** This filter documented in wp-includes/comment-template.php */
 			$body    = apply_filters( 'comment_text', apply_filters( 'get_comment_text', $comment->comment_content ), '40' );
-			$class   = self::get_comment_class( $comment->comment_ID );
+			$comment_id = $comment->comment_ID;
+			$class      = self::get_comment_class( $comment_id );
 
 			$start_expanded = self::is_comment_initially_expanded( $comment );
 			$excerpt_full_class  = $start_expanded ? '' : 'c2c-edrc-hidden';
 			$excerpt_short_class = $start_expanded ? 'c2c-edrc-hidden' : '';
+			$excerpt_short_hidden = $start_expanded ? 'true' : 'false';
+			$excerpt_long_hidden  = $start_expanded ? 'false' : 'true';
 
 			$links = '';
 			if ( false === self::$_has_output_all_links ) {
@@ -252,12 +262,12 @@ class c2c_ExpandableDashboardRecentComments {
 				// are being embedded here with the intent of being relocated via JS.
 				$links .= '<ul class="subsubsub c2c_edrc_all">';
 				$links .= sprintf(
-					'<li><a href="#" class="c2c_edrc_more_all hide-if-no-js" title="%s">%s <span class="count c2c_edrc_more_count"></span></a> |</li>',
+					'<li><a href="#" aria-controls="the-comment-list" aria-expanded="true" class="c2c_edrc_more_all hide-if-no-js" title="%s">%s <span class="count c2c_edrc_more_count"></span></a> |</li>',
 					esc_attr__( 'Show all comments in full', 'expandable-dashboard-recent-comments' ),
 					esc_html__( 'Expand all', 'expandable-dashboard-recent-comments' )
 				);
 				$links .= sprintf(
-					'<li><a href="#" class="c2c_edrc_less_all hide-if-no-js" title="%s">%s <span class="count c2c_edrc_less_count"></span></a></li>',
+					'<li><a href="#" aria-controls="the-comment-list" aria-expanded="false" class="c2c_edrc_less_all hide-if-no-js" title="%s">%s <span class="count c2c_edrc_less_count"></span></a></li>',
 					esc_attr__( 'Show all comments as excerpts', 'expandable-dashboard-recent-comments' ),
 					esc_html__( 'Collapse all', 'expandable-dashboard-recent-comments' )
 				);
@@ -267,10 +277,10 @@ class c2c_ExpandableDashboardRecentComments {
 
 			$extended = <<<HTML
 			<div class='c2c_edrc'>
-				<div class='{$class}-short excerpt-short {$excerpt_short_class}'>
+				<div id="excerpt-short-{$comment_id}" class="{$class}-short excerpt-short {$excerpt_short_class}" aria-hidden="{$excerpt_short_hidden}">
 					$excerpt
 				</div>
-				<div class='{$class}-full excerpt-full {$excerpt_full_class}'>
+				<div id="excerpt-full-{$comment_id}" class="{$class}-full excerpt-full {$excerpt_full_class}" aria-hidden="{$excerpt_long_hidden}">
 					$body
 					$links
 				</div>

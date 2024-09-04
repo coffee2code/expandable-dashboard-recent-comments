@@ -40,7 +40,12 @@ window.onload = function() {
 	function toggleEDRC(e) {
 		e.currentTarget.closest('.dashboard-comment-wrap')
 			.querySelectorAll('div.excerpt-short, div.excerpt-full, .c2c_edrc_more, .c2c_edrc_less')
-			.forEach( i => i.classList.toggle('c2c-edrc-hidden') );
+			.forEach( i => {
+				i.classList.toggle('c2c-edrc-hidden');
+				const ariaExpanded = ! i.classList.contains('c2c-edrc-hidden');
+				i.setAttribute('aria-expanded', ariaExpanded ? 'true' : 'false');
+				i.setAttribute('aria-hidden', ariaExpanded ? 'false' : 'true' );
+			} );
 
 		// Determine if a global control should appear disabled.
 		setGlobalControlsState();
