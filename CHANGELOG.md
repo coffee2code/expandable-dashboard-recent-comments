@@ -4,6 +4,7 @@
 * New: Add ARIA attributes to improve accessibility
     * Add `aria-controls` and `aria-expanded` attributes to excerpt toggle links
     * Add `aria-hidden` attributes to comments excerpt and full `div`s as appropriate
+* Change: Move the "Collapse/Expand all" links to alongside the comment filter links rather than below
 * Change: Add 'count' class to the "Expand/Collapse All" links to match styling of WP admin
 * Change: Add ELLIPSIS constant for ellipsis string and use it rather than harcoding string in various places
 * Change: Prevent translations from containing unintended markup

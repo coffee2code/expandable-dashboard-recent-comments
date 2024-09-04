@@ -1,8 +1,7 @@
 window.onload = function() {
 	// Move the expand/collapse all links outside of an individual comment and to bottom of widget
-	const edrc_all = document.querySelector('.c2c_edrc_all');
-	document.querySelector('#latest-comments').insertAdjacentElement('afterend', edrc_all);
-	edrc_all.style.display = 'block';
+	const edrc_all = document.querySelectorAll('.c2c_edrc_all li');
+	edrc_all.forEach( i => document.querySelector('.subsubsub').insertAdjacentElement('beforeend', i) );
 
 	function setGlobalControlsState() {
 		const expanded  = document.querySelectorAll('#the-comment-list .c2c_edrc_more.c2c-edrc-hidden');
@@ -10,8 +9,8 @@ window.onload = function() {
 
 		const total_items = expanded.length + collapsed.length;
 
-		const more_all = document.querySelector('.c2c_edrc_all .c2c_edrc_more_all');
-		const less_all = document.querySelector('.c2c_edrc_all .c2c_edrc_less_all');
+		const more_all = document.querySelector('.c2c_edrc_more_all');
+		const less_all = document.querySelector('.c2c_edrc_less_all');
 
 		// Unset both of the links from being active.
 		more_all.classList.remove('c2c-edrc-all-active');
@@ -67,7 +66,7 @@ window.onload = function() {
 
 			// Switch which global control should appear disabled.
 			e.currentTarget.classList.add('c2c-edrc-all-active');
-			e.currentTarget.closest('.c2c_edrc_all')
+			e.currentTarget.closest('ul')
 				.querySelector('.c2c_edrc_less_all')
 				.classList.remove('c2c-edrc-all-active')
 		}
@@ -90,7 +89,7 @@ window.onload = function() {
 
 			// Switch which global control should appear disabled.
 			e.currentTarget.classList.add('c2c-edrc-all-active');
-			e.currentTarget.closest('.c2c_edrc_all')
+			e.currentTarget.closest('ul')
 				.querySelector('.c2c_edrc_more_all')
 				.classList.remove('c2c-edrc-all-active')
 		}
