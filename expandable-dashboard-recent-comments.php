@@ -185,13 +185,13 @@ class c2c_ExpandableDashboardRecentComments {
 				'<a href="#" class="c2c_edrc_more hide-if-no-js %s" title="%s">%s</a>',
 				esc_attr( $excerpt_full_class ),
 				esc_attr__( 'Show full comment', 'expandable-dashboard-recent-comments' ),
-				__( 'Show more', 'expandable-dashboard-recent-comments' )
+				esc_html__( 'Show more', 'expandable-dashboard-recent-comments' )
 			);
 			$links .= sprintf(
 				'<a href="#" class="c2c_edrc_less hide-if-no-js %s" title="%s">%s</a>',
 				esc_attr( $excerpt_short_class ),
 				esc_attr__( 'Show excerpt', 'expandable-dashboard-recent-comments' ),
-				__( 'Show less', 'expandable-dashboard-recent-comments' )
+				esc_html__( 'Show less', 'expandable-dashboard-recent-comments' )
 			);
 			$actions[] = $links;
 		}
@@ -245,12 +245,12 @@ class c2c_ExpandableDashboardRecentComments {
 				$links .= sprintf(
 					'<li><a href="#" class="c2c_edrc_more_all hide-if-no-js" title="%s">%s <span class="c2c_edrc_more_count"></span></a> |</li>',
 					esc_attr__( 'Show all comments in full', 'expandable-dashboard-recent-comments' ),
-					__( 'Expand all', 'expandable-dashboard-recent-comments' )
+					esc_html__( 'Expand all', 'expandable-dashboard-recent-comments' )
 				);
 				$links .= sprintf(
 					'<li><a href="#" class="c2c_edrc_less_all hide-if-no-js" title="%s">%s <span class="c2c_edrc_less_count"></span></a></li>',
 					esc_attr__( 'Show all comments as excerpts', 'expandable-dashboard-recent-comments' ),
-					__( 'Collapse all', 'expandable-dashboard-recent-comments' )
+					esc_html__( 'Collapse all', 'expandable-dashboard-recent-comments' )
 				);
 				$links .= '</ul>';
 				self::$_has_output_all_links = true;
