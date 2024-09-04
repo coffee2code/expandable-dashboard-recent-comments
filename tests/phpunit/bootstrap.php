@@ -11,7 +11,7 @@
 define( 'EXPANDABLE_DASHBOARD_RECENT_COMMENTS_PLUGIN_DIR',  dirname( __FILE__, 3 ) );
 define( 'EXPANDABLE_DASHBOARD_RECENT_COMMENTS_PLUGIN_FILE', EXPANDABLE_DASHBOARD_RECENT_COMMENTS_PLUGIN_DIR . '/expandable-dashboard-recent-comments.php' );
 
-$polyfill_path = REMEMBER_ME_CONTROLS_PLUGIN_DIR . '/vendor/yoast/phpunit-polyfills/phpunitpolyfills-autoload.php';
+$polyfill_path = EXPANDABLE_DASHBOARD_RECENT_COMMENTS_PLUGIN_DIR . '/vendor/yoast/phpunit-polyfills/phpunitpolyfills-autoload.php';
 if ( file_exists( $polyfill_path ) ) {
 	require $polyfill_path;
 } else {
