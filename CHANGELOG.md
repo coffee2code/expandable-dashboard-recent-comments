@@ -8,6 +8,7 @@
 * Change: Add 'count' class to the "Expand/Collapse All" links to match styling of WP admin
 * Change: Add ELLIPSIS constant for ellipsis string and use it rather than harcoding string in various places
 * Change: Prevent translations from containing unintended markup
+* Change: Define a version number when registering the styles
 * Change: Note compatibility through WP 6.6+
 * Change: Update copyright date (2024)
 * Change: Remove development and testing-related files from release packaging

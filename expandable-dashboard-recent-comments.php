@@ -115,7 +115,7 @@ class c2c_ExpandableDashboardRecentComments {
 	 * @since 2.0
 	 */
 	public static function register_styles() {
-		wp_register_style( __CLASS__, plugins_url( 'assets/admin.css', __FILE__ ) );
+		wp_register_style( __CLASS__, plugins_url( 'assets/admin.css', __FILE__ ), array(), self::version() );
 	}
 
 	/**
