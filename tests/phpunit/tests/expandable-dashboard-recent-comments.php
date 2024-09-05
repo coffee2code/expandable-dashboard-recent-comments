@@ -326,16 +326,16 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 		$GLOBALS['comment'] = get_comment( $comment_id );
 
 		$expected = <<<HTML
-			<div class='c2c_edrc'>
-				<div id="excerpt-short-{$comment_id}" class="excerpt-{$comment_id}-short excerpt-short " aria-hidden="false">
-					This is a longer comment that will exceed the number of words that are permitted for excerpts. As such, the&hellip;
-				</div>
-				<div id="excerpt-full-{$comment_id}" class="excerpt-{$comment_id}-full excerpt-full c2c-edrc-hidden" aria-hidden="true">
-					<p>{$text}</p>
-
-					<ul class="c2c_edrc_all"><li>| <a href="#" aria-controls="the-comment-list" aria-expanded="true" class="c2c_edrc_more_all hide-if-no-js" title="Show all comments in full">Expand all <span class="count c2c_edrc_more_count"></span></a> |</li><li><a href="#" aria-controls="the-comment-list" aria-expanded="false" class="c2c_edrc_less_all hide-if-no-js" title="Show all comments as excerpts">Collapse all <span class="count c2c_edrc_less_count"></span></a></li></ul>
-				</div>
+		<div class='c2c_edrc'>
+			<div id="excerpt-short-{$comment_id}" class="excerpt-{$comment_id}-short excerpt-short " aria-hidden="false">
+				This is a longer comment that will exceed the number of words that are permitted for excerpts. As such, the&hellip;
 			</div>
+			<div id="excerpt-full-{$comment_id}" class="excerpt-{$comment_id}-full excerpt-full c2c-edrc-hidden" aria-hidden="true">
+				<p>{$text}</p>
+
+				<ul class="c2c_edrc_all"><li>| <a href="#" aria-controls="the-comment-list" aria-expanded="true" class="c2c_edrc_more_all hide-if-no-js" title="Show all comments in full">Expand all <span class="count c2c_edrc_more_count"></span></a> |</li><li><a href="#" aria-controls="the-comment-list" aria-expanded="false" class="c2c_edrc_less_all hide-if-no-js" title="Show all comments as excerpts">Collapse all <span class="count c2c_edrc_less_count"></span></a></li></ul>
+			</div>
+		</div>
 
 HTML;
 
@@ -352,16 +352,16 @@ HTML;
 		$GLOBALS['comment'] = get_comment( $comment_id );
 
 		$expected = <<<HTML
-			<div class='c2c_edrc'>
-				<div id="excerpt-short-{$comment_id}" class="excerpt-{$comment_id}-short excerpt-short " aria-hidden="false">
-					This is a longer comment that will exceed the number of words that are permitted for excerpts. As such, the&hellip;
-				</div>
-				<div id="excerpt-full-{$comment_id}" class="excerpt-{$comment_id}-full excerpt-full c2c-edrc-hidden" aria-hidden="true">
-					<p>{$text}</p>
-
-					
-				</div>
+		<div class='c2c_edrc'>
+			<div id="excerpt-short-{$comment_id}" class="excerpt-{$comment_id}-short excerpt-short " aria-hidden="false">
+				This is a longer comment that will exceed the number of words that are permitted for excerpts. As such, the&hellip;
 			</div>
+			<div id="excerpt-full-{$comment_id}" class="excerpt-{$comment_id}-full excerpt-full c2c-edrc-hidden" aria-hidden="true">
+				<p>{$text}</p>
+
+				
+			</div>
+		</div>
 
 HTML;
 
@@ -411,15 +411,15 @@ HTML;
 		$text = wpautop( $text );
 
 		$expected = <<<HTML
-			<div class='c2c_edrc'>
-				<div id="excerpt-short-{$comment_id}" class="excerpt-{$comment_id}-short excerpt-short " aria-hidden="false">
-					創於頭安片我樣外市第興強有輕注該仍也天筆國&hellip;
-				</div>
-				<div id="excerpt-full-{$comment_id}" class="excerpt-{$comment_id}-full excerpt-full c2c-edrc-hidden" aria-hidden="true">
-					{$text}
-					<ul class="c2c_edrc_all"><li>| <a href="#" aria-controls="the-comment-list" aria-expanded="true" class="c2c_edrc_more_all hide-if-no-js" title="Show all comments in full">Expand all <span class="count c2c_edrc_more_count"></span></a> |</li><li><a href="#" aria-controls="the-comment-list" aria-expanded="false" class="c2c_edrc_less_all hide-if-no-js" title="Show all comments as excerpts">Collapse all <span class="count c2c_edrc_less_count"></span></a></li></ul>
-				</div>
+		<div class='c2c_edrc'>
+			<div id="excerpt-short-{$comment_id}" class="excerpt-{$comment_id}-short excerpt-short " aria-hidden="false">
+				創於頭安片我樣外市第興強有輕注該仍也天筆國&hellip;
 			</div>
+			<div id="excerpt-full-{$comment_id}" class="excerpt-{$comment_id}-full excerpt-full c2c-edrc-hidden" aria-hidden="true">
+				{$text}
+				<ul class="c2c_edrc_all"><li>| <a href="#" aria-controls="the-comment-list" aria-expanded="true" class="c2c_edrc_more_all hide-if-no-js" title="Show all comments in full">Expand all <span class="count c2c_edrc_more_count"></span></a> |</li><li><a href="#" aria-controls="the-comment-list" aria-expanded="false" class="c2c_edrc_less_all hide-if-no-js" title="Show all comments as excerpts">Collapse all <span class="count c2c_edrc_less_count"></span></a></li></ul>
+			</div>
+		</div>
 
 HTML;
 

@@ -185,33 +185,36 @@ class c2c_ExpandableDashboardRecentComments {
 	public static function comment_row_action( $actions, $comment ) {
 		$excerpt = get_comment_excerpt( $comment->comment_ID );
 
+		// Bail if text is not excerpted.
+		if ( ! self::is_text_excerpted( $excerpt ) ) {
+			return $actions;
+		}
+
 		$start_expanded = self::is_comment_initially_expanded( $comment );
 		$excerpt_full_class  = $start_expanded ? 'c2c-edrc-hidden' : '';
 		$excerpt_short_class = $start_expanded ? '' : 'c2c-edrc-hidden';
 		$excerpt_short_hidden = $start_expanded ? 'true' : 'false';
 		$excerpt_long_hidden  = $start_expanded ? 'false' : 'true';
 
-		// Only show the action links if the comment was excerpted
-		if ( self::is_text_excerpted( $excerpt ) ) {
-			$comment_id = $comment->comment_ID;
-			$links = sprintf(
-				'<a href="#" aria-controls="%s" aria-expanded="%s" class="c2c_edrc_more hide-if-no-js %s" title="%s">%s</a>',
-				esc_attr( "excerpt-full-{$comment_id}" ),
-				esc_attr( $excerpt_long_hidden ),
-				esc_attr( $excerpt_full_class ),
-				esc_attr__( 'Show full comment', 'expandable-dashboard-recent-comments' ),
-				esc_html__( 'Show more', 'expandable-dashboard-recent-comments' )
-			);
-			$links .= sprintf(
-				'<a href="#" aria-controls="%s" aria-expanded="%s" class="c2c_edrc_less hide-if-no-js %s" title="%s">%s</a>',
-				esc_attr( "excerpt-short-{$comment_id}" ),
-				esc_attr( $excerpt_short_hidden ),
-				esc_attr( $excerpt_short_class ),
-				esc_attr__( 'Show excerpt', 'expandable-dashboard-recent-comments' ),
-				esc_html__( 'Show less', 'expandable-dashboard-recent-comments' )
-			);
-			$actions = array_merge( $actions, array( 'expand-collapse' => $links ) );
-		}
+		$comment_id = $comment->comment_ID;
+		$links = sprintf(
+			'<a href="#" aria-controls="%s" aria-expanded="%s" class="c2c_edrc_more hide-if-no-js %s" title="%s">%s</a>',
+			esc_attr( "excerpt-full-{$comment_id}" ),
+			esc_attr( $excerpt_long_hidden ),
+			esc_attr( $excerpt_full_class ),
+			esc_attr__( 'Show full comment', 'expandable-dashboard-recent-comments' ),
+			esc_html__( 'Show more', 'expandable-dashboard-recent-comments' )
+		);
+		$links .= sprintf(
+			'<a href="#" aria-controls="%s" aria-expanded="%s" class="c2c_edrc_less hide-if-no-js %s" title="%s">%s</a>',
+			esc_attr( "excerpt-short-{$comment_id}" ),
+			esc_attr( $excerpt_short_hidden ),
+			esc_attr( $excerpt_short_class ),
+			esc_attr__( 'Show excerpt', 'expandable-dashboard-recent-comments' ),
+			esc_html__( 'Show less', 'expandable-dashboard-recent-comments' )
+		);
+		$actions = array_merge( $actions, array( 'expand-collapse' => $links ) );
+
 		return $actions;
 	}
 
@@ -244,52 +247,56 @@ class c2c_ExpandableDashboardRecentComments {
 	 */
 	public static function expandable_comment_excerpts( $excerpt ) {
 		global $comment;
-		if ( self::is_text_excerpted( $excerpt ) ) {
-			/** This filter documented in wp-includes/comment-template.php */
-			$body    = apply_filters( 'comment_text', apply_filters( 'get_comment_text', $comment->comment_content ), '40' );
-			$comment_id = $comment->comment_ID;
-			$class      = self::get_comment_class( $comment_id );
 
-			$start_expanded = self::is_comment_initially_expanded( $comment );
-			$excerpt_full_class  = $start_expanded ? '' : 'c2c-edrc-hidden';
-			$excerpt_short_class = $start_expanded ? 'c2c-edrc-hidden' : '';
-			$excerpt_short_hidden = $start_expanded ? 'true' : 'false';
-			$excerpt_long_hidden  = $start_expanded ? 'false' : 'true';
+		// Bail if text is not excerpted.
+		if ( ! self::is_text_excerpted( $excerpt ) ) {
+			return $excerpt;
+		}
 
-			$links = '';
-			if ( false === self::$_has_output_all_links ) {
-				// These links apply to the entire widget. Due to lack of hooks in WP, they
-				// are being embedded here with the intent of being relocated via JS.
-				$links .= '<ul class="c2c_edrc_all">';
-				$links .= sprintf(
-					'<li>| <a href="#" aria-controls="the-comment-list" aria-expanded="true" class="c2c_edrc_more_all hide-if-no-js" title="%s">%s <span class="count c2c_edrc_more_count"></span></a> |</li>',
-					esc_attr__( 'Show all comments in full', 'expandable-dashboard-recent-comments' ),
-					esc_html__( 'Expand all', 'expandable-dashboard-recent-comments' )
-				);
-				$links .= sprintf(
-					'<li><a href="#" aria-controls="the-comment-list" aria-expanded="false" class="c2c_edrc_less_all hide-if-no-js" title="%s">%s <span class="count c2c_edrc_less_count"></span></a></li>',
-					esc_attr__( 'Show all comments as excerpts', 'expandable-dashboard-recent-comments' ),
-					esc_html__( 'Collapse all', 'expandable-dashboard-recent-comments' )
-				);
-				$links .= '</ul>';
-				self::$_has_output_all_links = true;
-			}
+		/** This filter documented in wp-includes/comment-template.php */
+		$body    = apply_filters( 'comment_text', apply_filters( 'get_comment_text', $comment->comment_content ), '40' );
+		$comment_id = $comment->comment_ID;
+		$class      = self::get_comment_class( $comment_id );
 
-			$extended = <<<HTML
-			<div class='c2c_edrc'>
-				<div id="excerpt-short-{$comment_id}" class="{$class}-short excerpt-short {$excerpt_short_class}" aria-hidden="{$excerpt_short_hidden}">
-					$excerpt
-				</div>
-				<div id="excerpt-full-{$comment_id}" class="{$class}-full excerpt-full {$excerpt_full_class}" aria-hidden="{$excerpt_long_hidden}">
-					$body
-					$links
-				</div>
+		$start_expanded = self::is_comment_initially_expanded( $comment );
+		$excerpt_full_class  = $start_expanded ? '' : 'c2c-edrc-hidden';
+		$excerpt_short_class = $start_expanded ? 'c2c-edrc-hidden' : '';
+		$excerpt_short_hidden = $start_expanded ? 'true' : 'false';
+		$excerpt_long_hidden  = $start_expanded ? 'false' : 'true';
+
+		$links = '';
+		if ( false === self::$_has_output_all_links ) {
+			// These links apply to the entire widget. Due to lack of hooks in WP, they
+			// are being embedded here with the intent of being relocated via JS.
+			$links .= '<ul class="c2c_edrc_all">';
+			$links .= sprintf(
+				'<li>| <a href="#" aria-controls="the-comment-list" aria-expanded="true" class="c2c_edrc_more_all hide-if-no-js" title="%s">%s <span class="count c2c_edrc_more_count"></span></a> |</li>',
+				esc_attr__( 'Show all comments in full', 'expandable-dashboard-recent-comments' ),
+				esc_html__( 'Expand all', 'expandable-dashboard-recent-comments' )
+			);
+			$links .= sprintf(
+				'<li><a href="#" aria-controls="the-comment-list" aria-expanded="false" class="c2c_edrc_less_all hide-if-no-js" title="%s">%s <span class="count c2c_edrc_less_count"></span></a></li>',
+				esc_attr__( 'Show all comments as excerpts', 'expandable-dashboard-recent-comments' ),
+				esc_html__( 'Collapse all', 'expandable-dashboard-recent-comments' )
+			);
+			$links .= '</ul>';
+			self::$_has_output_all_links = true;
+		}
+
+		$extended = <<<HTML
+		<div class='c2c_edrc'>
+			<div id="excerpt-short-{$comment_id}" class="{$class}-short excerpt-short {$excerpt_short_class}" aria-hidden="{$excerpt_short_hidden}">
+				$excerpt
 			</div>
+			<div id="excerpt-full-{$comment_id}" class="{$class}-full excerpt-full {$excerpt_full_class}" aria-hidden="{$excerpt_long_hidden}">
+				$body
+				$links
+			</div>
+		</div>
 
 HTML;
 
-			$excerpt = preg_replace( '/' . preg_quote( self::ELLIPSIS ) . '$/', $excerpt, $extended );
-		}
+		$excerpt = preg_replace( '/' . preg_quote( self::ELLIPSIS ) . '$/', $excerpt, $extended );
 
 		return $excerpt;
 	}
@@ -304,31 +311,33 @@ HTML;
 	 *                 if it contains multi-byte characters.
 	 */
 	public static function fix_multibyte_comment_excerpts( $excerpt ) {
-		if (
-			// Excerpt not already excerpted.
-			! self::is_text_excerpted( $excerpt )
-		&&
-			// Excerpt contains multi-byte characters and wasn't truncated.
-			! mb_check_encoding( $excerpt, 'ASCII' ) && mb_check_encoding( $excerpt, 'UTF-8' )
-		) {
-			/* translators: Maximum number of words used in a comment excerpt. */
-			$comment_excerpt_length = intval( _x( '20', 'comment_excerpt_length', 'expandable-dashboard-recent-comments' ) );
+		// Bail if text is excerpted.
+		if ( self::is_text_excerpted( $excerpt ) ) {
+			return $excerpt;
+		}
 
-			/**
-			 * This filter is documented in wp-includes/comment-template.php.
-			 */
-			$comment_excerpt_length = apply_filters( 'comment_excerpt_length', $comment_excerpt_length );
+		// Bail if excerpt doesn't contain multi-byte characters.
+		if ( mb_check_encoding( $excerpt, 'ASCII' ) || ! mb_check_encoding( $excerpt, 'UTF-8' ) ) {
+			return $excerpt;
+		}
 
-			// Cribbed from wp_trim_words().
-			$excerpt = trim( preg_replace( "/[\n\r\t ]+/", ' ', $excerpt ), ' ' );
-			preg_match_all( '/./u', $excerpt, $words_array );
-			$char_count = count( $words_array[0] );
-			$words_array = array_slice( $words_array[0], 0, $comment_excerpt_length + 1 );
-			$excerpt = implode( '', $words_array );
+		/* translators: Maximum number of words used in a comment excerpt. */
+		$comment_excerpt_length = intval( _x( '20', 'comment_excerpt_length', 'expandable-dashboard-recent-comments' ) );
 
-			if ( $char_count > $comment_excerpt_length ) {
-				$excerpt .= self::ELLIPSIS;
-			}
+		/**
+		 * This filter is documented in wp-includes/comment-template.php.
+		 */
+		$comment_excerpt_length = apply_filters( 'comment_excerpt_length', $comment_excerpt_length );
+
+		// Cribbed from wp_trim_words().
+		$excerpt = trim( preg_replace( "/[\n\r\t ]+/", ' ', $excerpt ), ' ' );
+		preg_match_all( '/./u', $excerpt, $words_array );
+		$char_count = count( $words_array[0] );
+		$words_array = array_slice( $words_array[0], 0, $comment_excerpt_length + 1 );
+		$excerpt = implode( '', $words_array );
+
+		if ( $char_count > $comment_excerpt_length ) {
+			$excerpt .= self::ELLIPSIS;
 		}
 
 		return $excerpt;
