@@ -240,7 +240,7 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 	public function test_comment_row_action_for_non_excerpted_comment() {
 		$comment = $this->factory->comment->create_and_get( array( 'comment_approved' => '1', 'comment_content' => 'Short comment.' ) );
 
-		$expected = array( 'action1', 'action2' );
+		$expected = array( 'action1' => 'action1 markup', 'action2' => 'action2 markup' );
 
 		$this->assertEquals( $expected, c2c_ExpandableDashboardRecentComments::comment_row_action( $expected, $comment ) );
 	}
@@ -251,9 +251,10 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 
 		$links = '<a href="#" aria-controls="excerpt-full-' . $comment->comment_ID . '" aria-expanded="true" class="c2c_edrc_more hide-if-no-js " title="Show full comment">Show more</a>'
 			. '<a href="#" aria-controls="excerpt-short-' . $comment->comment_ID . '" aria-expanded="false" class="c2c_edrc_less hide-if-no-js c2c-edrc-hidden" title="Show excerpt">Show less</a>';
-		$expected = array( 'action1', 'action2', $links );
+		$base_expected = array( 'action1' => 'action1 markup', 'action2' => 'action2 markup' );
+		$expected = array_merge( $base_expected, array( 'expand-collapse' => $links ) );
 
-		$this->assertEquals( $expected, c2c_ExpandableDashboardRecentComments::comment_row_action( array( 'action1', 'action2' ), $comment ) );
+		$this->assertEquals( $expected, c2c_ExpandableDashboardRecentComments::comment_row_action( $base_expected, $comment ) );
 	}
 
 	public function test_comment_row_action_for_excerpted_comment_with_initial_expansion() {
@@ -263,9 +264,10 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 
 		$links = '<a href="#" aria-controls="excerpt-full-' . $comment->comment_ID . '" aria-expanded="false" class="c2c_edrc_more hide-if-no-js c2c-edrc-hidden" title="Show full comment">Show more</a>'
 			. '<a href="#" aria-controls="excerpt-short-' . $comment->comment_ID . '" aria-expanded="true" class="c2c_edrc_less hide-if-no-js " title="Show excerpt">Show less</a>';
-		$expected = array( 'action1', 'action2', $links );
+		$base_expected = array( 'action1' => 'action1 markup', 'action2' => 'action2 markup' );
+		$expected = array_merge( $base_expected, array( 'expand-collapse' => $links ) );
 
-		$this->assertEquals( $expected, c2c_ExpandableDashboardRecentComments::comment_row_action( array( 'action1', 'action2' ), $comment ) );
+		$this->assertEquals( $expected, c2c_ExpandableDashboardRecentComments::comment_row_action( $base_expected, $comment ) );
 	}
 
 	/*

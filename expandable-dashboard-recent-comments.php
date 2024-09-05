@@ -210,7 +210,7 @@ class c2c_ExpandableDashboardRecentComments {
 				esc_attr__( 'Show excerpt', 'expandable-dashboard-recent-comments' ),
 				esc_html__( 'Show less', 'expandable-dashboard-recent-comments' )
 			);
-			$actions[] = $links;
+			$actions = array_merge( $actions, array( 'expand-collapse' => $links ) );
 		}
 		return $actions;
 	}

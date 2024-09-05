@@ -9,6 +9,7 @@
 * Change: Add separator before "Expand All" link since the preceeding "Trash" link omits it
 * Change: Add ELLIPSIS constant for ellipsis string and use it rather than harcoding string in various places
 * Change: Prevent translations from containing unintended markup
+* Change: Explicitly assign an array key to the added comment row action links
 * Change: Define a version number when registering the styles
 * Change: Note compatibility through WP 6.6+
 * Change: Update copyright date (2024)
