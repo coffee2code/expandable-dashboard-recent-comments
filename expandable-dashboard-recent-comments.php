@@ -97,8 +97,6 @@ class c2c_ExpandableDashboardRecentComments {
 
 		// Hook the comment excerpt to do our magic
 		add_filter( 'comment_excerpt',            array( __CLASS__, 'expandable_comment_excerpts' )        );
-		// Add action link to comment row
-		add_filter( 'comment_row_actions',        array( __CLASS__, 'comment_row_action'          ), 10, 2 );
 		// Enqueues JS for admin page
 		add_action( 'admin_enqueue_scripts',      array( __CLASS__, 'enqueue_admin_js'            )        );
 		// Modify default WP behavior to ensure comments with multi-byte characters get excerpted.
@@ -174,51 +172,6 @@ class c2c_ExpandableDashboardRecentComments {
 	}
 
 	/**
-	 * Adds comment row action.
-	 *
-	 * @since 2.0
-	 *
-	 * @param  array      $actions The actions being displayed for the comment entry.
-	 * @param  WP_Comment $comment The comment being displayed.
-	 * @return array               The actions for the comment entry.
-	 */
-	public static function comment_row_action( $actions, $comment ) {
-		$excerpt = get_comment_excerpt( $comment->comment_ID );
-
-		// Bail if text is not excerpted.
-		if ( ! self::is_text_excerpted( $excerpt ) ) {
-			return $actions;
-		}
-
-		$start_expanded = self::is_comment_initially_expanded( $comment );
-		$excerpt_full_class  = $start_expanded ? 'c2c-edrc-hidden' : '';
-		$excerpt_short_class = $start_expanded ? '' : 'c2c-edrc-hidden';
-		$excerpt_short_hidden = $start_expanded ? 'true' : 'false';
-		$excerpt_long_hidden  = $start_expanded ? 'false' : 'true';
-
-		$comment_id = $comment->comment_ID;
-		$links = sprintf(
-			'<a href="#" aria-controls="%s" aria-expanded="%s" class="c2c_edrc_more hide-if-no-js %s" title="%s">%s</a>',
-			esc_attr( "excerpt-full-{$comment_id}" ),
-			esc_attr( $excerpt_long_hidden ),
-			esc_attr( $excerpt_full_class ),
-			esc_attr__( 'Show full comment', 'expandable-dashboard-recent-comments' ),
-			esc_html__( 'Show more', 'expandable-dashboard-recent-comments' )
-		);
-		$links .= sprintf(
-			'<a href="#" aria-controls="%s" aria-expanded="%s" class="c2c_edrc_less hide-if-no-js %s" title="%s">%s</a>',
-			esc_attr( "excerpt-short-{$comment_id}" ),
-			esc_attr( $excerpt_short_hidden ),
-			esc_attr( $excerpt_short_class ),
-			esc_attr__( 'Show excerpt', 'expandable-dashboard-recent-comments' ),
-			esc_html__( 'Show less', 'expandable-dashboard-recent-comments' )
-		);
-		$actions = array_merge( $actions, array( 'expand-collapse' => $links ) );
-
-		return $actions;
-	}
-
-	/**
 	 * Returns class name to be used for specific comment.
 	 *
 	 * @access protected
@@ -265,6 +218,26 @@ class c2c_ExpandableDashboardRecentComments {
 		$excerpt_long_hidden  = $start_expanded ? 'false' : 'true';
 
 		$links = '';
+
+		// Append "show more" link to excerpt.
+		$excerpt .= sprintf(
+			' (<a href="#" aria-controls="%s" aria-expanded="%s" class="c2c_edrc_more hide-if-no-js" title="%s">%s</a>)',
+			esc_attr( "excerpt-full-{$comment_id}" ),
+			esc_attr( $excerpt_short_hidden ),
+			esc_attr__( 'Show full comment', 'expandable-dashboard-recent-comments' ),
+			esc_html__( 'show more', 'expandable-dashboard-recent-comments' )
+		);
+
+		// Append "show less" link to full body.
+		$body .= sprintf(
+			"\t\t\t\t" . '<p>(<a href="#" aria-controls="%s" aria-expanded="%s" class="c2c_edrc_less hide-if-no-js" title="%s">%s</a>)</p>',
+			esc_attr( "excerpt-short-{$comment_id}" ),
+			esc_attr( $excerpt_long_hidden ),
+			esc_attr__( 'Show excerpt', 'expandable-dashboard-recent-comments' ),
+			esc_html__( 'show less', 'expandable-dashboard-recent-comments' )
+		);
+
+		// Append the Expand/Collapse All links once.
 		if ( false === self::$_has_output_all_links ) {
 			// These links apply to the entire widget. Due to lack of hooks in WP, they
 			// are being embedded here with the intent of being relocated via JS.

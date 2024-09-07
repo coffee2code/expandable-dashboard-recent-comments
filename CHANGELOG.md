@@ -4,6 +4,7 @@
 * New: Add ARIA attributes to improve accessibility
     * Add `aria-controls` and `aria-expanded` attributes to excerpt toggle links
     * Add `aria-hidden` attributes to comments excerpt and full `div`s as appropriate
+* Change: Move the "Show more/less" links inline with the excerpt and full comment body rather than being comment row actions
 * Change: Move the "Collapse/Expand all" links to alongside the comment filter links rather than below
 * Change: Add 'count' class to the "Expand/Collapse All" links to match styling of WP admin
 * Change: Add separator before "Expand All" link since the preceeding "Trash" link omits it

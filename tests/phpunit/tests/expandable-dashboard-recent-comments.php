@@ -64,10 +64,6 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 		$this->assertFalse( has_filter( 'comment_excerpt', array( 'c2c_ExpandableDashboardRecentComments', 'expandable_comment_excerpts' ) ) );
 	}
 
-	public function test_not_hooks_filter_comment_row_action() {
-		$this->assertFalse( has_filter( 'comment_row_actions', array( 'c2c_ExpandableDashboardRecentComments', 'comment_row_action' ), 10, 2 ) );
-	}
-
 	public function test_not_hooks_action_admin_enqueue_script_for_js() {
 		$this->assertFalse( has_action( 'admin_enqueue_scripts', array( 'c2c_ExpandableDashboardRecentComments', 'enqueue_admin_js' ) ) );
 	}
@@ -94,10 +90,6 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 
 	public function test_admin_not_hooks_filter_comment_excerpt() {
 		$this->assertFalse( has_filter( 'comment_excerpt', array( 'c2c_ExpandableDashboardRecentComments', 'expandable_comment_excerpts' ) ) );
-	}
-
-	public function test_admin_not_hooks_filter_comment_row_action() {
-		$this->assertFalse( has_filter( 'comment_row_actions', array( 'c2c_ExpandableDashboardRecentComments', 'comment_row_action' ), 10, 2 ) );
 	}
 
 	public function test_admin_not_hooks_action_admin_enqueue_script_for_js() {
@@ -170,12 +162,6 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 		$this->assertEquals( 10, has_filter( 'comment_excerpt', array( 'c2c_ExpandableDashboardRecentComments', 'expandable_comment_excerpts' ) ) );
 	}
 
-	public function test_admin_hooks_filter_comment_row_action() {
-		do_action( 'load-index.php' );
-
-		$this->assertEquals( 10, has_filter( 'comment_row_actions', array( 'c2c_ExpandableDashboardRecentComments', 'comment_row_action' ), 10, 2 ) );
-	}
-
 	public function test_admin_hooks_action_admin_enqueue_script_for_js() {
 		do_action( 'load-index.php' );
 
@@ -234,43 +220,6 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 	}
 
 	/*
-	 * comment_row_action()
-	 */
-
-	public function test_comment_row_action_for_non_excerpted_comment() {
-		$comment = $this->factory->comment->create_and_get( array( 'comment_approved' => '1', 'comment_content' => 'Short comment.' ) );
-
-		$expected = array( 'action1' => 'action1 markup', 'action2' => 'action2 markup' );
-
-		$this->assertEquals( $expected, c2c_ExpandableDashboardRecentComments::comment_row_action( $expected, $comment ) );
-	}
-
-	public function test_comment_row_action_for_excerpted_comment() {
-		$text = 'This is a longer comment that will exceed the number of words that are permitted for excerpts. As such, the excerpt generated for the comment will be a truncated version of the full comment.';
-		$comment = $this->factory->comment->create_and_get( array( 'comment_approved' => '1', 'comment_content' => $text ) );
-
-		$links = '<a href="#" aria-controls="excerpt-full-' . $comment->comment_ID . '" aria-expanded="true" class="c2c_edrc_more hide-if-no-js " title="Show full comment">Show more</a>'
-			. '<a href="#" aria-controls="excerpt-short-' . $comment->comment_ID . '" aria-expanded="false" class="c2c_edrc_less hide-if-no-js c2c-edrc-hidden" title="Show excerpt">Show less</a>';
-		$base_expected = array( 'action1' => 'action1 markup', 'action2' => 'action2 markup' );
-		$expected = array_merge( $base_expected, array( 'expand-collapse' => $links ) );
-
-		$this->assertEquals( $expected, c2c_ExpandableDashboardRecentComments::comment_row_action( $base_expected, $comment ) );
-	}
-
-	public function test_comment_row_action_for_excerpted_comment_with_initial_expansion() {
-		add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return_true' );
-		$text = 'This is a longer comment that will exceed the number of words that are permitted for excerpts. As such, the excerpt generated for the comment will be a truncated version of the full comment.';
-		$comment = $this->factory->comment->create_and_get( array( 'comment_approved' => '1', 'comment_content' => $text ) );
-
-		$links = '<a href="#" aria-controls="excerpt-full-' . $comment->comment_ID . '" aria-expanded="false" class="c2c_edrc_more hide-if-no-js c2c-edrc-hidden" title="Show full comment">Show more</a>'
-			. '<a href="#" aria-controls="excerpt-short-' . $comment->comment_ID . '" aria-expanded="true" class="c2c_edrc_less hide-if-no-js " title="Show excerpt">Show less</a>';
-		$base_expected = array( 'action1' => 'action1 markup', 'action2' => 'action2 markup' );
-		$expected = array_merge( $base_expected, array( 'expand-collapse' => $links ) );
-
-		$this->assertEquals( $expected, c2c_ExpandableDashboardRecentComments::comment_row_action( $base_expected, $comment ) );
-	}
-
-	/*
 	 * get_comment_class()
 	 */
 
@@ -320,6 +269,33 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 	 * Comment excerpts
 	 */
 
+	public function test_comment_excerpt_has_proper_aria_tags_with_initial_expansion() {
+		add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return_true' );
+		$text = 'This is a longer comment that will exceed the number of words that are permitted for excerpts. As such, the excerpt generated for the comment will be a truncated version of the full comment.';
+		$comment_id = $this->factory->comment->create( array( 'comment_approved' => '1', 'comment_content' => $text ) );
+		$GLOBALS['comment'] = get_comment( $comment_id );
+
+		$expected = <<<HTML
+		<div class='c2c_edrc'>
+			<div id="excerpt-short-{$comment_id}" class="excerpt-{$comment_id}-short excerpt-short c2c-edrc-hidden" aria-hidden="true">
+				This is a longer comment that will exceed the number of words that are permitted for excerpts. As such, the&hellip; (<a href="#" aria-controls="excerpt-full-{$comment_id}" aria-expanded="true" class="c2c_edrc_more hide-if-no-js" title="Show full comment">show more</a>)
+			</div>
+			<div id="excerpt-full-{$comment_id}" class="excerpt-{$comment_id}-full excerpt-full " aria-hidden="false">
+				<p>{$text}</p>
+				<p>(<a href="#" aria-controls="excerpt-short-{$comment_id}" aria-expanded="false" class="c2c_edrc_less hide-if-no-js" title="Show excerpt">show less</a>)</p>
+				<ul class="c2c_edrc_all"><li>| <a href="#" aria-controls="the-comment-list" aria-expanded="true" class="c2c_edrc_more_all hide-if-no-js" title="Show all comments in full">Expand all <span class="count c2c_edrc_more_count"></span></a> |</li><li><a href="#" aria-controls="the-comment-list" aria-expanded="false" class="c2c_edrc_less_all hide-if-no-js" title="Show all comments as excerpts">Collapse all <span class="count c2c_edrc_less_count"></span></a></li></ul>
+			</div>
+		</div>
+
+HTML;
+
+		$this->expectOutputString( $expected );
+
+		do_action( 'load-index.php' );
+
+		comment_excerpt();
+	}
+
 	public function test_comment_excerpt_has_markup_for_expansion() {
 		$text = 'This is a longer comment that will exceed the number of words that are permitted for excerpts. As such, the excerpt generated for the comment will be a truncated version of the full comment.';
 		$comment_id = $this->factory->comment->create( array( 'comment_approved' => '1', 'comment_content' => $text ) );
@@ -328,11 +304,11 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 		$expected = <<<HTML
 		<div class='c2c_edrc'>
 			<div id="excerpt-short-{$comment_id}" class="excerpt-{$comment_id}-short excerpt-short " aria-hidden="false">
-				This is a longer comment that will exceed the number of words that are permitted for excerpts. As such, the&hellip;
+				This is a longer comment that will exceed the number of words that are permitted for excerpts. As such, the&hellip; (<a href="#" aria-controls="excerpt-full-{$comment_id}" aria-expanded="false" class="c2c_edrc_more hide-if-no-js" title="Show full comment">show more</a>)
 			</div>
 			<div id="excerpt-full-{$comment_id}" class="excerpt-{$comment_id}-full excerpt-full c2c-edrc-hidden" aria-hidden="true">
 				<p>{$text}</p>
-
+				<p>(<a href="#" aria-controls="excerpt-short-{$comment_id}" aria-expanded="true" class="c2c_edrc_less hide-if-no-js" title="Show excerpt">show less</a>)</p>
 				<ul class="c2c_edrc_all"><li>| <a href="#" aria-controls="the-comment-list" aria-expanded="true" class="c2c_edrc_more_all hide-if-no-js" title="Show all comments in full">Expand all <span class="count c2c_edrc_more_count"></span></a> |</li><li><a href="#" aria-controls="the-comment-list" aria-expanded="false" class="c2c_edrc_less_all hide-if-no-js" title="Show all comments as excerpts">Collapse all <span class="count c2c_edrc_less_count"></span></a></li></ul>
 			</div>
 		</div>
@@ -354,11 +330,11 @@ HTML;
 		$expected = <<<HTML
 		<div class='c2c_edrc'>
 			<div id="excerpt-short-{$comment_id}" class="excerpt-{$comment_id}-short excerpt-short " aria-hidden="false">
-				This is a longer comment that will exceed the number of words that are permitted for excerpts. As such, the&hellip;
+				This is a longer comment that will exceed the number of words that are permitted for excerpts. As such, the&hellip; (<a href="#" aria-controls="excerpt-full-{$comment_id}" aria-expanded="false" class="c2c_edrc_more hide-if-no-js" title="Show full comment">show more</a>)
 			</div>
 			<div id="excerpt-full-{$comment_id}" class="excerpt-{$comment_id}-full excerpt-full c2c-edrc-hidden" aria-hidden="true">
 				<p>{$text}</p>
-
+				<p>(<a href="#" aria-controls="excerpt-short-{$comment_id}" aria-expanded="true" class="c2c_edrc_less hide-if-no-js" title="Show excerpt">show less</a>)</p>
 			</div>
 		</div>
 
@@ -412,10 +388,10 @@ HTML;
 		$expected = <<<HTML
 		<div class='c2c_edrc'>
 			<div id="excerpt-short-{$comment_id}" class="excerpt-{$comment_id}-short excerpt-short " aria-hidden="false">
-				創於頭安片我樣外市第興強有輕注該仍也天筆國&hellip;
+				創於頭安片我樣外市第興強有輕注該仍也天筆國&hellip; (<a href="#" aria-controls="excerpt-full-{$comment_id}" aria-expanded="false" class="c2c_edrc_more hide-if-no-js" title="Show full comment">show more</a>)
 			</div>
 			<div id="excerpt-full-{$comment_id}" class="excerpt-{$comment_id}-full excerpt-full c2c-edrc-hidden" aria-hidden="true">
-				{$text}
+				{$text}				<p>(<a href="#" aria-controls="excerpt-short-{$comment_id}" aria-expanded="true" class="c2c_edrc_less hide-if-no-js" title="Show excerpt">show less</a>)</p>
 				<ul class="c2c_edrc_all"><li>| <a href="#" aria-controls="the-comment-list" aria-expanded="true" class="c2c_edrc_more_all hide-if-no-js" title="Show all comments in full">Expand all <span class="count c2c_edrc_more_count"></span></a> |</li><li><a href="#" aria-controls="the-comment-list" aria-expanded="false" class="c2c_edrc_less_all hide-if-no-js" title="Show all comments as excerpts">Collapse all <span class="count c2c_edrc_less_count"></span></a></li></ul>
 			</div>
 		</div>

@@ -4,8 +4,8 @@ window.onload = function() {
 	edrc_all.forEach( i => document.querySelector('.subsubsub').insertAdjacentElement('beforeend', i) );
 
 	function setGlobalControlsState() {
-		const expanded  = document.querySelectorAll('#the-comment-list .c2c_edrc_more.c2c-edrc-hidden');
-		const collapsed = document.querySelectorAll('#the-comment-list .c2c_edrc_less.c2c-edrc-hidden');
+		const expanded  = document.querySelectorAll('#the-comment-list .excerpt-short.c2c-edrc-hidden');
+		const collapsed = document.querySelectorAll('#the-comment-list .excerpt-full.c2c-edrc-hidden');
 
 		const total_items = expanded.length + collapsed.length;
 
@@ -38,7 +38,7 @@ window.onload = function() {
 	// Handle click of link to toggle excerpt/full for individual comment
 	function toggleEDRC(e) {
 		e.currentTarget.closest('.dashboard-comment-wrap')
-			.querySelectorAll('div.excerpt-short, div.excerpt-full, .c2c_edrc_more, .c2c_edrc_less')
+			.querySelectorAll('div.excerpt-short, div.excerpt-full, .excerpt-short, .excerpt-full')
 			.forEach( i => {
 				i.classList.toggle('c2c-edrc-hidden');
 				const ariaExpanded = ! i.classList.contains('c2c-edrc-hidden');
@@ -58,10 +58,10 @@ window.onload = function() {
 	document.querySelector('.c2c_edrc_more_all').addEventListener('click', e => {
 		if ( ! e.currentTarget.classList.contains('c2c-edrc-all-active') ) {
 			e.currentTarget.closest('.inside')
-				.querySelectorAll('div.excerpt-short, .c2c_edrc_more')
+				.querySelectorAll('div.excerpt-short')
 				.forEach( i => i.classList.add('c2c-edrc-hidden') );
 			e.currentTarget.closest('.inside')
-				.querySelectorAll('div.excerpt-full, .c2c_edrc_less')
+				.querySelectorAll('div.excerpt-full')
 				.forEach( i => i.classList.remove('c2c-edrc-hidden') );
 
 			// Switch which global control should appear disabled.
@@ -81,10 +81,10 @@ window.onload = function() {
 	document.querySelector('.c2c_edrc_less_all').addEventListener('click', e => {
 		if ( ! e.currentTarget.classList.contains('c2c-edrc-all-active') ) {
 			e.currentTarget.closest('.inside')
-				.querySelectorAll('div.excerpt-short, .c2c_edrc_more')
+				.querySelectorAll('div.excerpt-short')
 				.forEach( i => i.classList.remove('c2c-edrc-hidden') );
 			e.currentTarget.closest('.inside')
-				.querySelectorAll('div.excerpt-full, .c2c_edrc_less')
+				.querySelectorAll('div.excerpt-full')
 				.forEach( i => i.classList.add('c2c-edrc-hidden') );
 
 			// Switch which global control should appear disabled.
