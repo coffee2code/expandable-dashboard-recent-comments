@@ -221,7 +221,7 @@ class c2c_ExpandableDashboardRecentComments {
 
 		// Append "show more" link to excerpt.
 		$excerpt .= sprintf(
-			' (<a href="#" aria-controls="%s" aria-expanded="%s" class="c2c_edrc_more hide-if-no-js" title="%s">%s</a>)',
+			' <span class="hide-if-no-js">(<a href="#" aria-controls="%s" aria-expanded="%s" class="c2c_edrc_more" title="%s">%s</a>)</span>',
 			esc_attr( "excerpt-full-{$comment_id}" ),
 			esc_attr( $excerpt_short_hidden ),
 			esc_attr__( 'Show full comment', 'expandable-dashboard-recent-comments' ),
@@ -230,7 +230,7 @@ class c2c_ExpandableDashboardRecentComments {
 
 		// Append "show less" link to full body.
 		$body .= sprintf(
-			"\t\t\t\t" . '<p>(<a href="#" aria-controls="%s" aria-expanded="%s" class="c2c_edrc_less hide-if-no-js" title="%s">%s</a>)</p>',
+			"\t\t\t\t" . '<p class="hide-if-no-js">(<a href="#" aria-controls="%s" aria-expanded="%s" class="c2c_edrc_less" title="%s">%s</a>)</p>',
 			esc_attr( "excerpt-short-{$comment_id}" ),
 			esc_attr( $excerpt_long_hidden ),
 			esc_attr__( 'Show excerpt', 'expandable-dashboard-recent-comments' ),
@@ -242,14 +242,14 @@ class c2c_ExpandableDashboardRecentComments {
 			// These links apply to the entire widget. Due to lack of hooks in WP, they
 			// are being embedded here with the intent of being relocated via JS.
 			$links .= "\n\t\t\t\t";
-			$links .= '<ul class="c2c_edrc_all">';
+			$links .= '<ul class="c2c_edrc_all hide-if-no-js">';
 			$links .= sprintf(
-				'<li>| <a href="#" aria-controls="the-comment-list" aria-expanded="true" class="c2c_edrc_more_all hide-if-no-js" title="%s">%s <span class="count c2c_edrc_more_count"></span></a> |</li>',
+				'<li>| <a href="#" aria-controls="the-comment-list" aria-expanded="true" class="c2c_edrc_more_all" title="%s">%s <span class="count c2c_edrc_more_count"></span></a> |</li>',
 				esc_attr__( 'Show all comments in full', 'expandable-dashboard-recent-comments' ),
 				esc_html__( 'Expand all', 'expandable-dashboard-recent-comments' )
 			);
 			$links .= sprintf(
-				'<li><a href="#" aria-controls="the-comment-list" aria-expanded="false" class="c2c_edrc_less_all hide-if-no-js" title="%s">%s <span class="count c2c_edrc_less_count"></span></a></li>',
+				'<li><a href="#" aria-controls="the-comment-list" aria-expanded="false" class="c2c_edrc_less_all" title="%s">%s <span class="count c2c_edrc_less_count"></span></a></li>',
 				esc_attr__( 'Show all comments as excerpts', 'expandable-dashboard-recent-comments' ),
 				esc_html__( 'Collapse all', 'expandable-dashboard-recent-comments' )
 			);
