@@ -268,6 +268,7 @@ class c2c_ExpandableDashboardRecentComments {
 		if ( false === self::$_has_output_all_links ) {
 			// These links apply to the entire widget. Due to lack of hooks in WP, they
 			// are being embedded here with the intent of being relocated via JS.
+			$links .= "\n\t\t\t\t";
 			$links .= '<ul class="c2c_edrc_all">';
 			$links .= sprintf(
 				'<li>| <a href="#" aria-controls="the-comment-list" aria-expanded="true" class="c2c_edrc_more_all hide-if-no-js" title="%s">%s <span class="count c2c_edrc_more_count"></span></a> |</li>',
@@ -289,8 +290,7 @@ class c2c_ExpandableDashboardRecentComments {
 				$excerpt
 			</div>
 			<div id="excerpt-full-{$comment_id}" class="{$class}-full excerpt-full {$excerpt_full_class}" aria-hidden="{$excerpt_long_hidden}">
-				$body
-				$links
+				{$body}{$links}
 			</div>
 		</div>
 

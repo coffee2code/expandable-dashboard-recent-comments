@@ -12,6 +12,7 @@
 * Change: Explicitly assign an array key to the added comment row action links
 * Change: Define a version number when registering the styles
 * Change: Bail earlier in functions when possible
+* Change: Prevent unnecessary tabbed whitespace output
 * Change: Note compatibility through WP 6.6+
 * Change: Update copyright date (2024)
 * Change: Remove development and testing-related files from release packaging

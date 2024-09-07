@@ -359,7 +359,6 @@ HTML;
 			<div id="excerpt-full-{$comment_id}" class="excerpt-{$comment_id}-full excerpt-full c2c-edrc-hidden" aria-hidden="true">
 				<p>{$text}</p>
 
-				
 			</div>
 		</div>
 
