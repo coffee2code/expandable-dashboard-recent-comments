@@ -1,34 +1,38 @@
 # Changelog
 
 ## _(in-progress)_
-* New: Add ARIA attributes to improve accessibility
-    * Add `aria-controls` and `aria-expanded` attributes to excerpt toggle links
-    * Add `aria-hidden` attributes to comments excerpt and full `div`s as appropriate
-* Change: Move the "Show more/less" links inline with the excerpt and full comment body rather than being comment row actions
-* Change: Move the "Collapse/Expand all" links to alongside the comment filter links rather than below
-* Change: Add 'count' class to the "Expand/Collapse All" links to match styling of WP admin
-* Change: Add separator before "Expand All" link since the preceeding "Trash" link omits it
-* Change: Move 'hide-if-no-js' class up into link container classes (added if necessary) so link-adjacent text can be hidden as well
-* Change: Add ELLIPSIS constant for ellipsis string and use it rather than harcoding string in various places
-* Change: Prevent translations from containing unintended markup
-* Change: Explicitly assign an array key to the added comment row action links
-* Change: Define a version number when registering the styles
-* Change: Bail earlier in functions when possible
-* Change: Prevent unnecessary tabbed whitespace output
-* Change: Note compatibility through WP 6.6+
-* Change: Update copyright date (2024)
-* Change: Remove development and testing-related files from release packaging
-* Change: Reduce number of 'Tags' from `readme.txt`
-* Change: Update screenshots
-* Change: Tweak text formatting in `README.md`
-* New: Add `.gitignore` file
-* Unit tests:
-    * Allow tests to run against current versions of WordPress
-    * New: Add `composer.json` for PHPUnit Polyfill dependency
-    * Hardening: Prevent direct web access to `bootstrap.php`
-    * Change: In bootstrap, store path to plugin directory in a constant
-    * Change: Prevent PHP warnings due to missing core-related generated files
-* New: Add a potential TODO item
+* UI:
+    * New: Add ARIA attributes to improve accessibility
+        * Add `aria-controls` and `aria-expanded` attributes to excerpt toggle links
+        * Add `aria-hidden` attributes to comments excerpt and full `div`s as appropriate
+    * Change: Move the "Show more/less" links inline with the excerpt and full comment body rather than being comment row actions
+    * Change: Move the "Collapse/Expand all" links to alongside the comment filter links rather than below
+    * Change: Add 'count' class to the "Expand/Collapse All" links to match styling of WP admin
+    * Change: Add separator before "Expand All" link since the preceeding "Trash" link omits it
+    * Change: Move 'hide-if-no-js' class up into link container classes (added if necessary) so link-adjacent text can be hidden as well
+* Documentation:
+    * Change: Note compatibility through WP 6.6+
+    * Change: Update copyright date (2024)
+    * Change: Reduce number of 'Tags' from `readme.txt`
+    * Change: Update screenshots
+    * Change: Tweak text formatting in `README.md`
+* Internals:
+    * Change: Add ELLIPSIS constant for ellipsis string and use it rather than harcoding string in various places
+    * Change: Prevent translations from containing unintended markup
+    * Change: Explicitly assign an array key to the added comment row action links
+    * Change: Define a version number when registering the styles
+    * Change: Bail earlier in functions when possible
+    * Change: Prevent unnecessary tabbed whitespace output
+* Packaging/development:
+    * Change: Remove development and testing-related files from release packaging
+    * New: Add `.gitignore` file
+    * Unit tests:
+        * Allow tests to run against current versions of WordPress
+        * New: Add `composer.json` for PHPUnit Polyfill dependency
+        * Hardening: Prevent direct web access to `bootstrap.php`
+        * Change: In bootstrap, store path to plugin directory in a constant
+        * Change: Prevent PHP warnings due to missing core-related generated files
+    * New: Add a potential TODO item
 
 ## 2.8.2 _(2021-09-16)_
 * Change: Note compatibility through WP 5.8+
