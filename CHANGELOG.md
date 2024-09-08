@@ -19,6 +19,7 @@
 * Change: Update copyright date (2024)
 * Change: Remove development and testing-related files from release packaging
 * Change: Reduce number of 'Tags' from `readme.txt`
+* Change: Update screenshots
 * Change: Tweak text formatting in `README.md`
 * New: Add `.gitignore` file
 * Unit tests:
