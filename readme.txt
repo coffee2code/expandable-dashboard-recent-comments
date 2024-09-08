@@ -65,8 +65,8 @@ Yes. The tests are not packaged in the release .zip file or included in plugins.
 
 == Screenshots ==
 
-1. A screenshot of the 'Recent Comments' admin dashboard widget with the plugin active, showing comments that have been truncated/excerpted by WordPress (the 2nd and 4th listed) and full, short comments. The third comment has the mouse over it (though the cursor doesn't appear in the screenshot) so you can see the action links, including the "Show more" link. Note, also, the 'Expand All' and 'Collapse All' links added to the bottom of the widget.
-2. A screenshot of the 'Recent Comments' admin dashboard page with the plugin active, now showing the second excerpted comment (the third comment in the list) fully in-place expanded and with markup and formatting applied.
+1. A screenshot of the 'Recent Comments' admin dashboard widget with the plugin active, showing comments that have been truncated/excerpted by WordPress (the 2nd, 3rd, and 5th listed) and the entirety of 2 short comments. The truncated comments each display a "(show more)" link allowing for the full comment text to be seen. Also note the 'Expand All' and 'Collapse All' links added to the bottom of the widget.
+2. A screenshot of the 'Recent Comments' admin dashboard page with the plugin active, now showing the first excerpted comment (the second comment in the list) fully in-place expanded and with markup and formatting applied.
 
 
 == Hooks ==
