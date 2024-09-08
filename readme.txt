@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.6
 Tested up to: 6.6
-Stable tag: 2.8.2
+Stable tag: 3.0
 
 Enables in-place expansion of excerpts in the admin dashboard 'Comments' section of the 'Activity' widget to view full comments.
 
@@ -92,6 +92,46 @@ add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return
 
 == Changelog ==
 
+= 3.0 (2024-09-08) =
+Highlights:
+
+This notable update features improvements for accessiblity via ARIA attributes, relocates the various expand/collapse links, notes compatibility through WP 6.6+, updates unit tests and removes them from release packaging, updates copyright date (2024), and other internal improvments.
+
+Details:
+
+* UI:
+    * New: Add ARIA attributes to improve accessibility
+        * Add `aria-controls` and `aria-expanded` attributes to excerpt toggle links
+        * Add `aria-hidden` attributes to comments excerpt and full `div`s as appropriate
+    * Change: Move the "Show more/less" links inline with the excerpt and full comment body rather than being comment row actions
+    * Change: Move the "Collapse/Expand all" links to alongside the comment filter links rather than below
+    * Change: Add 'count' class to the "Expand/Collapse All" links to match styling of WP admin
+    * Change: Add separator before "Expand All" link since the preceeding "Trash" link omits it
+    * Change: Move 'hide-if-no-js' class up into link container classes (added if necessary) so link-adjacent text can be hidden as well
+* Documentation:
+    * Change: Note compatibility through WP 6.6+
+    * Change: Update copyright date (2024)
+    * Change: Reduce number of 'Tags' from `readme.txt`
+    * Change: Update screenshots
+    * Change: Tweak text formatting in `README.md`
+* Internals:
+    * Change: Add ELLIPSIS constant for ellipsis string and use it rather than harcoding string in various places
+    * Change: Prevent translations from containing unintended markup
+    * Change: Explicitly assign an array key to the added comment row action links
+    * Change: Define a version number when registering the styles
+    * Change: Bail earlier in functions when possible
+    * Change: Prevent unnecessary tabbed whitespace output
+* Packaging/development:
+    * Change: Remove development and testing-related files from release packaging
+    * New: Add `.gitignore` file
+    * Unit tests:
+        * Allow tests to run against current versions of WordPress
+        * New: Add `composer.json` for PHPUnit Polyfill dependency
+        * Hardening: Prevent direct web access to `bootstrap.php`
+        * Change: In bootstrap, store path to plugin directory in a constant
+        * Change: Prevent PHP warnings due to missing core-related generated files
+    * New: Add a potential TODO item
+
 = 2.8.2 (2021-09-16) =
 * Change: Note compatibility through WP 5.8+
 * Unit tests:
@@ -107,38 +147,13 @@ add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return
 * Change: Note compatibility through WP 5.7+
 * Change: Update copyright date (2021)
 
-= 2.8 (2020-08-21) =
-Highlights:
-
-* This minor update features a rewrite of the JavaScript to use vanilla JS instead of jQuery, improves handling of some unlikely edgecase situations, restructures the unit test file structure, and notes compatibility through WP 5.5+.
-
-Details:
-
-* Change: Rewrite JavaScript into vanilla JS and away from using jQuery
-* Change: Prevent edgecase issues with `get_comment_class()`
-    * Verify global comment is an actual comment object before use
-    * Return an empty string if no comment ID is known
-* Fix: Remove stray double-quote from comment row markup
-* Change: Restructure unit test file structure
-    * New: Create new subdirectory `phpunit/` to house all files related to unit testing
-    * Change: Move `bin/` to `phpunit/bin/`
-    * Change: Move `tests/bootstrap.php` to `phpunit/`
-    * Change: Move `tests/` to `phpunit/tests/`
-    * Change: Rename `phpunit.xml` to `phpunit.xml.dist` per best practices
-* Unit tests:
-    * New: Add unit tests for `comment_row_action()`, `enqueue_admin_css()`, `enqueue_admin_js()`, `get_comment_class()`, `register_styles()`
-    * New: Add another unit test for `c2c_expandable_dashboard_recent_comments_start_expanded` filter
-    * Change: Add comment separators to document test groupings
-    * Change: Tweak code spacing
-* Change: Note compatibility through WP 5.5+
-* Change: Change `get_comments_class()` from `private` to `protected` to facilitate unit testing
-* Change: Supplement FAQ with info regarding behavior when JS is disabled
-* Change: Fix some typos in readme.txt
-
 _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/expandable-dashboard-recent-comments/blob/master/CHANGELOG.md)._
 
 
 == Upgrade Notice ==
+
+= 3.0 =
+Recommended update: improved accessiblity via ARIA attributes, relocated the various expand/collapse links, noted compatibility through WP 6.6+, updated unit tests and removed them from release packaging, updated copyright date (2024), and other internal improvments.
 
 = 2.8.2 =
 Trivial update: noted compatibility through WP 5.8+ and minor reorganization and tweaks to unit tests

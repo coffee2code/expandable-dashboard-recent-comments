@@ -1,6 +1,13 @@
 # Changelog
 
-## _(in-progress)_
+## 3.0 _(2024-09-08)_
+
+### Highlights:
+
+This notable update features improvements for accessiblity via ARIA attributes, relocates the various expand/collapse links, notes compatibility through WP 6.6+, updates unit tests and removes them from release packaging, updates copyright date (2024), and other internal improvments.
+
+### Details:
+
 * UI:
     * New: Add ARIA attributes to improve accessibility
         * Add `aria-controls` and `aria-expanded` attributes to excerpt toggle links
