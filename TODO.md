@@ -6,5 +6,6 @@ The following list comprises ideas, suggestions, and known issues, all of which 
 
 * Move the Expand all/Collapse all links inside the existing subsubsub action list?
 * Switch from using 'a' tag to maybe 'button'
+* Use `str_ends_with()` in `is_text_excerpted()` (PHP 8)
 
 Feel free to make your own suggestions or champion for something already on the list (via the [plugin's support forum on WordPress.org](https://wordpress.org/support/plugin/expandable-dashboard-recent-comments/) or on [GitHub](https://github.com/coffee2code/expandable-dashboard-recent-comments/) as an issue or PR).

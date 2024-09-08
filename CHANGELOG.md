@@ -28,6 +28,7 @@
     * Hardening: Prevent direct web access to `bootstrap.php`
     * Change: In bootstrap, store path to plugin directory in a constant
     * Change: Prevent PHP warnings due to missing core-related generated files
+* New: Add a potential TODO item
 
 ## 2.8.2 _(2021-09-16)_
 * Change: Note compatibility through WP 5.8+
