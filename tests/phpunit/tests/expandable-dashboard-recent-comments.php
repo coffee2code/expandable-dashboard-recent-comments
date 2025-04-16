@@ -262,7 +262,7 @@ class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 		$output = c2c_ExpandableDashboardRecentComments::expandable_comment_excerpts( $text );
 
 		$this->assertNotEquals( $text, $output );
-		$this->assertRegExp( "/<div class='c2c_edrc'>/", $output );
+		$this->assertStringContainsString( "<div class='c2c_edrc'>", $output );
 	}
 
 	/*

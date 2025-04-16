@@ -6,6 +6,7 @@
 * Change: Update copyright date (2025)
 * Unit tests:
     * Change: Explicitly define return type for overridden method
+    * Change: Use `assertStringContainsString()` instead of deprecated `assertRegExp()`
 
 ## 3.0 _(2024-09-08)_
 
