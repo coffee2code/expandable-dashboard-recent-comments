@@ -227,7 +227,7 @@ class c2c_ExpandableDashboardRecentComments {
 
 		// Append "show less" link to full body.
 		$body .= sprintf(
-			"\t\t\t\t" . '<p class="hide-if-no-js">(<a href="#" aria-controls="%s" aria-expanded="%s" class="c2c_edrc_less" title="%s">%s</a>)</p>',
+			"\t\t" . '<p class="hide-if-no-js">(<a href="#" aria-controls="%s" aria-expanded="%s" class="c2c_edrc_less" title="%s">%s</a>)</p>',
 			esc_attr( "excerpt-short-{$comment_id}" ),
 			esc_attr( $excerpt_long_hidden ),
 			esc_attr__( 'Show excerpt', 'expandable-dashboard-recent-comments' ),
@@ -238,7 +238,7 @@ class c2c_ExpandableDashboardRecentComments {
 		if ( false === self::$_has_output_all_links ) {
 			// These links apply to the entire widget. Due to lack of hooks in WP, they
 			// are being embedded here with the intent of being relocated via JS.
-			$links .= "\n\t\t\t\t";
+			$links .= "\n\t\t";
 			$links .= '<ul class="c2c_edrc_all hide-if-no-js">';
 			$links .= sprintf(
 				'<li>| <a href="#" aria-controls="the-comment-list" aria-expanded="true" class="c2c_edrc_more_all" title="%s">%s <span class="count c2c_edrc_more_count"></span></a> |</li>',
@@ -254,17 +254,29 @@ class c2c_ExpandableDashboardRecentComments {
 			self::$_has_output_all_links = true;
 		}
 
-		$extended = <<<HTML
-		<div class='c2c_edrc'>
-			<div id="excerpt-short-{$comment_id}" class="{$class}-short excerpt-short {$excerpt_short_class}" aria-hidden="{$excerpt_short_hidden}">
-				$excerpt
-			</div>
-			<div id="excerpt-full-{$comment_id}" class="{$class}-full excerpt-full {$excerpt_full_class}" aria-hidden="{$excerpt_long_hidden}">
-				{$body}{$links}
-			</div>
-		</div>
+		$extended = "<div class='c2c_edrc'>\n";
 
-HTML;
+		$extended .= sprintf(
+			"\t" . '<div id="excerpt-short-%s" class="%s-short excerpt-short %s" aria-hidden="%s">' . "\n",
+			esc_attr( $comment_id ),
+			esc_attr( $class ),
+			esc_attr( $excerpt_short_class ),
+			esc_attr( $excerpt_short_hidden )
+		);
+		$extended .= "\t\t" . $excerpt . "\n";
+		$extended .= "\t</div>\n";
+
+		$extended .= sprintf(
+			"\t" . '<div id="excerpt-full-%s" class="%s-full excerpt-full %s" aria-hidden="%s">' . "\n",
+			esc_attr( $comment_id ),
+			esc_attr( $class ),
+			esc_attr( $excerpt_full_class ),
+			esc_attr( $excerpt_long_hidden )
+		);
+		$extended .= "\t\t" . $body . $links . "\n";
+		$extended .= "\t</div>\n";
+
+		$extended .= "</div>\n";
 
 		$excerpt = preg_replace( '/' . preg_quote( self::ELLIPSIS ) . '$/', $excerpt, $extended );
 
