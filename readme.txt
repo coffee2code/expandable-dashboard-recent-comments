@@ -201,7 +201,7 @@ Recommended update: Fixed to work for WP 3.6+ due to the change in how core defi
 Minor update. Highlights: added argument to filter; noted compatibility through WP 3.5+; explicitly stated license; and more.
 
 = 2.0 =
-Significant update: mostly rewritten; now uses "Show more"/"Show less" links in comment row actions instead of appending expand/collapse link; added expand/collapse links that affect all visible comments; added filter to allow initially showing comments expanded; internationalization; enqueue assets; and more
+Significant update: major rewrite; used "Show more"/"Show less" links in comment row actions instead of expand/collapse link; added links to expand/collapse visible comments; added filter to allow initially showing comments expanded; internationalization; enqueued assets; +more.
 
 = 1.3.1 =
 Trivial update: noted compatibility through WP 3.2+
