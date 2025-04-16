@@ -57,7 +57,7 @@ Yes. Please see the "Hooks" section for documentation on the `c2c_expandable_das
 
 If JavaScript is disabled in a visitor's browser, then all of the expand/collapse links and behavior aren't enabled. But rest assured, there aren't any errors. Why not implement a fallback if JS is disabled? If you're going to click a link that causes a page reload to view the full comment, you might as well just click through to the comment.
 
-= Does this plugin include unit tests? =
+= Does this plugin have unit tests? =
 
 Yes. The tests are not packaged in the release .zip file or included in plugins.svn.wordpress.org, but can be found in the [plugin's GitHub repository](https://github.com/coffee2code/expandable-dashboard-recent-comments/).
 
