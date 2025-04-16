@@ -19,7 +19,7 @@ class unittest_c2c_ExpandableDashboardRecentComments extends c2c_ExpandableDashb
 
 class Expandable_Dashboard_Recent_Comments_Test extends WP_UnitTestCase {
 
-	public function tearDown() {
+	public function tearDown(): void {
 		parent::tearDown();
 
 		c2c_ExpandableDashboardRecentComments::reset();
