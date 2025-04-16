@@ -92,9 +92,6 @@ class c2c_ExpandableDashboardRecentComments {
 	 * Loads text domain and registers actions/filters.
 	 */
 	public static function do_init() {
-		// Load textdomain
-		load_plugin_textdomain( 'expandable-dashboard-recent-comments' );
-
 		// Hook the comment excerpt to do our magic
 		add_filter( 'comment_excerpt',            array( __CLASS__, 'expandable_comment_excerpts' )        );
 		// Enqueues JS for admin page
