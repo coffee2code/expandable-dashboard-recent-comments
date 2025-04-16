@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.6
 Tested up to: 6.8
-Stable tag: 3.0
+Stable tag: 3.0.1
 
 Enables in-place expansion of excerpts in the admin dashboard 'Comments' section of the 'Activity' widget to view full comments.
 
@@ -92,6 +92,16 @@ add_filter( 'c2c_expandable_dashboard_recent_comments_start_expanded', '__return
 
 == Changelog ==
 
+= 3.0.1 (2025-04-16) =
+* Change: Discontinue unnecessary explicit loading of textdomain
+* Change: Build string via concatenation rather than using HEREDOC syntax
+* Change: Note compatibility through WP 6.8+
+* Change: Note compatibility through PHP 8.3+
+* Change: Update copyright date (2025)
+* Unit tests:
+    * Change: Explicitly define return type for overridden method
+    * Change: Use `assertStringContainsString()` instead of deprecated `assertRegExp()`
+
 = 3.0 (2024-09-08) =
 Highlights:
 
@@ -142,15 +152,13 @@ Details:
     * Change: In bootstrap, store path to plugin file constant
     * Change: In bootstrap, add backcompat for PHPUnit pre-v6.0
 
-= 2.8.1 (2021-04-10) =
-* Change: Escape text used in markup attributes (hardening)
-* Change: Note compatibility through WP 5.7+
-* Change: Update copyright date (2021)
-
 _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/expandable-dashboard-recent-comments/blob/master/CHANGELOG.md)._
 
 
 == Upgrade Notice ==
+
+= 3.0.1 =
+Trivial update: discontinued explicit loading of textdomain, noted compatibility through WP 6.8+ and PHP 8.3+, and updated copyright date (2025).
 
 = 3.0 =
 Recommended update: improved accessiblity via ARIA attributes, relocated the various expand/collapse links, noted compatibility through WP 6.6+, updated unit tests and removed them from release packaging, updated copyright date (2024), and other internal improvments.

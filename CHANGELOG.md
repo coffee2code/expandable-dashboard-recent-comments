@@ -1,6 +1,6 @@
 # Changelog
 
-## _(in-progress)_
+## 3.0.1 _(2025-04-16)_
 * Change: Discontinue unnecessary explicit loading of textdomain
 * Change: Build string via concatenation rather than using HEREDOC syntax
 * Change: Note compatibility through WP 6.8+
